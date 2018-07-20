@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.nicehash</groupId>
+  <artifactId>rest-clients</artifactId>
+  <version>1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <com.squareup.retrofit2.version>2.4.0</com.squareup.retrofit2.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <commons-codec.version>1.11</commons-codec.version>
+    <commons-lang3.version>3.7</commons-lang3.version>
+    <gae.version>1.9.63</gae.version>
+    <junit.version>4.12</junit.version>
+    <!-- Compiler -->
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+  </properties>
+
+  <modules>
+    <module>utils</module>
+    <module>common</module>
+    <module>exchange</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Project -->
+      <dependency>
+        <groupId>com.nicehash</groupId>
+        <artifactId>utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.nicehash</groupId>
+        <artifactId>clients-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!-- Deps -->
+      <dependency>
+        <groupId>com.squareup.retrofit2</groupId>
+        <artifactId>retrofit</artifactId>
+        <version>${com.squareup.retrofit2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.retrofit2</groupId>
+        <artifactId>converter-jackson</artifactId>
+        <version>${com.squareup.retrofit2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+   <distributionManagement>
+    <!-- Repository for releases -->
+    <snapshotRepository>
+      <id>NiceHash_nexus-snapshots</id>
+      <name>NiceHash Nexus Snapshot Repository</name>
+      <url>${nexus.snapshot}</url>
+    </snapshotRepository>
+    <repository>
+      <id>NiceHash_nexus-releases</id>
+      <name>NiceHash Nexus Release Repository</name>
+      <url>${nexus.release}</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>jar-no-fork</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
+        <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.6</version>
+        <executions>
+            <execution>
+                <id>default-deploy</id>
+                <phase>deploy</phase>
+                <goals>
+                    <goal>deploy</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <serverId>NiceHash_nexus-snapshots</serverId>
+            <nexusUrl>${nexus.url}</nexusUrl>
+            <skipStaging>true</skipStaging>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

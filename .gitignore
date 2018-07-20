@@ -1,0 +1,16 @@
+# IntelliJ
+.idea
+*.iml
+target
+
+.DS_Store
+
+# Eclipse
+.metadata
+.settings
+.classpath
+.project
+bin
+tmp
+out/
+
