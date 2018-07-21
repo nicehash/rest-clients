@@ -7,7 +7,7 @@ Build the whole project:
 Using Exchange client:
 
         OptionMap options = OptionMap.builder()
-                                     .set(Options.BASE_URL, "https://testngapi.nicehash.com/exchange/")
+                                     .set(Options.BASE_URL, "https://api-test.nicehash.com/exchange/")
                                      .set(Options.KEY, "<KEY>")
                                      .set(Options.SECRET, "<SECRET>")
                                      .getMap();
@@ -19,7 +19,7 @@ Using Exchange client:
 Using Exchange async client:
 
         OptionMap options = OptionMap.builder()
-                                     .set(Options.BASE_URL, "https://testngapi.nicehash.com/exchange/")
+                                     .set(Options.BASE_URL, "https://api-test.nicehash.com/exchange/")
                                      .set(Options.KEY, "<KEY>")
                                      .set(Options.SECRET, "<SECRET>")
                                      .getMap();
@@ -33,7 +33,7 @@ Using Exchange async client:
 
 Using Exchange web-sockets:
 
-        try (ExchangeWebSocketClient client = ExchangeClientFactory.newWebSocketClient("https://exchangetestngapi.nicehash.com/ws")) {
+        try (ExchangeWebSocketClient client = ExchangeClientFactory.newWebSocketClient("https://exchange-test.nicehash.com/ws")) {
             client.onDepthEvent("LTCBTC", new AbstractClientCallback<DepthEvent>() {
                 @Override
                 public void onResponse(DepthEvent result) {
