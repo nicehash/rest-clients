@@ -1,4 +1,4 @@
-# NiceHash REST Clients
+# NiceHash V3 REST Clients
 
 Build the whole project:
 
