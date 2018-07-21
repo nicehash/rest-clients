@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>com.nicehash</groupId>
+    <artifactId>clients-examples</artifactId>
+    <version>1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>clients-examples-marketmaker</artifactId>
+
+  <name>NiceHash REST clients -- Examples -- Market Maker</name>
+  <description>NiceHash REST clients -- Examples -- Market Maker</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.nicehash</groupId>
+      <artifactId>clients-exchange</artifactId>
+      <version>1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.nicehash</groupId>
+      <artifactId>utils</artifactId>
+      <version>1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.nicehash.tools.marketmaker.Main</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build-single-jar</id>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <phase>install</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+
+
+
