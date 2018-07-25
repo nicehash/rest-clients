@@ -10,31 +10,23 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * Kline/Candlestick bars for a symbol. Klines are uniquely identified by their open time.
  */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-@JsonPropertyOrder()
+@JsonPropertyOrder(alphabetic = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Candlestick {
 
-    private Long openTime;
-
-    private String open;
-
-    private String high;
-
-    private String low;
+    // NOTE -- fields must be lexicographically ordered!!
 
     private String close;
-
-    private String volume;
-
     private Long closeTime;
-
-    private String quoteAssetVolume;
-
+    private String high;
+    private String low;
     private Long numberOfTrades;
-
+    private String open;
+    private Long openTime;
+    private String quoteAssetVolume;
     private String takerBuyBaseAssetVolume;
-
     private String takerBuyQuoteAssetVolume;
+    private String volume;
 
     public Long getOpenTime() {
         return openTime;
