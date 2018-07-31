@@ -2,7 +2,7 @@ package com.nicehash.tools.marketmaker.event;
 
 import com.nicehash.exchange.client.domain.event.DepthEvent;
 
-public class XDepthEvent implements Event {
+public class XDepthEvent implements Event<DepthEvent> {
 
     private final DepthEvent e;
 

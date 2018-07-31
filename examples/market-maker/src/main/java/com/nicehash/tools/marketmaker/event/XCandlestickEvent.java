@@ -2,7 +2,7 @@ package com.nicehash.tools.marketmaker.event;
 
 import com.nicehash.exchange.client.domain.event.CandlestickEvent;
 
-public class XCandlestickEvent implements Event {
+public class XCandlestickEvent implements Event<CandlestickEvent> {
 
     private final CandlestickEvent e;
 

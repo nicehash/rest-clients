@@ -1,24 +1,40 @@
 package com.nicehash.tools.marketmaker;
 
+import com.nicehash.exchange.client.domain.OrderSide;
 import com.nicehash.exchange.client.domain.account.AssetBalance;
+import com.nicehash.tools.marketmaker.event.EventType;
 import com.nicehash.utils.cli.Market;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Config {
 
     private Market market;
     private BigDecimal gold = BigDecimal.ZERO;
     private BigDecimal money = BigDecimal.ZERO;
-    private double spread;
-    private int buckets;
-    private BigDecimal fallbackPrice = BigDecimal.ZERO;
-    private BigDecimal priceOverride = BigDecimal.ZERO;
+    private String pricePattern;
+    private int [] pricePatternArray = {1};
+    private int pricePatternBlockCount = 1;
+    private BigDecimal price = BigDecimal.ZERO;
     private double maxOrdersPerSec = 20;
     private boolean ignoreLimits;
-    private AssetBalance currentGoldBalance;
-    private AssetBalance currentMoneyBalance;
+    private double actionsPerSecond = 1;
+    private double relativeLowPricePct = 0.2;
+    private BigDecimal relativeLowPrice;
+    private BigDecimal lowPrice;
+    private double relativeHighPricePct = 0.2;
+    private BigDecimal relativeHighPrice;
+    private BigDecimal highPrice;
+    private BigDecimal tick;
+    private BigDecimal halfTick;
+    private Set<EventType> enabledEvents;
+    private OrderSide type;
+    private int actionsLimit;
+    private boolean noTake;
 
     public Market getMarket() {
         return market;
@@ -44,36 +60,34 @@ public class Config {
         this.money = money;
     }
 
-    public double getSpread() {
-        return spread;
+    public String getPricePattern() {
+        return pricePattern;
     }
 
-    public void setSpread(double spread) {
-        this.spread = spread;
+    public void setPricePattern(String pattern) {
+        // must be all digits
+        int[] blocks = new int[pattern.length()];
+        int blockCount = 0;
+        for (int i = 0; i < blocks.length; i++) {
+            char c = pattern.charAt(i);
+            if (!Character.isDigit(c)) {
+                throw new IllegalArgumentException("Invalid character in price pattern: " + c);
+            }
+            blocks[i] = c - (int)'0';
+            blockCount += blocks[i];
+        }
+
+        this.pricePattern = pattern;
+        this.pricePatternArray = blocks;
+        this.pricePatternBlockCount = blockCount;
     }
 
-    public int getBuckets() {
-        return buckets;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setBuckets(int buckets) {
-        this.buckets = buckets;
-    }
-
-    public BigDecimal getFallbackPrice() {
-        return fallbackPrice;
-    }
-
-    public void setFallbackPrice(BigDecimal fallbackPrice) {
-        this.fallbackPrice = fallbackPrice;
-    }
-
-    public BigDecimal getPriceOverride() {
-        return priceOverride;
-    }
-
-    public void setPriceOverride(BigDecimal priceOverride) {
-        this.priceOverride = priceOverride;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public double getMaxOrdersPerSec() {
@@ -92,32 +106,136 @@ public class Config {
         return this.ignoreLimits;
     }
 
-
-    public AssetBalance getCurrentGoldBalance() {
-        return currentGoldBalance;
+    public double getActionsPerSecond() {
+        return actionsPerSecond;
     }
 
-    public void setCurrentGoldBalance(AssetBalance currentGoldBalance) {
-        this.currentGoldBalance = currentGoldBalance;
+    public void setActionsPerSecond(double actionsPerSecond) {
+        this.actionsPerSecond = actionsPerSecond;
     }
 
-    public AssetBalance getCurrentMoneyBalance() {
-        return currentMoneyBalance;
+    public void applyPrecisionLimitsIfNecessary(int decimals, RoundingMode mode) {
+        if (!ignoreLimits) {
+            if (gold != null)
+                gold = gold.setScale(decimals, mode);
+            if (money != null)
+                money = money.setScale(decimals, mode);
+            if (price != null)
+                price = price.setScale(decimals, mode);
+        }
     }
 
-    public void setCurrentMoneyBalance(AssetBalance currentMoneyBalance) {
-        this.currentMoneyBalance = currentMoneyBalance;
+    public void setRelativeLowPricePct(double relativeLowPricePct) {
+        this.relativeLowPricePct = relativeLowPricePct;
     }
 
-    public void applyPrecisionLimits(int decimals, RoundingMode mode) {
-        if (gold != null)
-            gold = gold.setScale(decimals, mode);
-        if (money != null)
-            money = money.setScale(decimals, mode);
-        if (fallbackPrice != null)
-            fallbackPrice = fallbackPrice.setScale(decimals, mode);
-        if (priceOverride != null)
-            priceOverride = priceOverride.setScale(decimals, mode);
+    public double getRelativeLowPricePct() {
+        return relativeLowPricePct;
     }
 
+    public void setRelativeLowPrice(BigDecimal relativeStartPrice) {
+        this.relativeLowPrice = relativeStartPrice;
+    }
+
+    public BigDecimal getRelativeLowPrice() {
+        return relativeLowPrice;
+    }
+
+    public void setLowPrice(BigDecimal startPrice) {
+        this.lowPrice = startPrice;
+    }
+
+    public BigDecimal getLowPrice() {
+        return lowPrice;
+    }
+
+    public void setRelativeHighPricePct(double relativeStopPricePct) {
+        this.relativeHighPricePct = relativeStopPricePct;
+    }
+
+    public double getRelativeHighPricePct() {
+        return relativeHighPricePct;
+    }
+
+    public void setRelativeHighPrice(BigDecimal relativeStopPrice) {
+        this.relativeHighPrice = relativeStopPrice;
+    }
+
+    public BigDecimal getRelativeHighPrice() {
+        return relativeHighPrice;
+    }
+
+    public void setHighPrice(BigDecimal stopPrice) {
+        this.highPrice = stopPrice;
+    }
+
+    public BigDecimal getHighPrice() {
+        return highPrice;
+    }
+
+    public int getPricePatternBlockCount() {
+        return pricePatternBlockCount;
+    }
+
+    public int[] getPricePatternArray() {
+        return pricePatternArray;
+    }
+
+    public void setTick(BigDecimal tick) {
+        if (tick.equals(BigDecimal.ZERO)) {
+            throw new IllegalArgumentException("Tick value can not be 0");
+        }
+        this.tick = tick;
+        this.halfTick = tick.divide(new BigDecimal("2"));
+    }
+
+    public BigDecimal getTick() {
+        return tick;
+    }
+
+    public BigDecimal adjustForTick(BigDecimal value) {
+        if (tick == null) {
+            return value;
+        }
+        BigDecimal[] result = value.divideAndRemainder(tick);
+        BigDecimal loBound = result[0].multiply(tick);
+        return result[1].compareTo(halfTick) >= 0 ? loBound.add(tick) : loBound;
+    }
+
+    public Set<EventType> getEnabledEvents() {
+        return enabledEvents;
+    }
+
+    public boolean isEnabledEvent(EventType type) {
+        return enabledEvents != null && enabledEvents.contains(type);
+    }
+
+    public void setEnabledEvents(Set<EventType> enabledEvents) {
+        this.enabledEvents = Collections.unmodifiableSet(new HashSet<>(enabledEvents));
+    }
+
+    public void setType(String type) {
+
+        this.type = OrderSide.valueOf(type);
+    }
+
+    public OrderSide getType() {
+        return type;
+    }
+
+    public void setActionsLimit(int actionsLimit) {
+        this.actionsLimit = actionsLimit;
+    }
+
+    public int getActionsLimit() {
+        return actionsLimit;
+    }
+
+    public void setNoTake(boolean noTake) {
+        this.noTake = noTake;
+    }
+
+    public boolean isNoTake() {
+        return noTake;
+    }
 }

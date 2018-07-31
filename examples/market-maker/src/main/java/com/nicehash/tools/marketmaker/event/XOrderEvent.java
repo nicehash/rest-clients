@@ -2,7 +2,7 @@ package com.nicehash.tools.marketmaker.event;
 
 import com.nicehash.exchange.client.domain.market.OrderBook;
 
-public class XOrderEvent implements Event {
+public class XOrderEvent implements Event<OrderBook> {
 
     OrderBook e;
 

@@ -21,6 +21,11 @@ public class Main {
             String arg = args[0];
 
             switch (arg) {
+                case "account-info": {
+                    System.setProperty("nicehash.cli.subcommand", "account-info");
+                    new AccountInfo().run(CliUtils.shift(args));
+                    break;
+                }
                 case "place-order": {
                     System.setProperty("nicehash.cli.subcommand", "place-order");
                     new PlaceOrder().run(CliUtils.shift(args));

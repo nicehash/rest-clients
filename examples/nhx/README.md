@@ -19,10 +19,10 @@ Install alias for `nhx` command
     . set-alias.sh
 
 
-Specify the API Key and API Secret
-----------------------------------
+Configure the API Key and Secret
+--------------------------------
 
-Before you can connect to a secured public REST API endpoint you need to set env variables `NICEHASH_API_KEY` and `NICEHASH_API_SECRET`
+You can create your API Key at: https://test.nicehash.com/settings/keys
 
 ```
 export HISTCONTROL=ignorespace

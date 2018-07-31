@@ -4,16 +4,24 @@ NHCurl - curl wrapper with authentication
 
 A `curl` wrapper that adds authentication headers, and a few helper facilities so that you can use `curl` with Exchange REST API.
 
-To build use:
+Build the example
+-----------------
+
+To build a single executable jar with all dependencies run:
 
     mvn clean install
 
-To install `nhcurl` first run from exchange root:
+
+Install alias for `nhcurl` command
+----------------------------------
 
     . set-alias.sh
 
 
-Then set api key and secret as env variables:
+Configure the API Key and Secret
+--------------------------------
+
+You can create your API Key at: https://test.nicehash.com/settings/keys
 
 ```
 export HISTCONTROL=ignorespace
@@ -27,7 +35,7 @@ You can now use `nhcurl` the same way as `curl`.
 Variable substitution is supported in `nhcurl` command line. Single quotes are required in this case, otherwise bash complains.
 
 * default.recv.window ... default value for receive window
-* timestamp ... current epoch (time in millis since 1.1.1970 UTC)
+* timestamp ... current epoch time (time in millis since 1.1.1970 UTC)
 * ws.key ... WebSockets random key
 
 
@@ -37,6 +45,16 @@ Usage examples
 See how much of each crypto currency you have available on your account:
 
     nhcurl 'https://api-test.nicehash.com/exchange/api/v1/account?timestamp=${timestamp}'
+
+
+Create a new limit buy order:
+
+    nhcurl 'https://api-test.nicehash.com/exchange/api/v1/order?symbol=TLTCTBTC&side=BUY&type=LIMIT&quantity=10&price=0.0095&timestamp=${timestamp}' -X POST -H "Content-Length: 0"
+
+
+Create a new limit sell order:
+
+    nhcurl 'https://api-test.nicehash.com/exchange/api/v1/order?symbol=TLTCTBTC&side=SELL&type=LIMIT&quantity=10&price=0.011&timestamp=${timestamp}' -X POST -H "Content-Length: 0"
 
 
 See your order history:
@@ -57,26 +75,6 @@ See your executed orders:
 See all trades for specific market:
 
     nhcurl 'https://api-test.nicehash.com/exchange/api/v1/trades?symbol=TLTCTBTC&limit=500'
-
-
-Initiate user data stream - receive a listen key:
-
-    nhcurl 'https://api-test.nicehash.com/exchange/api/v1/userDataStream' -X POST -H "Content-Length: 0"
-
-
-Ping user data stream to keep it alive - using the listen key:
-
-    nhcurl 'https://api-test.nicehash.com/exchange/api/v1/userDataStream?listenKey=89aff272-ebd3-436d-a341-bac3e15068b7' -X PUT -H 'Content-Length: 0' -v
-
-
-Delete user data stream
-
-    nhcurl 'https://api-test.nicehash.com/exchange/api/v1/userDataStream?listenKey=89aff272-ebd3-436d-a341-bac3e15068b7' -X DELETE -v
-
-
-Open user data websocket stream (for some reason connection gets closed immediately):
-
-    nhcurl https://exchange-test.nicehash.com/ws/89aff272-ebd3-436d-a341-bac3e15068b7 -H "Connection: Upgrade" -H "Upgrade: websocket" -H "Host: exchange-test.nicehash.com" -H "Sec-WebSket-Version: 13" -H 'Sec-WebSocket-Key: ${ws.key}' --no-buffer
 
 
 Open individual market trade stream:
@@ -117,7 +115,5 @@ Open differential depth stream - updated every second:
 
 
 
-For Exchange REST API reference see documentation at:
-
-    TODO: Documentation URL
+For Exchange REST API reference see documentation at: https://docs-test.nicehash.com
 

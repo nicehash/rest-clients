@@ -1,8 +1,8 @@
 package com.nicehash.tools.marketmaker.event;
 
-public interface Event {
+public interface Event<T> {
 
     EventType type();
 
-    Object getApiEvent();
+    T getApiEvent();
 }

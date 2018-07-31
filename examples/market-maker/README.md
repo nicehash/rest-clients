@@ -1,7 +1,7 @@
 A simple market making bot
 ==========================
 
-This example shows hot to how to make orders, and how to register for and consume websockets events.
+This example shows how to make orders, and how to register for and consume websockets events.
 
 
 Build the example
@@ -11,16 +11,17 @@ To build a single executable jar with all dependencies run:
 
     mvn clean install
 
+
 Install alias for `nhmakerbot` command
 --------------------------------------
 
     . set-alias.sh
 
 
-Configure API Key and Secret
-----------------------------
+Configure the API Key and Secret
+--------------------------------
 
-Then set api key and secret as env variables:
+You can create your API Key at: https://test.nicehash.com/settings/keys
 
 ```
 export HISTCONTROL=ignorespace
@@ -32,4 +33,21 @@ export HISTCONTROL=ignorespace
 Run it
 ------
 
-    nhmakerbot TLTCTBTC
+Print usage help
+    nhmakerbot
+
+Place buy and sell orders in random quantities and prices within +/- 20% around the specified price, and display all ORDER and TRADE events
+    nhmakerbot TLTCTBTC --price 0.01 --events ORDER,TRADE
+
+Place buy and sell orders in random quantities and prices within the specified boundaries around current market price at a rate once every two seconds:
+    nhmakerbot TLTCTBTC --low-price -0.05% --high-price +0.05% --actions-per-second 0.1
+
+Place ten sell orders in random quantities at exactly the specified price, then exit:
+    nhmakerbot TLTCTBTC --price 0.0099 --exact --type SELL --actions-limit 10
+
+Place buy and sell orders in random quantities and prices within the specified boundaries in a V shape probabilistic distribution with specified price tick
+    nhmakerbot TLTCTBTC --low-price 0.0085 --high-price 0.0115 --price-pattern 432101234 --tick 0.00005
+
+Same as previous but place buy orders below target price, and sell orders above target price
+    nhmakerbot TLTCTBTC --low-price 0.0085 --high-price 0.0115 --price-pattern 432101234 --tick 0.00005 --price 0.1 --no-take
+
