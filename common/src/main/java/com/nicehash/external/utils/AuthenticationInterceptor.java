@@ -62,6 +62,16 @@ public class AuthenticationInterceptor extends AbstractAuthenticationInterceptor
 
             String digest = hmacSha256(secret, content);
             newRequestBuilder.addHeader(HeaderConstants.AUTH_HEADER, apiKey + ":" + digest);
+/*
+            System.out.println("Message Digest Inputs: [\n  apiKey: [" + apiKey + "]\n  time: [" + time + "]\n  nonce: [" + nonce +
+                               "]\n  method: [" + original.method() + "]\n  path: [" + original.url().encodedPath() + "]\n  query: [" +
+                               ((original.url() == null || original.url().query() == null || original.url().query().isEmpty()) ? "" : "?" + original.url().query()) +
+                               "]\n  body: [" + bodyStr + "]\n]");
+            System.out.println("Message Digest Raw Input: [" + content + "]");
+            System.out.println("Secret: [" + secret + "]");
+            System.out.println("Message Digest (SHA-256): [" + digest + "]");
+            System.out.println(HeaderConstants.AUTH_HEADER + " header: [" + apiKey + ":" + digest + "]");
+*/
         }
 
         // Build new request after adding the necessary authentication information

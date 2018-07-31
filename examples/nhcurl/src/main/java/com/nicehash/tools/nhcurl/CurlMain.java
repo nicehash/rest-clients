@@ -3,7 +3,6 @@ package com.nicehash.tools.nhcurl;
 import com.nicehash.utils.cli.CliUtils;
 import org.apache.commons.codec.binary.Hex;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,8 +22,6 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 public class CurlMain {
-
-    String endpointUrl = CliUtils.getNicehashUrl("https://testngapi.nicehash.com/exchange");
 
     String key = CliUtils.getApiKey(null);
     String secret = CliUtils.getApiSecret(null);
@@ -152,6 +149,11 @@ See `man curl` for more
             }
         }
 
+        if (url == null) {
+            System.out.println("Usage: nhcurl URL [OPTIONS]");
+            System.exit(1);
+        }
+
         StringBuilder cmd = new StringBuilder("curl");
         argls.forEach((a) -> cmd.append(" \"").append(a).append("\""));
         digestArgs(url).forEach((a) -> cmd.append(" \"").append(a).append("\""));
@@ -160,33 +162,24 @@ See `man curl` for more
 
         Process p = Runtime.getRuntime().exec(new String[] {"/bin/sh", "-c", cmd.toString()});
 
-        Thread t1 = null;
+        Thread t1 = null, t2 = null;
         if (stdoutMode || !stderrMode) {
             t1 = new Thread(() -> copyBytes(p.getInputStream(), System.out, noBuffer));
             t1.start();
         }
-
-        ByteArrayOutputStream memErr = new ByteArrayOutputStream();
-
-        Thread t2 = new Thread(() -> {
-            if (!stdoutMode || stderrMode) {
-                copyBytes(p.getErrorStream(), System.err, noBuffer);
-            } else {
-                copyBytes(p.getErrorStream(), memErr, noBuffer);
-            }
-        });
-        t2.start();
+        if (stderrMode) {
+            t2 = new Thread(() -> copyBytes(p.getErrorStream(), System.err, noBuffer));
+            t2.start();
+        }
 
         int exit = p.waitFor();
 
         if (t1 != null) {
             t1.join();
         }
-        t2.join();
-
-        //if (exit != 0) {
-        //    copyBytes(new ByteArrayInputStream(memErr.toByteArray()), System.err);
-        //}
+        if (t2 != null) {
+            t2.join();
+        }
 
         System.exit(exit);
     }
@@ -200,7 +193,8 @@ See `man curl` for more
             }
             case "-i":
             case "--include":
-            case "-v": {
+            case "-v":
+            case "--verbose": {
                 stderrMode = true;
                 break;
             }
@@ -300,10 +294,21 @@ See `man curl` for more
                 method +
                 (path == null ? "" : path) +
                 (query == null || "".equals(query) ? "" : "?" + query) +
-                body.toString();
+                body;
 
             String digest = hmacSha256(secret, input);
 
+            // Uncomment the following to see real working values for authentication
+/*
+            System.out.println("Message Digest Inputs: [\n  apiKey: [" + key + "]\n  time: [" + time + "]\n  nonce: [" + nonce +
+                               "]\n  method: [" + method + "]\n  path: [" + path + "]\n  query: [" +
+                               (query == null || "".equals(query) ? "" : "?" + query) +
+                               "]\n  body: [" + body + "]\n]");
+            System.out.println("Message Digest Raw Input: [" + input + "]");
+            System.out.println("Secret: [" + secret + "]");
+            System.out.println("Message Digest (SHA-256): [" + digest + "]");
+            System.out.println("X-Auth header: [" + key + ":" + digest + "]");
+*/
             args.add("-H");
             args.add("X-Time: " + time);
             args.add("-H");

@@ -1,8 +1,14 @@
 package com.nicehash.tools.marketmaker.event;
 
-public class XTimerEvent implements Event {
+public class XTimerEvent implements Event<Long> {
 
-    public final long time = System.currentTimeMillis();
+    private long time = System.currentTimeMillis();
+
+    public XTimerEvent() {}
+
+    public XTimerEvent(long time) {
+        this.time = time;
+    }
 
     @Override
     public Long getApiEvent() {

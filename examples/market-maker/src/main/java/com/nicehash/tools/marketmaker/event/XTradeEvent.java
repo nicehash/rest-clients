@@ -2,7 +2,7 @@ package com.nicehash.tools.marketmaker.event;
 
 import com.nicehash.exchange.client.domain.event.OrderTradeEvent;
 
-public class XTradeEvent implements Event {
+public class XTradeEvent implements Event<OrderTradeEvent> {
 
     private final OrderTradeEvent e;
 
