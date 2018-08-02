@@ -47,55 +47,43 @@ public interface ExchangeService {
 
     // General endpoints
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/ping")
     Call<Void> ping();
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/time")
     Call<ServerTime> getServerTime();
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/exchangeInfo")
     Call<ExchangeInfo> getExchangeInfo();
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET
     Call<Assets> getAllAssets(@Url String url);
 
     // Market data endpoints
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/depth")
     Call<OrderBook> getOrderBook(@Query("symbol") String symbol, @Query("limit") Integer limit);
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/trades")
     Call<TradeHistoryItems> getTrades(@Query("symbol") String symbol, @Query("limit") Integer limit);
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
     @GET("api/v1/historicalTrades")
     Call<TradeHistoryItems> getHistoricalTrades(@Query("symbol") String symbol, @Query("limit") Integer limit, @Query("tradeNumber") Long tradeNumber);
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/aggTrades")
     Call<AggTrades> getAggTrades(@Query("symbol") String symbol, @Query("fromId") String fromId, @Query("limit") Integer limit,
                                  @Query("startTime") Long startTime, @Query("endTime") Long endTime);
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/klines")
     Call<Candlesticks> getCandlestickBars(@Query("symbol") String symbol, @Query("interval") String interval, @Query("limit") Integer limit,
                                           @Query("startTime") Long startTime, @Query("endTime") Long endTime);
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/ticker/24hr")
     Call<SingleOrListObject<TickerStatistic>> get24HrPriceStatistics(@Query("symbol") String symbol);
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/ticker/price")
     Call<SingleOrListObject<TickerPrice>> getLatestPrice(@Query("symbol") String symbol);
 
-    @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/ticker/bookTicker")
     Call<SingleOrListObject<BookTicker>> getBookTicker(@Query("symbol") String symbol);
 
