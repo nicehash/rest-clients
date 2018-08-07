@@ -82,6 +82,11 @@ public class Options {
     public static final Option<String> TOKEN = Option.simple(Options.class, "TOKEN", String.class, true);
 
     /**
+     * Auth email
+     */
+    public static final Option<String> EMAIL = Option.simple(Options.class, "EMAIL", String.class, true);
+
+    /**
      * Key
      */
     public static final Option<String> KEY = Option.simple(Options.class, "KEY", String.class, true);
