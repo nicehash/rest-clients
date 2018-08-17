@@ -34,20 +34,29 @@ Run it
 ------
 
 Print usage help
+
     nhmakerbot
 
 Place buy and sell orders in random quantities and prices within +/- 20% around the specified price, and display all ORDER and TRADE events
+
     nhmakerbot TLTCTBTC --price 0.01 --events ORDER,TRADE
 
-Place buy and sell orders in random quantities and prices within the specified boundaries around current market price at a rate once every two seconds:
+Place buy and sell orders in random quantities and prices within the specified boundaries around current market price at a rate once every ten seconds:
+
     nhmakerbot TLTCTBTC --low-price -0.05% --high-price +0.05% --actions-per-second 0.1
 
 Place ten sell orders in random quantities at exactly the specified price, then exit:
+
     nhmakerbot TLTCTBTC --price 0.0099 --exact --type SELL --actions-limit 10
 
 Place buy and sell orders in random quantities and prices within the specified boundaries in a V shape probabilistic distribution with specified price tick
+
     nhmakerbot TLTCTBTC --low-price 0.0085 --high-price 0.0115 --price-pattern 432101234 --tick 0.00005
 
-Same as previous but place buy orders below target price, and sell orders above target price
-    nhmakerbot TLTCTBTC --low-price 0.0085 --high-price 0.0115 --price-pattern 432101234 --tick 0.00005 --price 0.1 --no-take
+Same as previous but place buy orders below target price, and sell orders above target price, if you run out of funds cancel some existing order
 
+    nhmakerbot TLTCTBTC --low-price 0.0085 --high-price 0.0115 --price-pattern 432101234 --tick 0.00005 --price 0.01 --no-take
+
+Same as precious but place orders in the shape of an inverted V, and if you run out of funds cancel some existing order with same side of trade
+
+    nhmakerbot TLTCTBTC --low-price 0.0085 --high-price 0.0115 --price-pattern 123454321 --tick 0.00005 --price 0.01 --no-take --cancel-on-limit

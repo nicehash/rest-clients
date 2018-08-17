@@ -1,30 +1,24 @@
 package com.nicehash.tools.nhcurl;
 
 import com.nicehash.utils.cli.CliUtils;
-import org.apache.commons.codec.binary.Hex;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import static com.nicehash.utils.cli.CryptoUtils.generateWsKey;
+import static com.nicehash.utils.cli.CryptoUtils.hmacSha256;
+import static com.nicehash.utils.cli.IoUtils.copyBytes;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 public class CurlMain {
 
-    String key = CliUtils.getApiKey(null);
-    String secret = CliUtils.getApiSecret(null);
+    static final String API_KEY = CliUtils.getApiKey(null);
+    static final String API_SECRET = CliUtils.getApiSecret(null);
 
     String url;
     String method;
@@ -46,7 +40,7 @@ public class CurlMain {
         new CurlMain().execute(args);
     }
 
-    public void execute(String [] args) throws Exception {
+    void execute(String [] args) throws Exception {
 
 /*
 See `man curl` for more
@@ -184,7 +178,7 @@ See `man curl` for more
         System.exit(exit);
     }
 
-    private void checkStdoutMode(String arg) {
+    void checkStdoutMode(String arg) {
         switch (arg) {
             case "-o":
             case "-O": {
@@ -201,7 +195,7 @@ See `man curl` for more
         }
     }
 
-    private static int getArgsToSkip(String arg) {
+    int getArgsToSkip(String arg) {
         switch (arg) {
             case "-v":
             case "--verbose":
@@ -217,32 +211,12 @@ See `man curl` for more
     }
 
     void checkRequiredSettings() {
-        if (key == null) {
+        if (API_KEY == null) {
             throw new RuntimeException("API KEY not set");
         }
 
-        if (secret == null) {
+        if (API_SECRET == null) {
             throw new RuntimeException("API SECRET not set");
-        }
-    }
-
-    static void copyBytes(InputStream is, OutputStream os, boolean flush) {
-        int c;
-        try {
-            while ((c = is.read()) != -1) {
-                os.write(c);
-                if (flush) {
-                    os.flush();
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("I/O error", e);
-        } finally {
-            try {
-                os.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -275,7 +249,7 @@ See `man curl` for more
     }
 
 
-    private List<String> digestArgs(String url) {
+    List<String> digestArgs(String url) {
 
         List<String> args = new LinkedList<>();
         URI uri;
@@ -288,33 +262,33 @@ See `man curl` for more
             String time = String.valueOf(System.currentTimeMillis());
             String nonce = UUID.randomUUID().toString();
 
-            String input = key +
-                time +
-                nonce +
-                method +
-                (path == null ? "" : path) +
-                (query == null || "".equals(query) ? "" : "?" + query) +
-                body;
+            String input = API_KEY +
+                           time +
+                           nonce +
+                           method +
+                           (path == null ? "" : path) +
+                           (query == null || "".equals(query) ? "" : "?" + query) +
+                           body;
 
-            String digest = hmacSha256(secret, input);
+            String digest = hmacSha256(API_SECRET, input);
 
             // Uncomment the following to see real working values for authentication
 /*
-            System.out.println("Message Digest Inputs: [\n  apiKey: [" + key + "]\n  time: [" + time + "]\n  nonce: [" + nonce +
+            System.out.println("Message Digest Inputs: [\n  apiKey: [" + API_KEY + "]\n  time: [" + time + "]\n  nonce: [" + nonce +
                                "]\n  method: [" + method + "]\n  path: [" + path + "]\n  query: [" +
                                (query == null || "".equals(query) ? "" : "?" + query) +
                                "]\n  body: [" + body + "]\n]");
             System.out.println("Message Digest Raw Input: [" + input + "]");
-            System.out.println("Secret: [" + secret + "]");
+            System.out.println("Secret: [" + API_SECRET + "]");
             System.out.println("Message Digest (SHA-256): [" + digest + "]");
-            System.out.println("X-Auth header: [" + key + ":" + digest + "]");
+            System.out.println("X-Auth header: [" + API_KEY + ":" + digest + "]");
 */
             args.add("-H");
             args.add("X-Time: " + time);
             args.add("-H");
             args.add("X-Nonce: " + nonce);
             args.add("-H");
-            args.add("X-Auth: " + key + ":" + digest);
+            args.add("X-Auth: " + API_KEY + ":" + digest);
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to calculate crypto signature: ", e);
@@ -323,20 +297,4 @@ See `man curl` for more
         return args;
     }
 
-    private String hmacSha256(String key, String data) {
-        try {
-            Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
-            sha256_HMAC.init(secret_key);
-            return Hex.encodeHexString(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
-        } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchAlgorithmException e) {
-            throw new RuntimeException("Cannot create hmacSHA256", e);
-        }
-    }
-
-    private String generateWsKey() {
-        byte[] nonce = new byte[16];
-        new SecureRandom().nextBytes(nonce);
-        return Base64.getEncoder().encodeToString(nonce);
-    }
 }

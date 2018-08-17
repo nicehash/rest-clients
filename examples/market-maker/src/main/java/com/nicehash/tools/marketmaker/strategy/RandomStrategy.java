@@ -6,6 +6,9 @@ import com.nicehash.exchange.client.domain.OrderType;
 import com.nicehash.exchange.client.domain.TimeInForce;
 import com.nicehash.exchange.client.domain.account.NewOrder;
 import com.nicehash.exchange.client.domain.account.NewOrderResponse;
+import com.nicehash.exchange.client.domain.account.Order;
+import com.nicehash.exchange.client.domain.account.request.CancelOrderRequest;
+import com.nicehash.exchange.client.domain.account.request.OrderRequest;
 import com.nicehash.exchange.client.domain.event.AllMarketTickersEvent;
 import com.nicehash.exchange.client.domain.event.CandlestickEvent;
 import com.nicehash.exchange.client.domain.event.DepthEvent;
@@ -25,8 +28,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RandomStrategy implements Strategy {
@@ -50,7 +55,7 @@ public class RandomStrategy implements Strategy {
     private BigDecimal money;
     private BigDecimal moneyFreeze = BigDecimal.ZERO;
 
-    private ConcurrentHashMap<String, PlacedOrder> orders = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<UUID, Order> orders = new ConcurrentHashMap<>();
 
     private boolean mustExit = false;
     private int actionCount = 0;
@@ -82,6 +87,12 @@ public class RandomStrategy implements Strategy {
 
         gold = config.getGold();
         money = config.getMoney();
+
+        // load open orders
+        List<Order> openOrders = client.getOpenOrders(new OrderRequest(config.getMarket().symbol()));
+        for (Order o: openOrders) {
+            orders.put(o.getOrderId(), o);
+        }
     }
 
     /**
@@ -215,27 +226,72 @@ public class RandomStrategy implements Strategy {
             randomPrice);
         System.out.println("New order: " + newOrder);
 
-        NewOrderResponse response = client.newOrder(newOrder);
-        System.out.println("Created new order: " + response);
-        orders.put(response.getOrderId().toString(), new PlacedOrder(newOrder, response));
+        try {
+            // TODO: we only ever add to freeze, never subtract based on executed transactions
+            if (newOrder.getSide() == OrderSide.BUY) {
+                BigDecimal reserve = newOrder.getPrice().multiply(newOrder.getQuantity());
+                if (money.compareTo(reserve) < 0) {
+                    throw new RuntimeException("Reached money limit - required funds: " + reserve.toPlainString() + ", available: " + money.toPlainString());
+                } else {
+                    money.subtract(reserve);
+                    moneyFreeze.add(reserve);
+                }
+            } else {
+                BigDecimal reserve = newOrder.getQuantity();
+                if (gold.compareTo(reserve) < 0) {
+                    throw new RuntimeException("Reached gold limit - required amount: " + reserve.toPlainString() + ", available: " + gold.toPlainString());
+                } else {
+                    gold.subtract(reserve);
+                    goldFreeze.add(reserve);
+                }
+            }
 
-        if (newOrder.getSide() == OrderSide.BUY) {
-            BigDecimal reserve = newOrder.getPrice().multiply(newOrder.getQuantity());
-            if (money.compareTo(reserve) < 0) {
-                throw new RuntimeException("Reached money limit - required funds: " + reserve.toPlainString() + ", available: " + money.toPlainString());
-            } else {
-                money.subtract(reserve);
-                moneyFreeze.add(reserve);
+            NewOrderResponse response = client.newOrder(newOrder);
+            System.out.println("Created new order: " + response);
+
+            orders.put(response.getOrderId(), toOrder(newOrder, response));
+        } catch (Exception e) {
+            if (!config.isCancelOnLimit()) {
+                throw e;
             }
-        } else {
-            BigDecimal reserve = newOrder.getQuantity();
-            if (gold.compareTo(reserve) < 0) {
-                throw new RuntimeException("Reached gold limit - required amount: " + reserve.toPlainString() + ", available: " + gold.toPlainString());
-            } else {
-                gold.subtract(reserve);
-                goldFreeze.add(reserve);
+            // find a first outstanding order of same side and try to cancel it
+            for (Map.Entry<UUID, Order> ent : orders.entrySet()) {
+
+                Order oldOrder = ent.getValue();
+
+                if (newOrder.getSide() == oldOrder.getSide()) {
+                    client.cancelOrder(new CancelOrderRequest(oldOrder.getSymbol(), oldOrder.getOrderId()));
+                    orders.remove(oldOrder.getOrderId());
+                    System.out.println("Failed to create order: " + e.toString());
+                    System.out.println("Cancelled some order: " + oldOrder.getOrderId());
+
+                    if (oldOrder.getSide() == OrderSide.BUY) {
+                        BigDecimal reserve = oldOrder.getPrice().multiply(oldOrder.getOrigQty());
+                        money.add(reserve);
+                        moneyFreeze.subtract(reserve);
+                    } else {
+                        BigDecimal reserve = oldOrder.getOrigQty();
+                        gold.add(reserve);
+                        goldFreeze.subtract(reserve);
+                    }
+                    return;
+                }
             }
+
+            throw e;
         }
+    }
+
+    private Order toOrder(NewOrder newOrder, NewOrderResponse response) {
+        Order o = new Order();
+        o.setOrderId(response.getOrderId());
+        o.setSubmitTime(newOrder.getTimestamp());
+        o.setOrigQty(newOrder.getQuantity());
+        o.setPrice(newOrder.getPrice());
+        o.setSide(newOrder.getSide());
+        o.setSymbol(newOrder.getSymbol());
+        o.setClientOrderId(newOrder.getClientOrderId());
+        return o;
     }
 
     private OrderSide noTakeOrderSide(BigDecimal randomPrice) {
@@ -326,15 +382,5 @@ public class RandomStrategy implements Strategy {
             p = p.setScale(8, RoundingMode.HALF_UP);
         }
         return p;
-    }
-
-    static class PlacedOrder {
-        final NewOrder order;
-        final NewOrderResponse response;
-
-        PlacedOrder(NewOrder order, NewOrderResponse response) {
-            this.order = order;
-            this.response = response;
-        }
     }
 }

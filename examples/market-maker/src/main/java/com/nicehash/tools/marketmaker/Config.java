@@ -23,7 +23,7 @@ public class Config {
     private double maxOrdersPerSec = 20;
     private boolean ignoreLimits;
     private double actionsPerSecond = 1;
-    private double relativeLowPricePct = 0.2;
+    private double relativeLowPricePct = -0.2;
     private BigDecimal relativeLowPrice;
     private BigDecimal lowPrice;
     private double relativeHighPricePct = 0.2;
@@ -35,6 +35,7 @@ public class Config {
     private OrderSide type;
     private int actionsLimit;
     private boolean noTake;
+    private boolean cancelOnLimit;
 
     public Market getMarket() {
         return market;
@@ -237,5 +238,13 @@ public class Config {
 
     public boolean isNoTake() {
         return noTake;
+    }
+
+    public void setCancelOnLimit(boolean cancelOnLimit) {
+        this.cancelOnLimit = cancelOnLimit;
+    }
+
+    public boolean isCancelOnLimit() {
+        return cancelOnLimit;
     }
 }

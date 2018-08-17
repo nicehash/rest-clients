@@ -40,11 +40,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    private String endpointUrl = CliUtils.getNicehashUrl("https://api-test.nicehash.com/exchange");
-    private String wsEndpointUrl = CliUtils.getNicehashWsUrl("https://exchange-test.nicehash.com/ws");
+    final static String ENDPOINT_URL = CliUtils.getNicehashUrl("https://api-test.nicehash.com/exchange");
+    final static String WS_ENDPOINT_URL = CliUtils.getNicehashWsUrl("https://exchange-test.nicehash.com/ws");
 
-    private String key = CliUtils.getApiKey(null);
-    private String secret = CliUtils.getApiSecret(null);
+    final static String API_KEY = CliUtils.getApiKey(null);
+    final static String API_SECRET = CliUtils.getApiSecret(null);
 
     private ScheduledExecutorService executor;
     private String lowPrice;
@@ -64,7 +64,7 @@ public class Main {
     }
 
 
-    public void run(String [] args) {
+    void run(String [] args) {
 
         if (args.length == 0) {
             printHelp();
@@ -170,6 +170,10 @@ public class Main {
                     config.setNoTake(true);
                     break;
                 }
+                case "--cancel-on-limit": {
+                    config.setCancelOnLimit(true);
+                    break;
+                }
                 default: {
                     if (config.getMarket() != null) {
                         throw new IllegalArgumentException("Unexpected argument: " + arg);
@@ -197,17 +201,18 @@ public class Main {
 
         ExchangeClient client = defaultExchangeClient();
         Market market = config.getMarket();
+        println("Target market: " + market.symbol());
+
+        TickerPrice currentPrice = null;
+        try {
+            currentPrice = client.getPrice(market.symbol());
+            System.out.println("Current exchange: " + currentPrice.getPrice());
+        } catch (Exception e) {
+            println("ERROR: Could not fetch current price: " + (e.getCause() != null ? e.getCause().toString() : e.toString()));
+        }
 
         BigDecimal startPrice = config.getPrice();
         if (startPrice == null || startPrice.compareTo(BigDecimal.ZERO) <= 0) {
-
-            TickerPrice currentPrice = null;
-            try {
-                currentPrice = client.getPrice(market.symbol());
-            } catch (Exception e) {
-                println("ERROR: Could not fetch current price: " + (e.getCause() != null ? e.getCause().toString() : e.toString()));
-            }
-
             if (currentPrice != null && !"".equals(currentPrice.getPrice())) {
                 startPrice = new BigDecimal(currentPrice.getPrice());
             } else {
@@ -233,33 +238,48 @@ public class Main {
 
             AssetBalance goldBalance = null, moneyBalance = null;
 
+            BigDecimal currentTotalMoney = BigDecimal.ZERO;
+
             println("Account: ");
             for (AssetBalance a : balances) {
                 if (market.gold().equalsIgnoreCase(a.getAsset()) || market.money().equalsIgnoreCase(a.getAsset())) {
+                    BigDecimal total = a.getFree().add(a.getLocked());
+                    BigDecimal moneyTotal;
                     if (market.gold().equalsIgnoreCase(a.getAsset())) {
                         goldBalance = a;
+                        moneyTotal = total.multiply(new BigDecimal(currentPrice.getPrice())).setScale(8, RoundingMode.HALF_UP);
                     } else {
                         moneyBalance = a;
+                        moneyTotal = total;
                     }
-                    println("  " + a.getAsset() + ": Available: " + a.getFree() + ", Reserved: " + a.getLocked());
+
+                    currentTotalMoney = currentTotalMoney.add(moneyTotal);
+                    println("  " + a.getAsset() + ": Available: " + a.getFree() + ", Reserved: " + a.getLocked() + ", Total: " + total +
+                            (market.gold().equalsIgnoreCase(a.getAsset()) ? " (" + moneyTotal + " " + market.money() + ")" : ""));
+                }
+            }
+            println(" Total: " + currentTotalMoney +  " " + market.money());
+
+            if (goldBalance != null) {
+                if (config.getGold().compareTo(goldBalance.getFree()) > 0) {
+                    throw new IllegalArgumentException("Trading limit for " + goldBalance.getAsset() +
+                                                       " (" + config.getGold() + ") exceeds available amount (" + goldBalance.getFree() + ")");
+                }
+
+                if (config.getGold().compareTo(BigDecimal.ZERO) == 0) {
+                    config.setGold(goldBalance.getFree());
                 }
             }
 
-            if (config.getGold().compareTo(goldBalance.getFree()) > 0) {
-                throw new IllegalArgumentException("Trading limit for " + goldBalance.getAsset() +
-                                                   " (" + config.getGold() + ") exceeds available amount (" + goldBalance.getFree() + ")");
-            }
+            if (moneyBalance != null) {
+                if (config.getMoney().compareTo(moneyBalance.getFree()) > 0) {
+                    throw new IllegalArgumentException("Trading limit for " + moneyBalance.getAsset() +
+                                                       " (" + config.getMoney() + ") exceeds available amount (" + moneyBalance.getFree() + ")");
+                }
 
-            if (config.getMoney().compareTo(moneyBalance.getFree()) > 0) {
-                throw new IllegalArgumentException("Trading limit for " + moneyBalance.getAsset() +
-                                                   " (" + config.getMoney() + ") exceeds available amount (" + moneyBalance.getFree() + ")");
-            }
-
-            if (config.getGold().compareTo(BigDecimal.ZERO) == 0) {
-                config.setGold(goldBalance.getFree());
-            }
-            if (config.getMoney().compareTo(BigDecimal.ZERO) == 0) {
-                config.setMoney(moneyBalance.getFree());
+                if (config.getMoney().compareTo(BigDecimal.ZERO) == 0) {
+                    config.setMoney(moneyBalance.getFree());
+                }
             }
         }
 
@@ -288,7 +308,7 @@ public class Main {
                                // TODO: Find how to shutdown OkHttp thread pool
     }
 
-    private void printHelp() {
+    void printHelp() {
         println("Usage: nhmakerbot MARKET OPTIONS");
         println();
         println("Arguments:");
@@ -310,7 +330,7 @@ public class Main {
         println("                                Possible values are: ORDER, TRADE, DEPTH, CANDLESTICK, TICKERS, or ALL");
     }
 
-    private void processEventsArg(Config config, String value) {
+    void processEventsArg(Config config, String value) {
         String [] events = value.split(",");
         HashSet<EventType> enabledEvents = new HashSet<>();
         for (String event: events) {
@@ -330,9 +350,9 @@ public class Main {
         config.setEnabledEvents(enabledEvents);
     }
 
-    private void linkEventSources(Market market, Queue queue) {
+    void linkEventSources(Market market, Queue queue) {
         // Link up the queue with event sources
-        ExchangeWebSocketClient wsClient = ExchangeClientFactory.newWebSocketClient(wsEndpointUrl);
+        ExchangeWebSocketClient wsClient = ExchangeClientFactory.newWebSocketClient(WS_ENDPOINT_URL);
         wsClient.onDepthEvent(market.symbol(), new ClientCallback<DepthEvent>() {
             @Override
             public void onResponse(DepthEvent result) {
@@ -397,16 +417,19 @@ public class Main {
         executor.scheduleAtFixedRate(() -> queue.add(new XTimerEvent()), 1, 1, TimeUnit.SECONDS);
     }
 
-    private void printSummary(Config config, BigDecimal startPrice) {
+    void printSummary(Config config, BigDecimal startPrice) {
         Market market = config.getMarket();
-        println("Target market: " + market.symbol());
         println("Trading limits: " + config.getGold().toPlainString() + " " + market.gold());
         println("                  " + config.getMoney().toPlainString() + " " + market.money());
         println("Target price: " + startPrice);
-        println("Low Price: " + (lowPrice != null ? lowPrice :
-                "-" + new BigDecimal(config.getRelativeLowPricePct() * 100).setScale(0).toPlainString() + "%"));
-        println("High Price: " + (highPrice != null ? highPrice :
-                "+" + new BigDecimal(config.getRelativeHighPricePct() * 100).setScale(0).toPlainString() + "%"));
+
+        String lowPriceStr = new BigDecimal(config.getRelativeLowPricePct() * 100).setScale(0).toPlainString() + "%";
+        lowPriceStr = lowPriceStr.startsWith("-") ? lowPriceStr : "+" + lowPriceStr;
+        println("Low Price: " + (lowPrice != null ? lowPrice : lowPriceStr));
+
+        String hiPriceStr = new BigDecimal(config.getRelativeHighPricePct() * 100).setScale(0).toPlainString() + "%";
+        hiPriceStr = hiPriceStr.startsWith("-") ? hiPriceStr : "+" + hiPriceStr;
+        println("High Price: " + (highPrice != null ? highPrice : hiPriceStr));
 
         if (config.getPricePattern() != null) {
             println("Price pattern: " + config.getPricePattern());
@@ -426,30 +449,30 @@ public class Main {
         t.printStackTrace();
     }
 
-    private ExchangeClient defaultExchangeClient() {
+    ExchangeClient defaultExchangeClient() {
         OptionMap.Builder builder = defaultOptionBuilder();
 
         ExchangeClientFactory factory = ExchangeClientFactory.newInstance(builder.getMap());
         return factory.newClient();
     }
 
-    private OptionMap.Builder defaultOptionBuilder() {
+    OptionMap.Builder defaultOptionBuilder() {
         OptionMap.Builder builder = OptionMap.builder()
-            .set(Options.BASE_URL, endpointUrl)
-            .set(Options.WS_BASE_URL, wsEndpointUrl)
-            .set(Options.KEY, key)
-            .set(Options.SECRET, secret)
+            .set(Options.BASE_URL, ENDPOINT_URL)
+            .set(Options.WS_BASE_URL, WS_ENDPOINT_URL)
+            .set(Options.KEY, API_KEY)
+            .set(Options.SECRET, API_SECRET)
             .set(Options.READ_TIMEOUT, 60000);
 
         return builder;
     }
 
-    private void checkRequiredSettings(Config config) {
-        if (key == null) {
+    void checkRequiredSettings(Config config) {
+        if (API_KEY == null) {
             throw new RuntimeException("API KEY not set");
         }
 
-        if (secret == null) {
+        if (API_SECRET == null) {
             throw new RuntimeException("API SECRET not set");
         }
 
@@ -458,7 +481,7 @@ public class Main {
         }
     }
 
-    private double parseRelativePricePct(String arg) {
+    double parseRelativePricePct(String arg) {
         StringBuilder sb = new StringBuilder();
         sb.append(arg.charAt(0));
         for (int j = 1; j < arg.length(); j++) {

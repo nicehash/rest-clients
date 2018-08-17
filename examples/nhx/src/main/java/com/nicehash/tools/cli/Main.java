@@ -11,7 +11,7 @@ public class Main {
         if (args == null || args.length == 0) {
             System.out.println("Usage: nhx OPERATION OPTIONS");
             System.out.println();
-            System.out.println("OPERATION is one of: place-order, cancel-order, get-orders, get-open-orders");
+            System.out.println("OPERATION is one of: account-info, place-order, cancel-order, get-orders, get-open-orders");
             System.exit(1);
         }
 
