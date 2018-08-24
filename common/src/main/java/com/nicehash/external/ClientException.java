@@ -9,8 +9,11 @@ import com.nicehash.external.spi.ServiceApiError;
  * @author Ales Justin
  */
 public class ClientException extends RuntimeException {
+    private static final String NULL = "_NULL_";
+
     private int code;
     private ServiceApiError error;
+    private String errorBody;
 
     private ClientException(String message, Throwable cause, int code) {
         super(message, cause);
@@ -51,6 +54,15 @@ public class ClientException extends RuntimeException {
      * @return error body as String, can be null
      */
     public String getErrorBody() throws IOException {
-        return (error != null ? error.getBodyAsString() : null);
+        if (error == null || NULL.equals(errorBody)) {
+            return null;
+        }
+        if (errorBody == null) {
+            String body = error.getBodyAsString();
+            errorBody = (body != null) ? body : NULL;
+            return getErrorBody();
+        } else {
+            return errorBody;
+        }
     }
 }
