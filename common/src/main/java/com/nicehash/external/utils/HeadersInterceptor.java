@@ -25,7 +25,13 @@ public class HeadersInterceptor implements Interceptor {
                 Request.Builder builder = request.newBuilder();
 
                 for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
-                    entry.getValue().forEach(v -> builder.addHeader(entry.getKey(), v));
+                    String key = entry.getKey();
+                    List<String> values = entry.getValue();
+                    if (values.size() == 1) {
+                        builder.header(key, values.get(0));
+                    } else {
+                        values.forEach(v -> builder.addHeader(key, v));
+                    }
                 }
 
                 request = builder.build();
