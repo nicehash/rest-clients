@@ -1,5 +1,6 @@
 package com.nicehash.external.spi;
 
+import com.nicehash.external.utils.HeadersInterceptor;
 import com.nicehash.utils.options.OptionMap;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -29,6 +30,8 @@ public abstract class AbstractServiceBuilder implements ServiceBuilder {
                 if (writeTimeout != null) {
                     builder.writeTimeout(writeTimeout, TimeUnit.MILLISECONDS);
                 }
+
+                builder.addInterceptor(new HeadersInterceptor());
 
                 client = builder.build();
             }
