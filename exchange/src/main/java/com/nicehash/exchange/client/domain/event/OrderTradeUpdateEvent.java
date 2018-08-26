@@ -11,6 +11,8 @@ import com.nicehash.exchange.client.domain.OrderType;
 import com.nicehash.exchange.client.domain.TimeInForce;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.UUID;
+
 /**
  * Order or trade report update event.
  *
@@ -31,7 +33,7 @@ public class OrderTradeUpdateEvent {
     private String symbol;
 
     @JsonProperty("c")
-    private String newClientOrderId;
+    private String clientOrderId;
 
     /**
      * Buy/Sell order side.
@@ -85,7 +87,7 @@ public class OrderTradeUpdateEvent {
      * Order id.
      */
     @JsonProperty("i")
-    private Long orderId;
+    private UUID orderId;
 
     /**
      * Quantity of the last filled trade.
@@ -127,7 +129,7 @@ public class OrderTradeUpdateEvent {
      * Trade id.
      */
     @JsonProperty("t")
-    private Long tradeId;
+    private Integer idNumber;
 
     public String getEventType() {
         return eventType;
@@ -153,12 +155,12 @@ public class OrderTradeUpdateEvent {
         this.symbol = symbol;
     }
 
-    public String getNewClientOrderId() {
-        return newClientOrderId;
+    public String getClientOrderId() {
+        return clientOrderId;
     }
 
-    public void setNewClientOrderId(String newClientOrderId) {
-        this.newClientOrderId = newClientOrderId;
+    public void setClientOrderId(String clientOrderId) {
+        this.clientOrderId = clientOrderId;
     }
 
     public OrderSide getSide() {
@@ -225,11 +227,11 @@ public class OrderTradeUpdateEvent {
         this.orderRejectReason = orderRejectReason;
     }
 
-    public long getOrderId() {
+    public UUID getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(UUID orderId) {
         this.orderId = orderId;
     }
 
@@ -281,12 +283,12 @@ public class OrderTradeUpdateEvent {
         this.orderTradeTime = orderTradeTime;
     }
 
-    public long getTradeId() {
-        return tradeId;
+    public Integer getIdNumber() {
+        return idNumber;
     }
 
-    public void setTradeId(long tradeId) {
-        this.tradeId = tradeId;
+    public void setIdNumber(Integer idNumber) {
+        this.idNumber = idNumber;
     }
 
 
@@ -296,7 +298,7 @@ public class OrderTradeUpdateEvent {
             .append("eventType", eventType)
             .append("eventTime", eventTime)
             .append("symbol", symbol)
-            .append("newClientOrderId", newClientOrderId)
+            .append("clientOrderId", clientOrderId)
             .append("side", side)
             .append("type", type)
             .append("timeInForce", timeInForce)
@@ -312,7 +314,7 @@ public class OrderTradeUpdateEvent {
             .append("commission", commission)
             .append("commissionAsset", commissionAsset)
             .append("orderTradeTime", orderTradeTime)
-            .append("tradeId", tradeId)
+            .append("idNumber", idNumber)
             .toString();
     }
 }
