@@ -345,7 +345,7 @@ public class RandomStrategy implements Strategy {
             BigDecimal relLowPrice = config.getRelativeLowPrice();
             if (relLowPrice == null) {
                 double relLowPricePct = config.getRelativeLowPricePct();
-                lowPrice = targetPrice.multiply(new BigDecimal(1 + relLowPricePct));
+                lowPrice = targetPrice.multiply(new BigDecimal(1 + (relLowPricePct / 100.0)));
             } else {
                 lowPrice = targetPrice.add(relLowPrice);
             }
@@ -359,7 +359,7 @@ public class RandomStrategy implements Strategy {
             BigDecimal relHighPrice = config.getRelativeHighPrice();
             if (relHighPrice == null) {
                 double relHighPricePct = config.getRelativeHighPricePct();
-                highPrice = targetPrice.multiply(new BigDecimal(1 + relHighPricePct));
+                highPrice = targetPrice.multiply(new BigDecimal(1 + (relHighPricePct / 100.0)));
             } else {
                 highPrice = targetPrice.add(relHighPrice);
             }
