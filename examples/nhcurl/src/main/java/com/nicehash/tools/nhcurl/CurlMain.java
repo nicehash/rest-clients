@@ -134,9 +134,6 @@ See `man curl` for more
                         } else {
                             url = interpolate(arg);
                             argls.add(url);
-                            if (method == null) {
-                                method = "GET";
-                            }
                         }
                     }
                 }
@@ -148,8 +145,12 @@ See `man curl` for more
             System.exit(1);
         }
 
+        if (method == null) {
+            method = "GET";
+        }
+
         StringBuilder cmd = new StringBuilder("curl");
-        argls.forEach((a) -> cmd.append(" \"").append(a).append("\""));
+        argls.forEach((a) -> cmd.append(" \'").append(a).append("\'"));
         digestArgs(url).forEach((a) -> cmd.append(" \"").append(a).append("\""));
 
         //System.out.println(cmd);
@@ -228,9 +229,15 @@ See `man curl` for more
     }
 
     private void addData(String arg, String keyval, boolean encode) {
-        int idx = keyval.indexOf("=");
-        String name = idx == -1 ? keyval : keyval.substring(0, idx);
-        String value = idx == -1 ? null : keyval.substring(idx + 1);
+        String name = null;
+        String value = null;
+        if (keyval == null) {
+            name = arg;
+        } else {
+            int idx = keyval.indexOf("=");
+            name = idx == -1 ? keyval : keyval.substring(0, idx);
+            value = idx == -1 ? null : keyval.substring(idx + 1);
+        }
         try {
             addBody(name, encode && value != null ? URLEncoder.encode(value, "utf-8") : value);
         } catch (UnsupportedEncodingException e) {
