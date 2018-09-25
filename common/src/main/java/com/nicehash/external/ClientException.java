@@ -1,9 +1,9 @@
 package com.nicehash.external;
 
+import com.nicehash.external.spi.ServiceApiError;
+
 import java.io.IOException;
 import java.io.InputStream;
-
-import com.nicehash.external.spi.ServiceApiError;
 
 /**
  * @author Ales Justin
@@ -27,6 +27,16 @@ public class ClientException extends RuntimeException {
     public ClientException(ServiceApiError apiError) {
         this(apiError.getMessage(), null, apiError.getCode());
         this.error = apiError;
+    }
+
+    @Override
+    public String getMessage() {
+        String msg = super.getMessage();
+        try {
+            return String.format("%s [%s]", msg, getErrorBody());
+        } catch (IOException e) {
+            return msg;
+        }
     }
 
     /**
