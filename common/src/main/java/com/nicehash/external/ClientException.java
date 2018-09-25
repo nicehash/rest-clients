@@ -40,6 +40,15 @@ public class ClientException extends RuntimeException {
     }
 
     /**
+     * Get short / original message.
+     *
+     * @return short message, w/o error body
+     */
+    public String getShortMessage() {
+        return super.getMessage();
+    }
+
+    /**
      * Return http status code or -1 if it cannot be gathered.
      *
      * @return status code or -1
