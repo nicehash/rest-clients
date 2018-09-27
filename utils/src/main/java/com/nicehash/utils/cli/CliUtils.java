@@ -53,61 +53,55 @@ public class CliUtils {
     }
 
     public static String getNicehashUrl(String defaultValue) {
-        String value = System.getProperty("nicehash.url");
-        if (value == null || value.length() == 0) {
-            value = System.getenv("NICEHASH_URL");
-        }
-
-        value = value != null && value.length() > 0 ? value : defaultValue;
+        String value = getConfiguration("nicehash.url", defaultValue);
         value = value.endsWith("/") ? value : value + "/";
         return value;
     }
 
     public static String getNicehashWsUrl(String defaultValue) {
-        String value = System.getProperty("nicehash.ws.url");
-        if (value == null || value.length() == 0) {
-            value = System.getenv("NICEHASH_WS_URL");
-        }
-
-        value = value != null && value.length() > 0 ? value : defaultValue;
+        String value = getConfiguration("nicehash.ws.url", defaultValue);
         value = value.endsWith("/") ? value : value;
         return value;
     }
 
     public static String getApiKey(String defaultValue) {
-        String value = System.getProperty("nicehash.api.key");
-        if (value == null || value.length() == 0) {
-            value = System.getenv("NICEHASH_API_KEY");
-        }
-
-        return value != null && value.length() > 0 ? value : defaultValue;
+        return getConfiguration("nicehash.api.key", defaultValue);
     }
 
     public static String getApiSecret(String defaultValue) {
-        String value = System.getProperty("nicehash.api.secret");
-        if (value == null || value.length() == 0) {
-            value = System.getenv("NICEHASH_API_SECRET");
-        }
-
-        return value != null && value.length() > 0 ? value : defaultValue;
+        return getConfiguration("nicehash.api.secret", defaultValue);
     }
 
     public static String getOrganisationId(String defaultValue) {
-        String value = System.getProperty("nicehash.organisation.id");
-        if (value == null || value.length() == 0) {
-            value = System.getenv("NICEHASH_ORGANISATION_ID");
-        }
-
-        return value != null && value.length() > 0 ? value : defaultValue;
+        return getConfiguration("nicehash.organisation.id", defaultValue);
     }
 
     public static String getUserId(String defaultValue) {
-        String value = System.getProperty("nicehash.user.id");
-        if (value == null || value.length() == 0) {
-            value = System.getenv("NICEHASH_USER_ID");
-        }
+        return getConfiguration("nicehash.user.id", defaultValue);
+    }
 
-        return value != null && value.length() > 0 ? value : defaultValue;
+    public static String getConfiguration(String propertyName, String defaultValue) {
+        String value = System.getProperty(propertyName);
+        if (value == null || value.length() == 0) {
+            value = System.getenv(toEnvPropertyName(propertyName));
+        }
+        return value != null && value.trim().length() > 0 ? value.trim() : defaultValue;
+    }
+
+    public static String toEnvPropertyName(String propertyName) {
+        StringBuilder sb = new StringBuilder();
+        for (char c: propertyName.toCharArray()) {
+            if (Character.isUpperCase(c) || (c == '_')) {
+                sb.append(c);
+            } else if (Character.isLowerCase(c)) {
+                sb.append(Character.toUpperCase(c));
+            } else if (c == '-' || c == '.') {
+                sb.append('_');
+            } else {
+                throw new IllegalArgumentException("Invalid character in property name ('" + propertyName + "'): '" + c + "'");
+            }
+        }
+        return sb.toString();
     }
 
     public static UUID asUUID(String name, String val) {
