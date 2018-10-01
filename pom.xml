@@ -25,6 +25,7 @@
   <modules>
     <module>utils</module>
     <module>common</module>
+    <module>domain</module>
     <module>exchange</module>
     <module>examples</module>
   </modules>

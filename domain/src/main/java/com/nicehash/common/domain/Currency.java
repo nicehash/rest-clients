@@ -1,4 +1,4 @@
-package com.nicehash.external.domain;
+package com.nicehash.common.domain;
 
 /**
  * @author Ales Justin
