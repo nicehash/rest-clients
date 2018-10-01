@@ -1,5 +1,7 @@
 package com.nicehash.common.domain;
 
+import java.math.BigDecimal;
+
 /**
  * @author Ales Justin
  */
@@ -30,17 +32,28 @@ public enum Currency {
      */
     public static final int MAX_SCALE = 8;
 
+    /**
+     * Default subunits.
+     */
+    public static final int SUBUNITS = 10_000_000;
+
     private final int precision;
     private final int scale;
     private final String description;
     private final boolean test;
+    private final BigDecimal subunits;
     private final int order;
 
     Currency(int precision, int scale, String description, boolean test, int order) {
+        this(precision, scale, description, test, SUBUNITS, order);
+    }
+
+    Currency(int precision, int scale, String description, boolean test, int subunits, int order) {
         this.precision = precision;
         this.scale = scale;
         this.description = description;
         this.test = test;
+        this.subunits = new BigDecimal(subunits);
         this.order = order;
     }
 
@@ -71,6 +84,13 @@ public enum Currency {
      */
     public boolean isTest() {
         return test;
+    }
+
+    /**
+     * @return currency's subunits
+     */
+    public BigDecimal subunits() {
+        return subunits;
     }
 
     /**
