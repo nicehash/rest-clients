@@ -263,8 +263,8 @@ See `man curl` for more
         try {
             uri = new URI(url);
 
-            String path = uri.getPath();
-            String query = uri.getQuery();
+            String path = uri.getRawPath();
+            String query = uri.getRawQuery();
 
             String time = String.valueOf(System.currentTimeMillis());
             String nonce = UUID.randomUUID().toString();
