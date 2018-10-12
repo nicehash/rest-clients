@@ -7,20 +7,20 @@ import java.math.BigDecimal;
  */
 public enum Currency {
 
-    BTC(20, 8, "Bitcoin", false, 1),
-    ETH(20, 8, "Ethereum", false, 2),
-    XRP(20, 8, "Ripple", false, 3), // TODO -- currently only for test, check actual subunits!
-    BCH(20, 8, "Bitcoin cash", false, 4), // TODO -- currently only for test, check actual subunits!
-    LTC(20, 8, "Litecoin", false, 5),
-    ZEC(20, 8, "Zcash", false, 6), // TODO -- currently only for test, check actual subunits!
+    BTC("TBTC", 20, 8, "Bitcoin", false, 1),
+    ETH("TETH", 20, 8, "Ethereum", false, 2),
+    XRP("TXRP", 20, 8, "Ripple", false, 3), // TODO -- currently only for test, check actual subunits!
+    BCH("TBCH", 20, 8, "Bitcoin cash", false, 4), // TODO -- currently only for test, check actual subunits!
+    LTC("TLTC", 20, 8, "Litecoin", false, 5),
+    ZEC("TZEC", 20, 8, "Zcash", false, 6), // TODO -- currently only for test, check actual subunits!
 
     // testnet currencies
-    TBTC(20, 8, "Bitcoin test", true, 1),
-    TETH(20, 8, "Ethereum test", true, 2),
-    TXRP(20, 8, "Ripple test", true, 3),
-    TBCH(20, 8, "Bitcoin cash test", true, 4),
-    TLTC(20, 8, "Litecoin test", true, 5),
-    TZEC(20, 8, "Zcash test", true, 6);
+    TBTC("BTC", 20, 8, "Bitcoin test", true, 1),
+    TETH("ETH", 20, 8, "Ethereum test", true, 2),
+    TXRP("XRP", 20, 8, "Ripple test", true, 3),
+    TBCH("BCH", 20, 8, "Bitcoin cash test", true, 4),
+    TLTC("LTC", 20, 8, "Litecoin test", true, 5),
+    TZEC("ZEC", 20, 8, "Zcash test", true, 6);
 
     /**
      * Maximum {@link #precision()} of any currency in this enum.
@@ -37,6 +37,7 @@ public enum Currency {
      */
     public static final int SUBUNITS = 10_000_000;
 
+    private final String alt;
     private final int precision;
     private final int scale;
     private final String description;
@@ -44,17 +45,28 @@ public enum Currency {
     private final BigDecimal subunits;
     private final int order;
 
-    Currency(int precision, int scale, String description, boolean test, int order) {
-        this(precision, scale, description, test, SUBUNITS, order);
+    Currency(String alt, int precision, int scale, String description, boolean test, int order) {
+        this(alt, precision, scale, description, test, SUBUNITS, order);
     }
 
-    Currency(int precision, int scale, String description, boolean test, int subunits, int order) {
+    Currency(String alt, int precision, int scale, String description, boolean test, int subunits, int order) {
+        this.alt = alt;
         this.precision = precision;
         this.scale = scale;
         this.description = description;
         this.test = test;
         this.subunits = new BigDecimal(subunits);
         this.order = order;
+    }
+
+    /**
+     * Get alternative currency, if one exists.
+     * e.g. its testing alternative; BTC <-> TBTC
+     *
+     * @return alternative currency or null if no such alternative
+     */
+    public Currency getAlt() {
+        return (alt != null) ? valueOf(alt) : null;
     }
 
     /**
