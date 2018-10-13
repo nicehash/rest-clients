@@ -230,9 +230,9 @@ public interface ExchangeClient extends Closeable {
     Account getAccount();
 
     /**
-     * Get current fee percent using default parameters.
+     * Get current fee coefficient using default parameters.
      */
-    BigDecimal getFeePercent();
+    BigDecimal getFeeCoefficient();
 
     /**
      * Get trades for a specific account and symbol.

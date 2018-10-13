@@ -136,8 +136,8 @@ public interface ExchangeService {
     Call<Account> getAccount(@Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
     @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
-    @GET("api/v1/fee_percent")
-    Call<BigDecimal> getFeePercent(@Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
+    @GET("api/v1/fee_coefficient")
+    Call<BigDecimal> getFeeCoefficient(@Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
     @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/myTrades")

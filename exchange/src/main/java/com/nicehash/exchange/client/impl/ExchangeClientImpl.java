@@ -203,8 +203,8 @@ public class ExchangeClientImpl implements ExchangeClient, ServiceHandle<Exchang
     }
 
     @Override
-    public BigDecimal getFeePercent() {
-        return executeSync(getServiceInterface(), service.getFeePercent(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    public BigDecimal getFeeCoefficient() {
+        return executeSync(getServiceInterface(), service.getFeeCoefficient(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
 
     @Override
