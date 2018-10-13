@@ -11,7 +11,16 @@ public class CurrencyTest {
     @Test
     public void testDefault() {
         for (Currency currency : Currency.values()) {
-            Assert.assertSame(currency.getAlt(), currency.getAlt().getAlt().getAlt());
+            Currency alt = currency.getAlt();
+            if (alt != null) {
+                // Alt's alt is this currency again ...
+                Assert.assertSame(currency, alt.getAlt());
+            }
+
+            // All test currencies should have alt, right?
+            if (currency.isTest()) {
+                Assert.assertNotNull(alt);
+            }
         }
     }
 }

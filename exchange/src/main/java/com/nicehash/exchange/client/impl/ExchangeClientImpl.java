@@ -29,6 +29,7 @@ import com.nicehash.utils.options.OptionMap;
 
 import static com.nicehash.external.gen.ClientGenerator.executeSync;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -199,6 +200,11 @@ public class ExchangeClientImpl implements ExchangeClient, ServiceHandle<Exchang
     @Override
     public Account getAccount() {
         return getAccount(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis());
+    }
+
+    @Override
+    public BigDecimal getFeePercent() {
+        return executeSync(getServiceInterface(), service.getFeePercent(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
 
     @Override

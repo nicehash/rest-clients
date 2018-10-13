@@ -24,6 +24,7 @@ import com.nicehash.exchange.client.impl.ExchangeClientImpl;
 import com.nicehash.external.spi.ClientImplementation;
 
 import java.io.Closeable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -227,6 +228,11 @@ public interface ExchangeClient extends Closeable {
      * Get current account information using default parameters.
      */
     Account getAccount();
+
+    /**
+     * Get current fee percent using default parameters.
+     */
+    BigDecimal getFeePercent();
 
     /**
      * Get trades for a specific account and symbol.
