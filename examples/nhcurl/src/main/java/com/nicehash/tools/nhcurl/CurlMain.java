@@ -159,11 +159,17 @@ See `man curl` for more
 
         Thread t1 = null, t2 = null;
         if (stdoutMode || !stderrMode) {
-            t1 = new Thread(() -> copyBytes(p.getInputStream(), System.out, noBuffer));
+            t1 = new Thread(() -> {
+                copyBytes(p.getInputStream(), System.out, noBuffer);
+                System.out.flush();
+            });
             t1.start();
         }
         if (stderrMode) {
-            t2 = new Thread(() -> copyBytes(p.getErrorStream(), System.err, noBuffer));
+            t2 = new Thread(() -> {
+                copyBytes(p.getErrorStream(), System.err, noBuffer);
+                System.err.flush();
+            });
             t2.start();
         }
 
