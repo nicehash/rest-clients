@@ -19,6 +19,8 @@ public abstract class AbstractServiceBuilder implements ServiceBuilder {
             if (client == null) {
                 OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
+                builder.addInterceptor(new HeadersInterceptor());
+
                 buildHttpClient(optionMap, builder);
 
                 Long readTimeout = optionMap.get(Options.READ_TIMEOUT);
@@ -30,8 +32,6 @@ public abstract class AbstractServiceBuilder implements ServiceBuilder {
                 if (writeTimeout != null) {
                     builder.writeTimeout(writeTimeout, TimeUnit.MILLISECONDS);
                 }
-
-                builder.addInterceptor(new HeadersInterceptor());
 
                 client = builder.build();
             }
