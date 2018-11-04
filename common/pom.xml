@@ -20,7 +20,7 @@
   <dependencies>
     <dependency>
       <groupId>com.nicehash</groupId>
-      <artifactId>utils</artifactId>
+      <artifactId>clients-utils</artifactId>
     </dependency>
 
     <dependency>

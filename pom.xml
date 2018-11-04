@@ -9,6 +9,9 @@
   <version>1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <name>NiceHash REST clients</name>
+  <description>NiceHash REST clients -- all public REST clients</description>
+
   <properties>
     <com.squareup.retrofit2.version>2.4.0</com.squareup.retrofit2.version>
     <slf4j.version>1.7.25</slf4j.version>
@@ -35,12 +38,17 @@
       <!-- Project -->
       <dependency>
         <groupId>com.nicehash</groupId>
-        <artifactId>utils</artifactId>
+        <artifactId>clients-utils</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.nicehash</groupId>
         <artifactId>clients-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.nicehash</groupId>
+        <artifactId>clients-exchange</artifactId>
         <version>${project.version}</version>
       </dependency>
       <!-- Deps -->

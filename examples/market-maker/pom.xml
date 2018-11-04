@@ -21,12 +21,10 @@
     <dependency>
       <groupId>com.nicehash</groupId>
       <artifactId>clients-exchange</artifactId>
-      <version>1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.nicehash</groupId>
-      <artifactId>utils</artifactId>
-      <version>1-SNAPSHOT</version>
+      <artifactId>clients-utils</artifactId>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
