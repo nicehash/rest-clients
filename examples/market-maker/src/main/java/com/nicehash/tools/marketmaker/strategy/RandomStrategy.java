@@ -263,7 +263,7 @@ public class RandomStrategy implements Strategy {
                     client.cancelOrder(new CancelOrderRequest(oldOrder.getSymbol(), oldOrder.getOrderId()));
                     orders.remove(oldOrder.getOrderId());
                     System.out.println("Failed to create order: " + e.toString());
-                    System.out.println("Cancelled some order: " + oldOrder.getOrderId());
+                    System.out.println("Cancelled some order: " + oldOrder.getOrderId() + " [" + oldOrder + "]");
 
                     if (oldOrder.getSide() == OrderSide.BUY) {
                         BigDecimal reserve = oldOrder.getPrice().multiply(oldOrder.getOrigQty());
@@ -274,6 +274,9 @@ public class RandomStrategy implements Strategy {
                         gold.add(reserve);
                         goldFreeze.subtract(reserve);
                     }
+
+                    System.out.println("  Money after: " + money.toPlainString());
+                    System.out.println("   Gold after: " + gold.toPlainString());
                     return;
                 }
             }
