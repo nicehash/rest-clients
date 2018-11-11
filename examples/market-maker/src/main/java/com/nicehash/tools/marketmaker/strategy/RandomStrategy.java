@@ -233,16 +233,16 @@ public class RandomStrategy implements Strategy {
                 if (money.compareTo(reserve) < 0) {
                     throw new RuntimeException("Reached money limit - required funds: " + reserve.toPlainString() + ", available: " + money.toPlainString());
                 } else {
-                    money.subtract(reserve);
-                    moneyFreeze.add(reserve);
+                    money = money.subtract(reserve);
+                    moneyFreeze = moneyFreeze.add(reserve);
                 }
             } else {
                 BigDecimal reserve = newOrder.getQuantity();
                 if (gold.compareTo(reserve) < 0) {
                     throw new RuntimeException("Reached gold limit - required amount: " + reserve.toPlainString() + ", available: " + gold.toPlainString());
                 } else {
-                    gold.subtract(reserve);
-                    goldFreeze.add(reserve);
+                    gold = gold.subtract(reserve);
+                    goldFreeze = goldFreeze.add(reserve);
                 }
             }
 
@@ -267,12 +267,12 @@ public class RandomStrategy implements Strategy {
 
                     if (oldOrder.getSide() == OrderSide.BUY) {
                         BigDecimal reserve = oldOrder.getPrice().multiply(oldOrder.getOrigQty());
-                        money.add(reserve);
-                        moneyFreeze.subtract(reserve);
+                        money = money.add(reserve);
+                        moneyFreeze = moneyFreeze.subtract(reserve);
                     } else {
                         BigDecimal reserve = oldOrder.getOrigQty();
-                        gold.add(reserve);
-                        goldFreeze.subtract(reserve);
+                        gold = gold.add(reserve);
+                        goldFreeze = goldFreeze.subtract(reserve);
                     }
 
                     System.out.println("  Money after: " + money.toPlainString());
@@ -325,8 +325,8 @@ public class RandomStrategy implements Strategy {
         return p;
     }
 
-    private double getBlockSize(BigDecimal lowPrice, BigDecimal highPrice, int pricePatternBlockCount) {
-        return (highPrice.doubleValue() - lowPrice.doubleValue()) / pricePatternBlockCount;
+    private double getBlockSize(BigDecimal lowPrice, BigDecimal highPrice, int priceBracketsCount) {
+        return (highPrice.doubleValue() - lowPrice.doubleValue()) / priceBracketsCount;
     }
 
     private double getBlockLowPrice(int block, BigDecimal lowPrice, BigDecimal highPrice, double blockSize) {
