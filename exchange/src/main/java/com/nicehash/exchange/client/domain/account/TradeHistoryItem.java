@@ -29,6 +29,11 @@ public class TradeHistoryItem {
     private BigDecimal qty;
 
     /**
+     * Secondary Quantity.
+     */
+    private BigDecimal sndQty;
+
+    /**
      * Trade execution time.
      */
     private long time;
@@ -78,6 +83,14 @@ public class TradeHistoryItem {
 
     public void setQty(BigDecimal qty) {
         this.qty = qty;
+    }
+
+    public BigDecimal getSndQty() {
+        return sndQty;
+    }
+
+    public void setSndQty(BigDecimal sndQty) {
+        this.sndQty = sndQty;
     }
 
     public long getTime() {
@@ -131,6 +144,7 @@ public class TradeHistoryItem {
             .append("idNumber", idNumber)
             .append("price", price)
             .append("qty", qty)
+            .append("sndQty", sndQty)
             .append("time", time)
             .append("isBuyer", buyer)
             .append("isMaker", maker)
