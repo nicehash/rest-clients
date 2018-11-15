@@ -24,6 +24,11 @@
     </dependency>
 
     <dependency>
+      <groupId>com.nicehash</groupId>
+      <artifactId>clients-domain</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>

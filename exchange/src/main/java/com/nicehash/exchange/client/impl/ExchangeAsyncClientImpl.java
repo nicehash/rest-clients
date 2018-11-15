@@ -3,7 +3,7 @@ package com.nicehash.exchange.client.impl;
 import com.nicehash.exchange.client.ExchangeAsyncClient;
 import com.nicehash.exchange.client.constant.ExchangeConstants;
 import com.nicehash.exchange.client.domain.ListObject;
-import com.nicehash.exchange.client.domain.RelationalOp;
+import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.domain.SingleOrListObject;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.account.Account;
@@ -209,6 +209,7 @@ public class ExchangeAsyncClientImpl implements ExchangeAsyncClient, ServiceHand
     @Override
     public void getAllOrders(AllOrdersRequest orderRequest, ClientCallback<List<Order>> callback) {
         executeAsync(getServiceInterface(), service.getAllOrders(orderRequest.getSymbol(), orderRequest.getRelationalOp(), orderRequest.getSubmitNumber(),
+                                                                 orderRequest.getSubmitTime(), orderRequest.getTerminated(),
                                                                  orderRequest.getLimit(), orderRequest.getSortDirection(),
                                                                  orderRequest.getRecvWindow(), orderRequest.getTimestamp()), wrapList(callback));
     }
@@ -230,7 +231,7 @@ public class ExchangeAsyncClientImpl implements ExchangeAsyncClient, ServiceHand
     }
 
     @Override
-    public void getMyTrades(String symbol, RelationalOp relationalOp, Long tradeNumber, Integer limit, SortDirection sortDirection, Long recvWindow, Long timestamp, ClientCallback<List<Trade>> callback) {
+    public void getMyTrades(String symbol, OrderRelOp relationalOp, Long tradeNumber, Integer limit, SortDirection sortDirection, Long recvWindow, Long timestamp, ClientCallback<List<Trade>> callback) {
         executeAsync(getServiceInterface(), service.getMyTrades(symbol, relationalOp, tradeNumber, limit, sortDirection, recvWindow, timestamp), wrapList(callback));
     }
 

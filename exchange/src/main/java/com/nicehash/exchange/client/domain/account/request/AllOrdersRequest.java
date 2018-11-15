@@ -1,8 +1,6 @@
 package com.nicehash.exchange.client.domain.account.request;
 
-import com.nicehash.exchange.client.constant.ExchangeConstants;
-import com.nicehash.exchange.client.domain.RelationalOp;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.nicehash.common.domain.OrderRelOp;
 
 /**
  * A specialized order request with additional filters.
@@ -11,9 +9,13 @@ public class AllOrdersRequest extends OrderRequest {
 
     private static final Integer DEFAULT_LIMIT = 500;
 
-    private RelationalOp relationalOp;
+    private OrderRelOp relationalOp;
 
     private Long submitNumber;
+
+    private Long submitTime;
+
+    private Boolean terminated;
 
     private Integer limit;
 
@@ -22,11 +24,11 @@ public class AllOrdersRequest extends OrderRequest {
         this.limit = DEFAULT_LIMIT;
     }
 
-    public RelationalOp getRelationalOp() {
+    public OrderRelOp getRelationalOp() {
         return relationalOp;
     }
 
-    public AllOrdersRequest relationalOp(RelationalOp relationalOp) {
+    public AllOrdersRequest relationalOp(OrderRelOp relationalOp) {
         this.relationalOp = relationalOp;
         return this;
     }
@@ -39,6 +41,25 @@ public class AllOrdersRequest extends OrderRequest {
         this.submitNumber = submitNumber;
         return this;
     }
+
+    public Long getSubmitTime() {
+        return submitTime;
+    }
+
+    public AllOrdersRequest submitTime(Long submitTime) {
+        this.submitTime = submitTime;
+        return this;
+    }
+
+    public Boolean getTerminated() {
+        return terminated;
+    }
+
+    public AllOrdersRequest terminated(Boolean terminated) {
+        this.terminated = terminated;
+        return this;
+    }
+
     public Integer getLimit() {
         return limit;
     }
@@ -50,11 +71,12 @@ public class AllOrdersRequest extends OrderRequest {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ExchangeConstants.TO_STRING_BUILDER_STYLE)
-            .append(super.toString())
-            .append("relationalOp", relationalOp)
-            .append("submitNumber", submitNumber)
-            .append("limit", limit)
-            .toString();
+        return "AllOrdersRequest{" +
+               "relationalOp=" + relationalOp +
+               ", submitNumber=" + submitNumber +
+               ", submitTime=" + submitTime +
+               ", terminated=" + terminated +
+               ", limit=" + limit +
+               '}';
     }
 }

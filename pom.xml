@@ -48,6 +48,11 @@
       </dependency>
       <dependency>
         <groupId>com.nicehash</groupId>
+        <artifactId>clients-domain</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.nicehash</groupId>
         <artifactId>clients-exchange</artifactId>
         <version>${project.version}</version>
       </dependency>

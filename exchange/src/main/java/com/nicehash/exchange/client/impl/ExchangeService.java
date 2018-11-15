@@ -1,8 +1,8 @@
 package com.nicehash.exchange.client.impl;
 
+import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.domain.OrderSide;
 import com.nicehash.exchange.client.domain.OrderType;
-import com.nicehash.exchange.client.domain.RelationalOp;
 import com.nicehash.exchange.client.domain.SingleOrListObject;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.TimeInForce;
@@ -128,7 +128,8 @@ public interface ExchangeService {
 
     @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/allOrders")
-    Call<Orders> getAllOrders(@Query("symbol") String symbol, @Query("relationalOp") RelationalOp relationalOp, @Query("submitNumber") Long submitNumber, @Query("limit") Integer limit,
+    Call<Orders> getAllOrders(@Query("symbol") String symbol, @Query("relationalOp") OrderRelOp relationalOp, @Query("submitNumber") Long submitNumber,
+                              @Query("submitTime") Long submitTime, @Query("terminated") Boolean terminated, @Query("limit") Integer limit,
                               @Query("sortDirection") SortDirection sortDirection, @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
     @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
@@ -141,7 +142,7 @@ public interface ExchangeService {
 
     @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/myTrades")
-    Call<Trades> getMyTrades(@Query("symbol") String symbol, @Query("relationalOp") RelationalOp relationalOp, @Query("tradeNumber") Long tradeNumber,
+    Call<Trades> getMyTrades(@Query("symbol") String symbol, @Query("relationalOp") OrderRelOp relationalOp, @Query("tradeNumber") Long tradeNumber,
                              @Query("limit") Integer limit, @Query("sortDirection") SortDirection sortDirection, @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
     // User stream endpoints

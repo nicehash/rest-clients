@@ -1,6 +1,6 @@
 package com.nicehash.exchange.client;
 
-import com.nicehash.exchange.client.domain.RelationalOp;
+import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.account.Account;
 import com.nicehash.exchange.client.domain.account.NewOrder;
@@ -255,7 +255,7 @@ public interface ExchangeAsyncClient {
      * @param sortDirection the sort direction
      * @param callback          the callback that handles the response with a list of trades
      */
-    void getMyTrades(String symbol, RelationalOp relationalOp, Long tradeNumber, Integer limit, SortDirection sortDirection, Long recvWindow, Long timestamp, ClientCallback<List<Trade>> callback);
+    void getMyTrades(String symbol, OrderRelOp relationalOp, Long tradeNumber, Integer limit, SortDirection sortDirection, Long recvWindow, Long timestamp, ClientCallback<List<Trade>> callback);
 
     /**
      * Get trades for a specific account and symbol.

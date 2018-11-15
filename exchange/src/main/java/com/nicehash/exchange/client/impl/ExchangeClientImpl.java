@@ -1,8 +1,8 @@
 package com.nicehash.exchange.client.impl;
 
+import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.ExchangeClient;
 import com.nicehash.exchange.client.constant.ExchangeConstants;
-import com.nicehash.exchange.client.domain.RelationalOp;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.account.Account;
 import com.nicehash.exchange.client.domain.account.NewOrder;
@@ -182,6 +182,7 @@ public class ExchangeClientImpl implements ExchangeClient, ServiceHandle<Exchang
     @Override
     public List<Order> getAllOrders(AllOrdersRequest orderRequest) {
         return executeSync(getServiceInterface(), service.getAllOrders(orderRequest.getSymbol(), orderRequest.getRelationalOp(), orderRequest.getSubmitNumber(),
+                                                                       orderRequest.getSubmitTime(), orderRequest.getTerminated(),
                                                                        orderRequest.getLimit(), orderRequest.getSortDirection(),
                                                                        orderRequest.getRecvWindow(), orderRequest.getTimestamp())
         ).getList();
@@ -208,7 +209,7 @@ public class ExchangeClientImpl implements ExchangeClient, ServiceHandle<Exchang
     }
 
     @Override
-    public List<Trade> getMyTrades(String symbol, RelationalOp relationalOp, Long tradeNumber, Integer limit, SortDirection sortDirection, Long recvWindow, Long timestamp) {
+    public List<Trade> getMyTrades(String symbol, OrderRelOp relationalOp, Long tradeNumber, Integer limit, SortDirection sortDirection, Long recvWindow, Long timestamp) {
         return executeSync(getServiceInterface(), service.getMyTrades(symbol, relationalOp, tradeNumber, limit, sortDirection, recvWindow, timestamp)).getList();
     }
 
