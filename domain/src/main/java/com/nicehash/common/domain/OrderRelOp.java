@@ -8,17 +8,19 @@ import java.util.function.IntPredicate;
  * @author Peter Levart
  */
 public enum OrderRelOp implements IntPredicate {
-    GT(SortDirection.ASC, cmp -> cmp > 0),
-    GE(SortDirection.ASC, cmp -> cmp >= 0),
-    LT(SortDirection.DESC, cmp -> cmp < 0),
-    LE(SortDirection.DESC, cmp -> cmp <= 0);
+    GT(SortDirection.ASC, cmp -> cmp > 0, ">"),
+    GE(SortDirection.ASC, cmp -> cmp >= 0, ">="),
+    LT(SortDirection.DESC, cmp -> cmp < 0, "<"),
+    LE(SortDirection.DESC, cmp -> cmp <= 0, "<=");
 
     private final SortDirection sortDirection;
     private final IntPredicate cmpPredicate;
+    private final String operator;
 
-    OrderRelOp(SortDirection sortDirection, IntPredicate cmpPredicate) {
+    OrderRelOp(SortDirection sortDirection, IntPredicate cmpPredicate, String operator) {
         this.sortDirection = sortDirection;
         this.cmpPredicate = cmpPredicate;
+        this.operator = operator;
     }
 
     /**
@@ -58,5 +60,21 @@ public enum OrderRelOp implements IntPredicate {
      */
     public SortDirection sortDirection() {
         return sortDirection;
+    }
+
+    /**
+     * Get string representation of this operator.
+     *
+     * <ul>
+     * <li>{@link #GT} -> > </li>
+     * <li>{@link #GE} -> >= </li>
+     * <li>{@link #LT} -> < </li>
+     * <li>{@link #LE} -> <= </li>
+     * </ul>
+     *
+     * @return string representation of this operator
+     */
+    public String getOperator() {
+        return operator;
     }
 }
