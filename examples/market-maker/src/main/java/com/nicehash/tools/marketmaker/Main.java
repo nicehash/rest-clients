@@ -247,7 +247,7 @@ public class Main {
                     BigDecimal moneyTotal;
                     if (market.gold().equalsIgnoreCase(a.getAsset())) {
                         goldBalance = a;
-                        moneyTotal = total.multiply(new BigDecimal(currentPrice.getPrice())).setScale(8, RoundingMode.HALF_UP);
+                        moneyTotal = currentPrice == null ? BigDecimal.ZERO : total.multiply(new BigDecimal(currentPrice.getPrice())).setScale(8, RoundingMode.HALF_UP);
                     } else {
                         moneyBalance = a;
                         moneyTotal = total;

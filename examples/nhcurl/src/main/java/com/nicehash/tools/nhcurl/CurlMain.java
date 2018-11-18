@@ -3,7 +3,7 @@ package com.nicehash.tools.nhcurl;
 import com.nicehash.utils.cli.CliUtils;
 
 import static com.nicehash.utils.cli.CryptoUtils.generateWsKey;
-import static com.nicehash.utils.cli.CryptoUtils.hmacSha256;
+import static com.nicehash.utils.cli.CryptoUtils.hashBySegments;
 import static com.nicehash.utils.cli.IoUtils.copyBytes;
 
 import java.io.UnsupportedEncodingException;
@@ -275,15 +275,7 @@ See `man curl` for more
             String time = String.valueOf(System.currentTimeMillis());
             String nonce = UUID.randomUUID().toString();
 
-            String input = API_KEY +
-                           time +
-                           nonce +
-                           method +
-                           (path == null ? "" : path) +
-                           (query == null || "".equals(query) ? "" : "?" + query) +
-                           body;
-
-            String digest = hmacSha256(API_SECRET, input);
+            String digest = hashBySegments(API_SECRET, API_KEY, time, nonce, method, path, query, body.toString());
 
             // Uncomment the following to see real working values for authentication
 /*
