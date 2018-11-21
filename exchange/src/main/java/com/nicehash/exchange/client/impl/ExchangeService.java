@@ -7,6 +7,7 @@ import com.nicehash.exchange.client.domain.SingleOrListObject;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.TimeInForce;
 import com.nicehash.exchange.client.domain.account.Account;
+import com.nicehash.exchange.client.domain.account.FeeStatus;
 import com.nicehash.exchange.client.domain.account.NewOrderResponse;
 import com.nicehash.exchange.client.domain.account.Order;
 import com.nicehash.exchange.client.domain.account.Orders;
@@ -137,8 +138,8 @@ public interface ExchangeService {
     Call<Account> getAccount(@Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
     @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
-    @GET("api/v1/fee_coefficient")
-    Call<BigDecimal> getFeeCoefficient(@Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
+    @GET("api/v1/feeStatus")
+    Call<FeeStatus> getFeeStatus(@Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
     @Headers(HeaderConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("api/v1/myTrades")

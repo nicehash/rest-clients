@@ -3,6 +3,7 @@ package com.nicehash.exchange.client;
 import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.account.Account;
+import com.nicehash.exchange.client.domain.account.FeeStatus;
 import com.nicehash.exchange.client.domain.account.NewOrder;
 import com.nicehash.exchange.client.domain.account.NewOrderResponse;
 import com.nicehash.exchange.client.domain.account.Order;
@@ -24,7 +25,6 @@ import com.nicehash.exchange.client.impl.ExchangeClientImpl;
 import com.nicehash.external.spi.ClientImplementation;
 
 import java.io.Closeable;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -230,9 +230,9 @@ public interface ExchangeClient extends Closeable {
     Account getAccount();
 
     /**
-     * Get current fee coefficient using default parameters.
+     * Get current fee status using default parameters.
      */
-    BigDecimal getFeeCoefficient();
+    FeeStatus getFeeStatus();
 
     /**
      * Get trades for a specific account and symbol.

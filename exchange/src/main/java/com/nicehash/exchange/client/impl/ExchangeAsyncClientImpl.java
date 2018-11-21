@@ -1,12 +1,13 @@
 package com.nicehash.exchange.client.impl;
 
+import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.ExchangeAsyncClient;
 import com.nicehash.exchange.client.constant.ExchangeConstants;
 import com.nicehash.exchange.client.domain.ListObject;
-import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.domain.SingleOrListObject;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.account.Account;
+import com.nicehash.exchange.client.domain.account.FeeStatus;
 import com.nicehash.exchange.client.domain.account.NewOrder;
 import com.nicehash.exchange.client.domain.account.NewOrderResponse;
 import com.nicehash.exchange.client.domain.account.Order;
@@ -228,6 +229,12 @@ public class ExchangeAsyncClientImpl implements ExchangeAsyncClient, ServiceHand
     public void getAccount(ClientCallback<Account> callback) {
         long timestamp = System.currentTimeMillis();
         executeAsync(getServiceInterface(), service.getAccount(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, timestamp), callback);
+    }
+
+    @Override
+    public void getFeeStatus(ClientCallback<FeeStatus> callback) {
+        long timestamp = System.currentTimeMillis();
+        executeAsync(getServiceInterface(), service.getFeeStatus(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, timestamp), callback);
     }
 
     @Override

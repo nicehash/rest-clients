@@ -5,6 +5,7 @@ import com.nicehash.exchange.client.ExchangeClient;
 import com.nicehash.exchange.client.constant.ExchangeConstants;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.account.Account;
+import com.nicehash.exchange.client.domain.account.FeeStatus;
 import com.nicehash.exchange.client.domain.account.NewOrder;
 import com.nicehash.exchange.client.domain.account.NewOrderResponse;
 import com.nicehash.exchange.client.domain.account.Order;
@@ -29,7 +30,6 @@ import com.nicehash.utils.options.OptionMap;
 
 import static com.nicehash.external.gen.ClientGenerator.executeSync;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -204,8 +204,8 @@ public class ExchangeClientImpl implements ExchangeClient, ServiceHandle<Exchang
     }
 
     @Override
-    public BigDecimal getFeeCoefficient() {
-        return executeSync(getServiceInterface(), service.getFeeCoefficient(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    public FeeStatus getFeeStatus() {
+        return executeSync(getServiceInterface(), service.getFeeStatus(ExchangeConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
 
     @Override

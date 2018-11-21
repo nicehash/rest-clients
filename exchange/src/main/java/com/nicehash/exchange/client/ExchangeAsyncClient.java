@@ -3,6 +3,7 @@ package com.nicehash.exchange.client;
 import com.nicehash.common.domain.OrderRelOp;
 import com.nicehash.exchange.client.domain.SortDirection;
 import com.nicehash.exchange.client.domain.account.Account;
+import com.nicehash.exchange.client.domain.account.FeeStatus;
 import com.nicehash.exchange.client.domain.account.NewOrder;
 import com.nicehash.exchange.client.domain.account.NewOrderResponse;
 import com.nicehash.exchange.client.domain.account.Order;
@@ -244,6 +245,11 @@ public interface ExchangeAsyncClient {
      * Get current account information using default parameters (async).
      */
     void getAccount(ClientCallback<Account> callback);
+
+    /**
+     * Get current fee status information using default parameters (async).
+     */
+    void getFeeStatus(ClientCallback<FeeStatus> callback);
 
     /**
      * Get trades for a specific account and symbol.
