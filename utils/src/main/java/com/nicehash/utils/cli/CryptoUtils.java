@@ -1,8 +1,11 @@
 package com.nicehash.utils.cli;
 
 import org.apache.commons.codec.binary.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -11,34 +14,28 @@ import java.util.List;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * @author Marko
+ * @author Ales
+ */
 public class CryptoUtils {
+    private final static Logger log = LoggerFactory.getLogger(CryptoUtils.class);
 
     private static final String HMAC_SHA256 = "HmacSHA256";
-    private static final String UTF_8 = "UTF-8";
-
-    public static String hmacSha256(String key, String data) {
-        try {
-            Mac sha256_HMAC = Mac.getInstance(HMAC_SHA256);
-            SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(UTF_8), HMAC_SHA256);
-            sha256_HMAC.init(secret_key);
-            return Hex.encodeHexString(sha256_HMAC.doFinal(data.getBytes(UTF_8)));
-        } catch (Exception e) {
-            throw new RuntimeException("Cannot create HmacSHA256", e);
-        }
-    }
+    private static final Charset CHARSET = StandardCharsets.ISO_8859_1;
 
     public static String hashBySegments(String key, String apiKey, String time, String nonce, String method, String encodedPath, String query, String bodyStr) {
 
         List<byte []> segments = Arrays.asList(
-            apiKey.getBytes(StandardCharsets.ISO_8859_1),
-            time.getBytes(StandardCharsets.ISO_8859_1),
-            nonce.getBytes(StandardCharsets.ISO_8859_1),
+            apiKey.getBytes(CHARSET),
+            time.getBytes(CHARSET),
+            nonce.getBytes(CHARSET),
             null,  // unused field
             null,  // unused field
             null,  // unused field
-            method.getBytes(StandardCharsets.ISO_8859_1),
-            encodedPath == null ? null : encodedPath.getBytes(StandardCharsets.ISO_8859_1),
-            query == null ? null : query.getBytes(StandardCharsets.ISO_8859_1));
+            method.getBytes(CHARSET),
+            encodedPath == null ? null : encodedPath.getBytes(CHARSET),
+            query == null ? null : query.getBytes(CHARSET));
 
         if (bodyStr != null && bodyStr.length() > 0) {
             segments.add(bodyStr.getBytes(StandardCharsets.UTF_8));
@@ -48,10 +45,10 @@ public class CryptoUtils {
     }
 
     private static String hmacSha256BySegments(String key, List<byte []> segments) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Mac mac = Mac.getInstance(HMAC_SHA256);
-            SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(UTF_8), HMAC_SHA256);
+            SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), HMAC_SHA256);
             mac.init(secret_key);
             boolean first = true;
             for (byte [] segment: segments) {
@@ -67,7 +64,7 @@ public class CryptoUtils {
                 }
             }
 
-            // System.out.println("hash input: [" + baos.toString("iso-8859-1") + "]");
+            log.info("Hash input: [{}]", baos.toString(CHARSET.name()));
             return Hex.encodeHexString(mac.doFinal());
         } catch (Exception e) {
             throw new RuntimeException("Cannot create HmacSHA256", e);
