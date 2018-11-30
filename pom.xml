@@ -26,7 +26,7 @@
   </properties>
 
   <modules>
-    <module>utils</module>
+    <module>util</module>
     <module>common</module>
     <module>domain</module>
     <module>exchange</module>
@@ -38,7 +38,7 @@
       <!-- Project -->
       <dependency>
         <groupId>com.nicehash</groupId>
-        <artifactId>clients-utils</artifactId>
+        <artifactId>clients-util</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
