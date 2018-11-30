@@ -40,7 +40,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.nicehash.tools.cli.Main</mainClass>
+              <mainClass>com.nicehash.clients.examples.nhx.Main</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

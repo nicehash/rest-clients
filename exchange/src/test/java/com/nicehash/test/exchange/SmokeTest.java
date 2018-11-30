@@ -1,15 +1,15 @@
 package com.nicehash.test.exchange;
 
-import com.nicehash.exchange.client.ExchangeAsyncClient;
-import com.nicehash.exchange.client.ExchangeClient;
-import com.nicehash.exchange.client.ExchangeClientFactory;
-import com.nicehash.exchange.client.ExchangeWebSocketClient;
-import com.nicehash.exchange.client.domain.account.Trade;
-import com.nicehash.exchange.client.domain.event.DepthEvent;
-import com.nicehash.external.AbstractClientCallback;
-import com.nicehash.external.ClientException;
-import com.nicehash.external.spi.Options;
-import com.nicehash.utils.options.OptionMap;
+import com.nicehash.clients.exchange.ExchangeAsyncClient;
+import com.nicehash.clients.exchange.ExchangeClient;
+import com.nicehash.clients.exchange.ExchangeClientFactory;
+import com.nicehash.clients.exchange.ExchangeWebSocketClient;
+import com.nicehash.clients.exchange.domain.account.Trade;
+import com.nicehash.clients.exchange.domain.event.DepthEvent;
+import com.nicehash.clients.common.AbstractClientCallback;
+import com.nicehash.clients.common.ClientException;
+import com.nicehash.clients.common.spi.Options;
+import com.nicehash.clients.util.options.OptionMap;
 import org.junit.Ignore;
 import org.junit.Test;
 

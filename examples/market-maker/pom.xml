@@ -40,7 +40,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.nicehash.tools.marketmaker.Main</mainClass>
+              <mainClass>com.nicehash.clients.examples.marketmaker.Main</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

@@ -1,6 +1,6 @@
 package com.nicehash.test.common.domain;
 
-import com.nicehash.common.domain.Currency;
+import com.nicehash.clients.domain.Currency;
 import org.junit.Assert;
 import org.junit.Test;
 
