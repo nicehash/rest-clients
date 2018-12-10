@@ -12,6 +12,7 @@ public class FeeStatus {
     private BigDecimal coefficient;
     private BigDecimal sum;
     private Map<BigDecimal, BigDecimal> limits;
+    private String sumCurrency;
 
     public BigDecimal getCoefficient() {
         return coefficient;
@@ -35,5 +36,13 @@ public class FeeStatus {
 
     public void setLimits(Map<BigDecimal, BigDecimal> limits) {
         this.limits = limits;
+    }
+
+    public String getSumCurrency() {
+        return sumCurrency;
+    }
+
+    public void setSumCurrency(String sumCurrency) {
+        this.sumCurrency = sumCurrency;
     }
 }
