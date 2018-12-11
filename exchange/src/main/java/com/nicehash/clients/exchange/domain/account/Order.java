@@ -94,6 +94,11 @@ public class Order {
      */
     private Long submitNumber;
 
+    /**
+     * The response time of order's last response.
+     */
+    private Long lastResponseTime;
+
     public String getSymbol() {
         return symbol;
     }
@@ -214,6 +219,14 @@ public class Order {
         this.submitNumber = submitNumber;
     }
 
+    public Long getLastResponseTime() {
+        return lastResponseTime;
+    }
+
+    public void setLastResponseTime(Long lastResponseTime) {
+        this.lastResponseTime = lastResponseTime;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ExchangeConstants.TO_STRING_BUILDER_STYLE)
@@ -232,6 +245,7 @@ public class Order {
             .append("icebergQty", icebergQty)
             .append("submitTime", submitTime)
             .append("submitNumber", submitNumber)
+            .append("lastResponseTime", lastResponseTime)
             .toString();
     }
 }
