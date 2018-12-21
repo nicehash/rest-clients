@@ -8,16 +8,16 @@ import java.math.BigDecimal;
 public enum Currency {
 
     BTC("TBTC", 20, 8, "Bitcoin", false, 1),
-    ETH("TETH", 20, 8, "Ethereum", false, 2),
-    XRP("TXRP", 20, 8, "Ripple", false, 3), // TODO -- currently only for test, check actual subunits!
+    ETH("TETH", 20, 18, "Ethereum", false, 2),
+    XRP("TXRP", 20, 6, "Ripple", false, 3), // TODO -- currently only for test, check actual subunits!
     BCH("TBCH", 20, 8, "Bitcoin cash", false, 4), // TODO -- currently only for test, check actual subunits!
     LTC("TLTC", 20, 8, "Litecoin", false, 5),
     ZEC("TZEC", 20, 8, "Zcash", false, 6), // TODO -- currently only for test, check actual subunits!
 
     // testnet currencies
     TBTC("BTC", 20, 8, "Bitcoin test", true, 1),
-    TETH("ETH", 20, 8, "Ethereum test", true, 2),
-    TXRP("XRP", 20, 8, "Ripple test", true, 3),
+    TETH("ETH", 20, 18, "Ethereum test", true, 2),
+    TXRP("XRP", 20, 6, "Ripple test", true, 3),
     TBCH("BCH", 20, 8, "Bitcoin cash test", true, 4),
     TLTC("LTC", 20, 8, "Litecoin test", true, 5),
     TZEC("ZEC", 20, 8, "Zcash test", true, 6);
