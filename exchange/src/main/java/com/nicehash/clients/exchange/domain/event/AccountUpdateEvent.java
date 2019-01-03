@@ -1,13 +1,14 @@
 package com.nicehash.clients.exchange.domain.event;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nicehash.clients.exchange.constant.ExchangeConstants;
 import com.nicehash.clients.exchange.domain.account.AssetBalance;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.List;
 
 /**
  * Account update event which will reflect the current position/balances of the account.
@@ -26,6 +27,7 @@ public class AccountUpdateEvent {
     private long eventTime;
 
     @JsonProperty("B")
+    @JsonSerialize(contentUsing = AssetBalanceSerializer.class)
     @JsonDeserialize(contentUsing = AssetBalanceDeserializer.class)
     private List<AssetBalance> balances;
 

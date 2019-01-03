@@ -1,18 +1,26 @@
 package com.nicehash.test.exchange;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nicehash.clients.common.AbstractClientCallback;
+import com.nicehash.clients.common.ClientException;
+import com.nicehash.clients.common.spi.Options;
 import com.nicehash.clients.exchange.ExchangeAsyncClient;
 import com.nicehash.clients.exchange.ExchangeClient;
 import com.nicehash.clients.exchange.ExchangeClientFactory;
 import com.nicehash.clients.exchange.ExchangeWebSocketClient;
+import com.nicehash.clients.exchange.domain.account.AssetBalance;
 import com.nicehash.clients.exchange.domain.account.Trade;
+import com.nicehash.clients.exchange.domain.event.AccountUpdateEvent;
 import com.nicehash.clients.exchange.domain.event.DepthEvent;
-import com.nicehash.clients.common.AbstractClientCallback;
-import com.nicehash.clients.common.ClientException;
-import com.nicehash.clients.common.spi.Options;
+import com.nicehash.clients.exchange.domain.event.UserDataUpdateEvent;
 import com.nicehash.clients.util.options.OptionMap;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -75,5 +83,40 @@ public class SmokeTest {
                 }
             });
         }
+    }
+
+    @Test
+    public void testUserDataUpdateEvent() throws Exception {
+        UserDataUpdateEvent event = new UserDataUpdateEvent();
+        event.setEventType(UserDataUpdateEvent.UserDataUpdateEventType.ACCOUNT_UPDATE);
+        event.setEventTime(System.currentTimeMillis());
+
+        AccountUpdateEvent accEvent = new AccountUpdateEvent();
+        AssetBalance ab = new AssetBalance();
+        ab.setAsset("BTC");
+        ab.setFree(BigDecimal.TEN);
+        ab.setLocked(BigDecimal.ONE);
+        accEvent.setBalances(Collections.singletonList(ab));
+        event.setAccountUpdateEvent(accEvent);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        mapper.writeValue(baos, event);
+        System.out.println("Json = " + baos);
+
+        event = mapper.readValue(baos.toByteArray(), UserDataUpdateEvent.class);
+        Assert.assertNotNull(event);
+        accEvent = event.getAccountUpdateEvent();
+        Assert.assertNotNull(accEvent);
+        List<AssetBalance> balances = accEvent.getBalances();
+        Assert.assertNotNull(balances);
+        Assert.assertFalse(balances.isEmpty());
+        ab = balances.get(0);
+        Assert.assertNotNull(ab);
+
+        Assert.assertEquals("BTC", ab.getAsset());
+        Assert.assertEquals(0, BigDecimal.TEN.compareTo(ab.getFree()));
+        Assert.assertEquals(0, BigDecimal.ONE.compareTo(ab.getLocked()));
     }
 }

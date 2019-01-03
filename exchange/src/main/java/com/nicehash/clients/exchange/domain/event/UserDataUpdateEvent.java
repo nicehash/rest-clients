@@ -2,6 +2,7 @@ package com.nicehash.clients.exchange.domain.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nicehash.clients.exchange.constant.ExchangeConstants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * 2) executionReport, whenever there is a trade or an order
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize(using = UserDataUpdateEventSerializer.class)
 @JsonDeserialize(using = UserDataUpdateEventDeserializer.class)
 public class UserDataUpdateEvent {
 
