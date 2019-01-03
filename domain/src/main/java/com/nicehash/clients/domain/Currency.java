@@ -32,11 +32,6 @@ public enum Currency {
      */
     public static final int MAX_SCALE = 8;
 
-    /**
-     * Default subunits.
-     */
-    public static final int SUBUNITS = 10_000_000;
-
     private final String alt;
     private final int precision;
     private final int scale;
@@ -46,16 +41,12 @@ public enum Currency {
     private final int order;
 
     Currency(String alt, int precision, int scale, String description, boolean test, int order) {
-        this(alt, precision, scale, description, test, SUBUNITS, order);
-    }
-
-    Currency(String alt, int precision, int scale, String description, boolean test, int subunits, int order) {
         this.alt = alt;
         this.precision = precision;
         this.scale = scale;
         this.description = description;
         this.test = test;
-        this.subunits = new BigDecimal(subunits);
+        this.subunits = new BigDecimal(Math.pow(10, scale));
         this.order = order;
     }
 
