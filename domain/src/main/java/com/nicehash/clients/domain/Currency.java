@@ -1,6 +1,7 @@
 package com.nicehash.clients.domain;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * @author Ales Justin
@@ -46,7 +47,8 @@ public enum Currency {
         this.scale = scale;
         this.description = description;
         this.test = test;
-        this.subunits = new BigDecimal(Math.pow(10, scale));
+        // The value of the BigDecimal is (unscaledVal × 10^-scale)
+        this.subunits = new BigDecimal(BigInteger.ONE, -scale);
         this.order = order;
     }
 

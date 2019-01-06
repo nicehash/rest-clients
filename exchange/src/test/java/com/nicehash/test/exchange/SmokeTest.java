@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nicehash.clients.common.AbstractClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.Options;
+import com.nicehash.clients.domain.Currency;
 import com.nicehash.clients.exchange.ExchangeAsyncClient;
 import com.nicehash.clients.exchange.ExchangeClient;
 import com.nicehash.clients.exchange.ExchangeClientFactory;
@@ -83,6 +84,12 @@ public class SmokeTest {
                 }
             });
         }
+    }
+
+    @Test
+    public void testSubunits() {
+        Assert.assertEquals(100_000_000, Currency.BTC.subunits().intValue());
+        Assert.assertEquals(1_000_000, Currency.XRP.subunits().intValue());
     }
 
     @Test
