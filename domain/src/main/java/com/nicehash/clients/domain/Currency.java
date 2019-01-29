@@ -8,42 +8,40 @@ import java.math.BigInteger;
  */
 public enum Currency {
 
-    BTC("TBTC", 20, 8, "Bitcoin", false, 1),
-    ETH("TETH", 20, 18, "Ethereum", false, 2),
-    XRP("TXRP", 20, 6, "Ripple", false, 3), // TODO -- currently only for test, check actual subunits!
-    BCH("TBCH", 20, 8, "Bitcoin cash", false, 4), // TODO -- currently only for test, check actual subunits!
-    LTC("TLTC", 20, 8, "Litecoin", false, 5),
-    ZEC("TZEC", 20, 8, "Zcash", false, 6), // TODO -- currently only for test, check actual subunits!
+    BTC("TBTC", 8, "Bitcoin", false, 1),
+    ETH("TETH", 18, "Ethereum", false, 2),
+    XRP("TXRP", 6, "Ripple", false, 3), // TODO -- currently only for test, check actual subunits!
+    BCH("TBCH", 8, "Bitcoin cash", false, 4), // TODO -- currently only for test, check actual subunits!
+    LTC("TLTC", 8, "Litecoin", false, 5),
+    ZEC("TZEC", 8, "Zcash", false, 6), // TODO -- currently only for test, check actual subunits!
 
     // testnet currencies
-    TBTC("BTC", 20, 8, "Bitcoin test", true, 1),
-    TETH("ETH", 20, 18, "Ethereum test", true, 2),
-    TXRP("XRP", 20, 6, "Ripple test", true, 3),
-    TBCH("BCH", 20, 8, "Bitcoin cash test", true, 4),
-    TLTC("LTC", 20, 8, "Litecoin test", true, 5),
-    TZEC("ZEC", 20, 8, "Zcash test", true, 6);
+    TBTC("BTC", 8, "Bitcoin test", true, 1),
+    TETH("ETH", 18, "Ethereum test", true, 2),
+    TXRP("XRP", 6, "Ripple test", true, 3),
+    TBCH("BCH", 8, "Bitcoin cash test", true, 4),
+    TLTC("LTC", 8, "Litecoin test", true, 5),
+    TZEC("ZEC", 8, "Zcash test", true, 6);
 
     /**
-     * Maximum {@link #precision()} of any currency in this enum.
+     * Maximum precision in DB
      */
-    public static final int MAX_PRECISION = 20;
+    public static final int MAX_PRECISION = 30;
 
     /**
      * Maximum {@link #scale()} of any currency in this enum.
      */
-    public static final int MAX_SCALE = 8;
+    public static final int MAX_SCALE = 18;
 
     private final String alt;
-    private final int precision;
     private final int scale;
     private final String description;
     private final boolean test;
     private final BigDecimal subunits;
     private final int order;
 
-    Currency(String alt, int precision, int scale, String description, boolean test, int order) {
+    Currency(String alt, int scale, String description, boolean test, int order) {
         this.alt = alt;
-        this.precision = precision;
         this.scale = scale;
         this.description = description;
         this.test = test;
@@ -60,13 +58,6 @@ public enum Currency {
      */
     public Currency getAlt() {
         return (alt != null) ? valueOf(alt) : null;
-    }
-
-    /**
-     * @return precision used to maintain amounts of this currency in
-     */
-    public int precision() {
-        return precision;
     }
 
     /**
