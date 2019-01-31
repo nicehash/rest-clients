@@ -33,6 +33,11 @@ public enum Currency {
      */
     public static final int MAX_SCALE = 18;
 
+    /**
+     * Price scale
+     */
+    public static final int PRICE_SCALE = 8;
+
     private final String alt;
     private final int scale;
     private final String description;
