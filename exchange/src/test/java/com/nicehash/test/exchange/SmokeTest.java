@@ -14,6 +14,7 @@ import com.nicehash.clients.exchange.domain.account.Trade;
 import com.nicehash.clients.exchange.domain.event.AccountUpdateEvent;
 import com.nicehash.clients.exchange.domain.event.DepthEvent;
 import com.nicehash.clients.exchange.domain.event.UserDataUpdateEvent;
+import com.nicehash.clients.util.cli.CryptoUtils;
 import com.nicehash.clients.util.options.OptionMap;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -23,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Ales Justin
@@ -84,6 +86,20 @@ public class SmokeTest {
                 }
             });
         }
+    }
+
+    @Test
+    public void testCryptoUtils() {
+        CryptoUtils.hashBySegments(
+            "<key>",
+            "<api-key>",
+            String.valueOf(System.currentTimeMillis()),
+            UUID.randomUUID().toString(),
+            "POST",
+            "/path",
+            "q=1",
+            "BODY"
+        );
     }
 
     @Test

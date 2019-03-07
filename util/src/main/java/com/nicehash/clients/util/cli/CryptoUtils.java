@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -38,6 +39,7 @@ public class CryptoUtils {
             query == null ? null : query.getBytes(CHARSET));
 
         if (bodyStr != null && bodyStr.length() > 0) {
+            segments = new ArrayList<>(segments);
             segments.add(bodyStr.getBytes(StandardCharsets.UTF_8));
         }
 
