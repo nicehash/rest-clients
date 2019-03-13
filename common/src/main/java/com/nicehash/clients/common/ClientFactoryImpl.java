@@ -51,10 +51,13 @@ class ClientFactoryImpl implements ClientFactory {
         if (clientClass.isAssignableFrom(implClass) == false) {
             throw new IllegalArgumentException(String.format("%S is not assignable from client class %s", implClass, clientClass));
         }
+        // Add required / implicit options...
+        OptionMap implicit = OptionMap.builder().set(Options.NAME, clientClass.getSimpleName()).getMap();
 
         OptionMap.Builder builder = OptionMap.builder();
         builder.addAll(options);
         builder.addAll(original);
+        builder.addAll(implicit);
         OptionMap current = builder.getMap();
 
         try {
