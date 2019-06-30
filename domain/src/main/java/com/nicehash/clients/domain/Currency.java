@@ -95,12 +95,10 @@ public enum Currency {
     }
 
     /**
-     * TODO: do we really need this? What's wrong with {@link #ordinal()}?
-     *
-     * @return an order (of what?)
+     * @return an order of currency
      */
-    @Deprecated
     public int order() {
         return order;
     }
 }
+
