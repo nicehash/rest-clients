@@ -22,10 +22,10 @@ public enum Currency {
     TBCH("BCH", 8, "Bitcoin cash test", true, 4),
     TLTC("LTC", 8, "Litecoin test", true, 5),
     TZEC("ZEC", 8, "Zcash test", true, 6),
-    TDASH("TDASH", 8, "Dash test", true, 7),
-    TXLM("TXLM", 8, "Stellar test", true, 8),
-    TEOS("TEOS", 8, "EOS test", true, 9),
-    TERC("TERC", 6, "Test ERC", true, 10);
+    TDASH("DASH", 8, "Dash test", true, 7),
+    TXLM("XLM", 8, "Stellar test", true, 8),
+    TEOS("EOS", 8, "EOS test", true, 9),
+    TERC(null, 6, "Test ERC", true, 10);
 
     /**
      * Maximum precision in DB
