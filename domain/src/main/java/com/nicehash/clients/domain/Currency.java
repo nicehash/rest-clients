@@ -10,10 +10,10 @@ public enum Currency {
 
     BTC("TBTC", 8, "Bitcoin", false, 1),
     ETH("TETH", 18, "Ethereum", false, 2),
-    XRP("TXRP", 6, "Ripple", false, 3), // TODO -- currently only for test, check actual subunits!
-    BCH("TBCH", 8, "Bitcoin cash", false, 4), // TODO -- currently only for test, check actual subunits!
+    XRP("TXRP", 6, "Ripple", false, 3),
+    BCH("TBCH", 8, "Bitcoin cash", false, 4),
     LTC("TLTC", 8, "Litecoin", false, 5),
-    ZEC("TZEC", 8, "Zcash", false, 6), // TODO -- currently only for test, check actual subunits!
+    ZEC("TZEC", 8, "Zcash", false, 6),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
@@ -21,7 +21,11 @@ public enum Currency {
     TXRP("XRP", 6, "Ripple test", true, 3),
     TBCH("BCH", 8, "Bitcoin cash test", true, 4),
     TLTC("LTC", 8, "Litecoin test", true, 5),
-    TZEC("ZEC", 8, "Zcash test", true, 6);
+    TZEC("ZEC", 8, "Zcash test", true, 6),
+    TDASH("TDASH", 8, "Dash test", true, 7),
+    TXLM("TXLM", 8, "Stellar test", true, 8),
+    TEOS("TEOS", 8, "EOS test", true, 9),
+    TERC("TERC", 6, "Test ERC", true, 10);
 
     /**
      * Maximum precision in DB
