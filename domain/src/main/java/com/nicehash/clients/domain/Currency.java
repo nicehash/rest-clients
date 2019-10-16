@@ -14,6 +14,7 @@ public enum Currency {
     BCH("TBCH", 8, "Bitcoin cash", false, 4),
     LTC("TLTC", 8, "Litecoin", false, 5),
     ZEC("TZEC", 8, "Zcash", false, 6),
+    DASH("TDASH", 8, "Dash", false, 7),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
@@ -24,8 +25,8 @@ public enum Currency {
     TZEC("ZEC", 8, "Zcash test", true, 6),
     TDASH("DASH", 8, "Dash test", true, 7),
     TXLM("XLM", 8, "Stellar test", true, 8),
-    TEOS("EOS", 8, "EOS test", true, 9),
-    TERC(null, 6, "Test ERC", true, 10);
+    TERC(null, 6, "Test ERC", true, 9),
+    ;
 
     /**
      * Maximum precision in DB
