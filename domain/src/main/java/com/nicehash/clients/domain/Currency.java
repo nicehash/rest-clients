@@ -26,7 +26,7 @@ public enum Currency {
     TZEC("ZEC", 8, "Zcash test", true, 6),
     TDASH("DASH", 8, "Dash test", true, 7),
     TXLM("XLM", 7, "Stellar test", true, 8),
-    TERC(null, 6, "Test ERC", true, 9),
+    TERC(null, 6, "Test ERC", true, 9)
     ;
 
     /**
