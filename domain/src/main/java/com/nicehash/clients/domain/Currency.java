@@ -15,7 +15,9 @@ public enum Currency {
     LTC("TLTC", 8, "Litecoin", false, 5),
     ZEC("TZEC", 8, "Zcash", false, 6),
     DASH("TDASH", 8, "Dash", false, 7),
-    XLM("XLM", 7, "Stellar", false, 8),
+    XLM("TXLM", 7, "Stellar", false, 8),
+    EOS("TEOS", 4, "EOS", false, 9),
+    USDT("TERC", 6, "Tether", false, 10),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
@@ -26,7 +28,8 @@ public enum Currency {
     TZEC("ZEC", 8, "Zcash test", true, 6),
     TDASH("DASH", 8, "Dash test", true, 7),
     TXLM("XLM", 7, "Stellar test", true, 8),
-    TERC(null, 6, "Test ERC", true, 9)
+    TEOS("EOS", 4, "EOS test", false, 9),
+    TERC(null, 6, "Test ERC", true, 10)
     ;
 
     /**
