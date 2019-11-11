@@ -18,6 +18,7 @@ public enum Currency {
     XLM("TXLM", 7, "Stellar", false, 8),
     EOS("TEOS", 4, "EOS", false, 9),
     USDT("TERC", 6, "Tether", false, 10),
+    BSV("TBSV", 8, "Bitcoin SV", false, 11),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
@@ -28,8 +29,9 @@ public enum Currency {
     TZEC("ZEC", 8, "Zcash test", true, 6),
     TDASH("DASH", 8, "Dash test", true, 7),
     TXLM("XLM", 7, "Stellar test", true, 8),
-    TEOS("EOS", 4, "EOS test", false, 9),
-    TERC(null, 6, "Test ERC", true, 10)
+    TEOS("EOS", 4, "EOS test", true, 9),
+    TERC(null, 6, "Test ERC", true, 10),
+    TBSV("BSV", 8, "Test Bitcoin SV", true, 11),
     ;
 
     /**
