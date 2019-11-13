@@ -7,9 +7,7 @@ import okhttp3.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author Ales Justin
- */
+
 public abstract class AbstractServiceBuilder implements ServiceBuilder {
     @Override
     public Call.Factory buildCallFactory(OptionMap optionMap) {

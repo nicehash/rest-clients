@@ -10,9 +10,7 @@ import java.util.Set;
 
 /**
  * Add this externalizer, so function can be changed; e.g. new imports, etc
- *
- * @author Ales Justin
- */
+*/
 public class OrdersSummaryFunctionExternalizer implements AdvancedExternalizer<OrdersSummaryFunction> {
     @Override
     public Set<Class<? extends OrdersSummaryFunction>> getTypeClasses() {

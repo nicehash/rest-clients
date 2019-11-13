@@ -5,9 +5,7 @@ import com.nicehash.clients.util.options.OptionMap;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
-/**
- * @author Ales Justin
- */
+
 public abstract class InterceptorServiceBuilder extends AbstractServiceBuilder {
     @Override
     protected void buildHttpClient(OptionMap options, OkHttpClient.Builder builder) {

@@ -5,9 +5,7 @@ import java.util.function.Function;
 
 /**
  * Sort directions.
- *
- * @author Peter Levart
- */
+*/
 public enum SortDirection {
     ASC {
         @Override

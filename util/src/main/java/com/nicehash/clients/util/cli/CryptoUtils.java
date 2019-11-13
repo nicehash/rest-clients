@@ -15,10 +15,6 @@ import java.util.List;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- * @author Marko
- * @author Ales
- */
 public class CryptoUtils {
     private final static Logger log = LoggerFactory.getLogger(CryptoUtils.class);
 

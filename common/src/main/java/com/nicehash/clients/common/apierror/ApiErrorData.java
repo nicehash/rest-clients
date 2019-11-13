@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-/**
- * @author Ales Justin
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiErrorData {
     public ApiErrorData() {

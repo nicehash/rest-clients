@@ -13,8 +13,6 @@ import java.util.RandomAccess;
  * immutable.
  *
  * @param <T> the element type
- * @author <a href="mailto:david.lloyd@redhat.com">David M. Lloyd</a>
- * @author Ales Justin
  */
 public final class Sequence<T> extends AbstractList<T> implements List<T>, RandomAccess, Serializable {
 

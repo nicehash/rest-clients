@@ -8,9 +8,7 @@ import okhttp3.OkHttpClient;
 
 import java.util.concurrent.Executor;
 
-/**
- * @author Ales Justin
- */
+
 public class Options {
 
     private Options() {

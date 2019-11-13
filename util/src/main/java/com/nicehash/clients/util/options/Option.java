@@ -19,8 +19,6 @@ import java.util.Set;
  * and hash codes.  Options should always be declared as <code>public static final</code> members in order to support serialization.
  *
  * @param <T> the option value type
- * @author <a href="mailto:david.lloyd@redhat.com">David M. Lloyd</a>
- * @author Ales Justin
  */
 public abstract class Option<T> implements Serializable {
 

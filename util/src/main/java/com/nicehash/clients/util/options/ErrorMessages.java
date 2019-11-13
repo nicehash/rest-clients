@@ -3,9 +3,7 @@ package com.nicehash.clients.util.options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Ales Justin
- */
+
 public class ErrorMessages {
     private static final Logger log = LoggerFactory.getLogger(ErrorMessages.class);
 

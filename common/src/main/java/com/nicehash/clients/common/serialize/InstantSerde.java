@@ -11,9 +11,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.time.Instant;
 
-/**
- * @author Ales Justin
- */
+
 public class InstantSerde {
     public static class InstanSerializer extends JsonSerializer<Instant> {
         @Override

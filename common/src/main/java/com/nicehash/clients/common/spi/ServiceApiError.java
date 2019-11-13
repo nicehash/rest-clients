@@ -3,9 +3,7 @@ package com.nicehash.clients.common.spi;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * @author Ales Justin
- */
+
 public interface ServiceApiError {
     int getCode();
     String getMessage();

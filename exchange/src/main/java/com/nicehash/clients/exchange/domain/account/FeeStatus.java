@@ -5,9 +5,7 @@ import java.util.Map;
 
 /**
  * Fee status.
- *
- * @author Ales Justin
- */
+*/
 public class FeeStatus {
     private BigDecimal coefficient;
     private BigDecimal sum;

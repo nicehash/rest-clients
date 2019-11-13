@@ -1,8 +1,6 @@
 package com.nicehash.clients.common.spi;
 
-/**
- * @author Ales Justin
- */
+
 public class SimplePropertyReplacer implements PropertyReplacer {
     public static final PropertyReplacer INSTANCE = new SimplePropertyReplacer();
 

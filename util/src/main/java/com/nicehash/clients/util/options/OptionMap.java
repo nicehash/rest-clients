@@ -11,9 +11,6 @@ import java.util.Properties;
 
 /**
  * An immutable map of options to option values.  No {@code null} keys or values are permitted.
- *
- * @author <a href="mailto:david.lloyd@redhat.com">David M. Lloyd</a>
- * @author Ales Justin
  */
 public final class OptionMap implements Iterable<Option<?>>, Serializable {
 

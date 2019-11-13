@@ -2,9 +2,7 @@ package com.nicehash.clients.common;
 
 import com.nicehash.clients.util.options.OptionMap;
 
-/**
- * @author Ales Justin
- */
+
 public class Clients {
     public static ClientFactory factory() {
         return factory(OptionMap.EMPTY);

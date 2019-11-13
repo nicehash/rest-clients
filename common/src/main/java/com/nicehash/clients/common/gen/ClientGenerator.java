@@ -21,9 +21,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 
-/**
- * @author Ales Justin
- */
+
 public class ClientGenerator {
 
     private static final Map<Class<?>, GenContext> contextMap = new ConcurrentHashMap<>(); // TODO ref map

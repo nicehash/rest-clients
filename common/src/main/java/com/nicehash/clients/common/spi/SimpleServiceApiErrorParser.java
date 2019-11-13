@@ -6,9 +6,7 @@ import java.io.InputStream;
 import com.nicehash.clients.common.ClientException;
 import retrofit2.Response;
 
-/**
- * @author Ales Justin
- */
+
 public class SimpleServiceApiErrorParser implements ServiceApiErrorParser {
     public static final ServiceApiErrorParser INSTANCE = new SimpleServiceApiErrorParser();
 

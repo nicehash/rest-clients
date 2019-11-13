@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @author <a href="mailto:david.lloyd@redhat.com">David M. Lloyd</a>
- * @author Ales Justin
- */
 final class SequenceOption<T> extends Option<Sequence<T>> {
 
     private static final long serialVersionUID = -4328676629293125136L;

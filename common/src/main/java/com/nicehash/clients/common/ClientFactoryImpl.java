@@ -6,9 +6,7 @@ import com.nicehash.clients.common.spi.ClientImplementation;
 import com.nicehash.clients.common.spi.Options;
 import com.nicehash.clients.util.options.OptionMap;
 
-/**
- * @author Ales Justin
- */
+
 class ClientFactoryImpl implements ClientFactory {
 
     private final OptionMap options;

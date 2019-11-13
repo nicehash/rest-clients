@@ -22,9 +22,7 @@ import java.util.TreeMap;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-/**
- * @author Ales Justin
- */
+
 public class OrderBookClientImpl implements OrderBookClient {
     private final ExchangeClient restClient;
     private final ExchangeWebSocketClient wsClient;

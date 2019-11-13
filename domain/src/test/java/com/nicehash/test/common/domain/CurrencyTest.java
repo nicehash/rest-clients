@@ -4,9 +4,7 @@ import com.nicehash.clients.domain.Currency;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * @author Ales Justin
- */
+
 public class CurrencyTest {
     @Test
     public void testDefault() {

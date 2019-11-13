@@ -4,9 +4,7 @@ import java.util.function.IntPredicate;
 
 /**
  * Order relational operators.
- *
- * @author Peter Levart
- */
+*/
 public enum OrderRelOp implements IntPredicate {
     GT(SortDirection.ASC, cmp -> cmp > 0, ">"),
     GE(SortDirection.ASC, cmp -> cmp >= 0, ">="),

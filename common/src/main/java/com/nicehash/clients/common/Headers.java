@@ -8,9 +8,7 @@ import java.util.Map;
 
 /**
  * An util class to pass any custom headers to services.
- *
- * @author Ales Justin
- */
+*/
 public class Headers {
    private static final ThreadLocal<Map<String, List<String>>> TL = ThreadLocal.withInitial(HashMap::new);
 

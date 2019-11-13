@@ -5,9 +5,7 @@ import com.nicehash.clients.common.spi.ServiceApiError;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * @author Ales Justin
- */
+
 public class ClientException extends RuntimeException {
     private static final String NULL = "_NULL_";
 

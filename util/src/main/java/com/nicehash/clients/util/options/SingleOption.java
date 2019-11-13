@@ -1,9 +1,5 @@
 package com.nicehash.clients.util.options;
 
-/**
- * @author <a href="mailto:david.lloyd@redhat.com">David M. Lloyd</a>
- * @author Ales Justin
- */
 final class SingleOption<T> extends Option<T> {
 
     private static final long serialVersionUID = 2449094406108952764L;

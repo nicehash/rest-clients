@@ -5,9 +5,7 @@ import com.nicehash.clients.common.ClientException;
 
 import java.io.IOException;
 
-/**
- * @author Ales Justin
- */
+
 public class ApiErrorParser {
     private static final ObjectMapper mapper = new ObjectMapper();
 

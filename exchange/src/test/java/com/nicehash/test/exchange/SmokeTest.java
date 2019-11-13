@@ -26,9 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * @author Ales Justin
- */
+
 public class SmokeTest {
 
     @Ignore

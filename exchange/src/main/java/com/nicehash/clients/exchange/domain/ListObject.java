@@ -2,9 +2,7 @@ package com.nicehash.clients.exchange.domain;
 
 import java.util.List;
 
-/**
- * @author Ales Justin
- */
+
 public class ListObject<T> {
     private List<T> list;
 

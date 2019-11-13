@@ -7,9 +7,7 @@ import org.infinispan.util.function.SerializableBiFunction;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-/**
- * @author Ales Justin
- */
+
 @SerializeFunctionWith(OrdersSummaryFunctionExternalizer.class)
 public class OrdersSummaryFunction implements SerializableBiFunction<Main.MarketAlgorithm, Main.OrdersSummaryData, Main.OrdersSummaryData> {
 

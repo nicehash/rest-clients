@@ -3,9 +3,7 @@ package com.nicehash.clients.domain;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-/**
- * @author Ales Justin
- */
+
 public enum Currency {
 
     BTC("TBTC", 8, "Bitcoin", false, 1),

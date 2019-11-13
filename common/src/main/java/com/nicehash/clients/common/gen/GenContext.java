@@ -3,9 +3,7 @@ package com.nicehash.clients.common.gen;
 import com.nicehash.clients.common.spi.ServiceApiErrorParser;
 import okhttp3.Call;
 
-/**
- * @author Ales Justin
- */
+
 class GenContext {
     private Call.Factory factory;
     private ServiceApiErrorParser parser;
