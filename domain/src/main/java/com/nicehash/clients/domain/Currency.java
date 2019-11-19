@@ -15,7 +15,7 @@ public enum Currency {
     DASH("TDASH", 8, "Dash", false, 7),
     XLM("TXLM", 7, "Stellar", false, 8),
     EOS("TEOS", 4, "EOS", false, 9),
-    USDT("TERC", 6, "Tether", false, 10),
+    USDT("TERC", 6, "Tether", false, 10, ETH),
     BSV("TBSV", 8, "Bitcoin SV", false, 11),
 
     // testnet currencies
@@ -28,7 +28,7 @@ public enum Currency {
     TDASH("DASH", 8, "Dash test", true, 7),
     TXLM("XLM", 7, "Stellar test", true, 8),
     TEOS("EOS", 4, "EOS test", true, 9),
-    TERC(null, 6, "Test ERC", true, 10),
+    TERC(null, 0, "Test ERC", true, 10, TETH),
     TBSV("BSV", 8, "Test Bitcoin SV", true, 11),
     ;
 
@@ -52,9 +52,14 @@ public enum Currency {
     private final String description;
     private final boolean test;
     private final BigDecimal subunits;
+    private final Currency base;
     private final int order;
 
     Currency(String alt, int scale, String description, boolean test, int order) {
+        this(alt, scale, description, test, order, null);
+    }
+
+    Currency(String alt, int scale, String description, boolean test, int order, Currency base) {
         this.alt = alt;
         this.scale = scale;
         this.description = description;
@@ -62,6 +67,7 @@ public enum Currency {
         // The value of the BigDecimal is (unscaledVal × 10^-scale)
         this.subunits = new BigDecimal(BigInteger.ONE, -scale);
         this.order = order;
+        this.base = base;
     }
 
     /**
@@ -108,6 +114,14 @@ public enum Currency {
      */
     public int order() {
         return order;
+    }
+
+    /**
+     * Get base currency (used by tokens) otherwise return self
+     * @return
+     */
+    public Currency base() {
+        return base != null ? base : this;
     }
 }
 
