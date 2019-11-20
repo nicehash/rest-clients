@@ -28,7 +28,7 @@ public enum Currency {
     TDASH("DASH", 8, "Dash test", true, 7),
     TXLM("XLM", 7, "Stellar test", true, 8),
     TEOS("EOS", 4, "EOS test", true, 9),
-    TERC(null, 0, "Test ERC", true, 10, TETH),
+    TERC("USDT", 0, "Test ERC", true, 10, TETH),
     TBSV("BSV", 8, "Test Bitcoin SV", true, 11),
     ;
 
