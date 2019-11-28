@@ -17,6 +17,7 @@ public enum Currency {
     EOS("TEOS", 4, "EOS", false, 9),
     USDT("TERC", 6, "Tether", false, 10, ETH),
     BSV("TBSV", 8, "Bitcoin SV", false, 11),
+    LINK("TERC", 18, "ChainLink", false, 12, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
