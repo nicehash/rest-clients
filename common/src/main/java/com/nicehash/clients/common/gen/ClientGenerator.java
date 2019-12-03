@@ -77,6 +77,7 @@ public class ClientGenerator {
 
         Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(replacer.replace(baseUrl))
+            .addConverterFactory(new NullOnEmptyConverterFactory())
             .addConverterFactory(JacksonConverterFactory.create())
             .callFactory(factory);
 
