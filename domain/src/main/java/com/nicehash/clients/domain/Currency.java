@@ -18,6 +18,9 @@ public enum Currency {
     USDT("TERC", 6, "Tether", false, 10, ETH),
     BSV("TBSV", 8, "Bitcoin SV", false, 11),
     LINK("TERC", 18, "ChainLink", false, 12, ETH),
+    BAT("TERC", 18, "Basic Attention Token", false, 13, ETH),
+    PAX("TERC", 18, "Paxos Standard", false, 14, ETH),
+    HEDG("TERC", 18, "Hedge Token", false, 15, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
