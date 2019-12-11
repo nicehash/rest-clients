@@ -20,7 +20,8 @@ public enum Currency {
     LINK("TERC", 18, "ChainLink", false, 12, ETH),
     BAT("TERC", 18, "Basic Attention Token", false, 13, ETH),
     PAX("TERC", 18, "Paxos Standard", false, 14, ETH),
-    HEDG("TERC", 18, "Hedge Token", false, 15, ETH),
+    ZRX("TERC", 18, "0x Token", false, 15, ETH),
+    HOT("TERC", 18, "Holo Token", false, 16, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
