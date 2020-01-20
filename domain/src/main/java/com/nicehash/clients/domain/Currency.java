@@ -25,7 +25,8 @@ public enum Currency {
     OMG("TERC", 18, "OmiseGO", false, 17, ETH),
     REP("TERC", 18, "Augur", false, 18, ETH),
     NEXO("TERC", 18, "Nexo Token", false, 19),
-    EURKM("TEURKM", 4, "Euro Kriptomat", false, 20),
+    BTG("TBTG", 8, "Bitcoin Gold", false, 20),
+    EURKM("TEURKM", 4, "Euro Kriptomat", false, 21),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
@@ -39,7 +40,8 @@ public enum Currency {
     TEOS("EOS", 4, "EOS test", true, 9),
     TERC("USDT", 0, "Test ERC", true, 10, TETH),
     TBSV("BSV", 8, "Test Bitcoin SV", true, 11),
-    TEURKM("EURKM", 4, "Test Euro Kriptomat", true, 12),
+    TBTG("BTG", 8, "Test Bitcoin Gold", true, 12),
+    TEURKM("EURKM", 4, "Test Euro Kriptomat", true, 13),
     ;
 
     /**
