@@ -24,7 +24,7 @@ public enum Currency {
     HOT("TERC", 18, "Holo Token", false, 16, ETH),
     OMG("TERC", 18, "OmiseGO", false, 17, ETH),
     REP("TERC", 18, "Augur", false, 18, ETH),
-    NEXO("TERC", 18, "Nexo Token", false, 19),
+    NEXO("TERC", 18, "Nexo Token", false, 19, ETH),
     BTG("TBTG", 8, "Bitcoin Gold", false, 20),
     EURKM("TEURKM", 4, "Euro Kriptomat", false, 21),
 
