@@ -27,6 +27,8 @@ public enum Currency {
     NEXO("TERC", 18, "Nexo Token", false, 19, ETH),
     BTG("TBTG", 8, "Bitcoin Gold", false, 20),
     EURKM("TEURKM", 4, "Euro Kriptomat", false, 21),
+    ENJ("TERC", 18, "Enjin", false, 22, ETH),
+    MATIC("TERC", 18, "Matic", false, 23, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
