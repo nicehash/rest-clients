@@ -98,4 +98,14 @@ public class Options {
      * Name
      */
     public static final Option<String> NAME = Option.simple(Options.class, "NAME", String.class, true);
+
+    /**
+     * Username
+     */
+    public static final Option<String> USERNAME = Option.simple(Options.class, "USERNAME", String.class, true);
+
+    /**
+     * Password
+     */
+    public static final Option<String> PASSWORD = Option.simple(Options.class, "PASSWORD", String.class, true);
 }
