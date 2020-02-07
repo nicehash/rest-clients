@@ -29,6 +29,8 @@ public enum Currency {
     EURKM("TEURKM", 4, "Euro Kriptomat", false, 21),
     ENJ("TERC", 18, "Enjin", false, 22, ETH),
     MATIC("TERC", 18, "Matic", false, 23, ETH),
+    AE("TERC", 18, "Aeternity", false, 24, ETH),
+    SNT("TERC", 18, "Status", false, 25, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
