@@ -31,6 +31,8 @@ public enum Currency {
     MATIC("TERC", 18, "Matic", false, 23, ETH),
     ELF("TERC", 18, "ELF", false, 24, ETH),
     SNT("TERC", 18, "Status", false, 25, ETH),
+    BNT("TERC", 18, "Bancor", false, 26, ETH),
+    KNC("TERC", 18, "KyberNetwork", false, 27, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
