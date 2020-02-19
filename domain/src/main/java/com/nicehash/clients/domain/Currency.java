@@ -33,6 +33,8 @@ public enum Currency {
     SNT("TERC", 18, "Status", false, 25, ETH),
     BNT("TERC", 18, "Bancor", false, 26, ETH),
     KNC("TERC", 18, "KyberNetwork", false, 27, ETH),
+    MTL("TERC", 8, "Metal", false, 28, ETH),
+    POLY("TERC", 18, "Polymath", false, 29, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
