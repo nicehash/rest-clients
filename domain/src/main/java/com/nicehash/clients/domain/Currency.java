@@ -39,6 +39,8 @@ public enum Currency {
     GTO("TERC", 5, "Gifto", false, 31, ETH),
     LOOM("TERC", 18, "Loom", false, 32, ETH),
     CVC("TERC", 8, "Civic", false, 33, ETH),
+    AST("TERC", 4, "AirSwap", false, 34, ETH),
+    PPT("TERC", 8, "Populous", false, 35, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
