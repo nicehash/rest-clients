@@ -41,6 +41,8 @@ public enum Currency {
     CVC("TERC", 8, "Civic", false, 33, ETH),
     AST("TERC", 4, "AirSwap", false, 34, ETH),
     PPT("TERC", 8, "Populous", false, 35, ETH),
+    LRC("TERC", 18, "Loopring", false, 36, ETH),
+    KEY("TERC", 18, "Selfkey", false, 37, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
