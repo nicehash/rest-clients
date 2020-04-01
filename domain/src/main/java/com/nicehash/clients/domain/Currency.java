@@ -45,6 +45,8 @@ public enum Currency {
     KEY("TERC", 18, "Selfkey", false, 37, ETH),
     STORJ("TERC", 8, "Storj", false, 38, ETH),
     STORM("TERC", 18, "Storm", false, 39, ETH),
+    TNT("TERC", 8, "Tierion",false, 40, ETH),
+    DATA("TERC", 18, "DATAcoin",false, 41, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
