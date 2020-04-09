@@ -47,6 +47,8 @@ public enum Currency {
     STORM("TERC", 18, "Storm", false, 39, ETH),
     TNT("TERC", 8, "Tierion", false, 40, ETH),
     DATA("TERC", 18, "DATAcoin", false, 41, ETH),
+    AOA("TERC", 18, "Aurora", false, 42, ETH),
+    RDN("TERC", 18, "Raiden", false, 43, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin test", true, 1),
