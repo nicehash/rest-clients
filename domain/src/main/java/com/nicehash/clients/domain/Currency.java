@@ -51,7 +51,9 @@ public enum Currency {
     RDN("TERC", 18, "Raiden", false, 43, ETH),
     USDC("TERC", 6, "USD Coin", false, 44, ETH),
   	FET("TERC", 18, "Fetch", false, 45, ETH),
-	  ANT("TERC", 18, "Aragon", false, 46, ETH),
+    ANT("TERC", 18, "Aragon", false, 46, ETH),
+    AERGO("TERC", 18, "Aergo", false, 47, ETH),
+    LBA("TERC", 18, "Libra", false, 48, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
