@@ -54,6 +54,7 @@ public enum Currency {
     ANT("TERC", 18, "Aragon", false, 46, ETH),
     AERGO("TERC", 18, "Aergo", false, 47, ETH),
     LBA("TERC", 18, "Libra", false, 48, ETH),
+    XMR("TXMR", 12, "Monero", false, 49),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -69,6 +70,7 @@ public enum Currency {
     TBSV("BSV", 8, "Bitcoin SV TestNet", true, 12),
     TBTG("BTG", 8, "Bitcoin Gold TestNet", true, 13),
     TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 2),
+    TXMR("XMR", 12, "Monero Testnet", true, 14),
     ;
 
     /**
