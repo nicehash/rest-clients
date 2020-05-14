@@ -55,6 +55,8 @@ public enum Currency {
     AERGO("TERC", 18, "Aergo", false, 47, ETH),
     LBA("TERC", 18, "Libra", false, 48, ETH),
     XMR("TXMR", 12, "Monero", false, 49),
+    MITH("TERC", 18, "Mithril", false, 50, ETH),
+    BAND("TERC", 18, "Band", false, 51, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
