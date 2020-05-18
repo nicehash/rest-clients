@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 
 public enum Currency {
-
+  
     BTC("TBTC", 8, "Bitcoin", false, 1),
     ETH("TETH", 18, "Ethereum", false, 3),
     XRP("TXRP", 6, "Ripple", false, 4),
@@ -50,6 +50,13 @@ public enum Currency {
     AOA("TERC", 18, "Aurora", false, 42, ETH),
     RDN("TERC", 18, "Raiden", false, 43, ETH),
     USDC("TERC", 6, "USD Coin", false, 44, ETH),
+  	FET("TERC", 18, "Fetch", false, 45, ETH),
+    ANT("TERC", 18, "Aragon", false, 46, ETH),
+    AERGO("TERC", 18, "Aergo", false, 47, ETH),
+    LBA("TERC", 18, "Libra", false, 48, ETH),
+    XMR("TXMR", 12, "Monero", false, 49),
+    MITH("TERC", 18, "Mithril", false, 50, ETH),
+    BAND("TERC", 18, "Band", false, 51, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -65,6 +72,7 @@ public enum Currency {
     TBSV("BSV", 8, "Bitcoin SV TestNet", true, 12),
     TBTG("BTG", 8, "Bitcoin Gold TestNet", true, 13),
     TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 2),
+    TXMR("XMR", 12, "Monero Testnet", true, 14),
     ;
 
     /**
@@ -159,4 +167,3 @@ public enum Currency {
         return base != null ? base : this;
     }
 }
-
