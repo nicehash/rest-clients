@@ -72,14 +72,20 @@ public class ClientException extends RuntimeException {
      */
     public String getErrorBody() throws IOException {
         if (error == null || NULL.equals(errorBody)) {
-            return null;
-        }
-        if (errorBody == null) {
-            String body = error.getBodyAsString();
-            errorBody = (body != null) ? body : NULL;
-            return getErrorBody();
+            if(getCause() == null) {
+                return null;
+            } else {
+                errorBody = getCause().getMessage();
+                return errorBody;
+            }
         } else {
-            return errorBody;
+            if (errorBody == null) {
+                String body = error.getBodyAsString();
+                errorBody = (body != null) ? body : NULL;
+                return getErrorBody();
+            } else {
+                return errorBody;
+            }
         }
     }
 }
