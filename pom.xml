@@ -20,7 +20,7 @@
     <gae.version>1.9.63</gae.version>
     <junit.version>4.12</junit.version>
     <!-- Compiler -->
-    <java.version>1.8</java.version>
+    <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
   </properties>
