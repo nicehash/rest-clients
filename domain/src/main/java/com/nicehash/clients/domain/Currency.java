@@ -57,6 +57,7 @@ public enum Currency {
     XMR("TXMR", 12, "Monero", false, 49),
     MITH("TERC", 18, "Mithril", false, 50, ETH),
     BAND("TERC", 18, "Band", false, 51, ETH),
+    SXP("TERC", 18, "Swipe", false, 52, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
