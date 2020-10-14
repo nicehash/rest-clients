@@ -58,6 +58,7 @@ public enum Currency {
     MITH("TERC", 18, "Mithril", false, 50, ETH),
     BAND("TERC", 18, "Band", false, 51, ETH),
     SXP("TERC", 18, "Swipe", false, 52, ETH),
+    EURS("TERC", 2, "Stasis EURO", false, 53, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
