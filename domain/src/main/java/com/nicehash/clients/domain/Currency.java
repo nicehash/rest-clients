@@ -59,6 +59,7 @@ public enum Currency {
     BAND("TERC", 18, "Band", false, 51, ETH),
     SXP("TERC", 18, "Swipe", false, 52, ETH),
     EURS("TERC", 2, "Stasis EURO", false, 53, ETH),
+    WBTC("TERC", 8, "Wrapped BTC", false, 54, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
