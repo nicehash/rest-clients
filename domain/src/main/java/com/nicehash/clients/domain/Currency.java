@@ -60,6 +60,7 @@ public enum Currency {
     SXP("TERC", 18, "Swipe", false, 52, ETH),
     EURS("TERC", 2, "Stasis EURO", false, 53, ETH),
     WBTC("TERC", 8, "Wrapped BTC", false, 54, ETH),
+    RVN("TRVN", 8, "Raven Coin", false, 55),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -76,6 +77,7 @@ public enum Currency {
     TBTG("BTG", 8, "Bitcoin Gold TestNet", true, 13),
     TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 2),
     TXMR("XMR", 12, "Monero Testnet", true, 14),
+    TRVN("XMR", 8, "Raven Testnet", true, 15),
     ;
 
     /**
