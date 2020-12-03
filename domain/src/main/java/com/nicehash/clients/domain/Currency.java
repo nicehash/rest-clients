@@ -77,7 +77,7 @@ public enum Currency {
     TBTG("BTG", 8, "Bitcoin Gold TestNet", true, 13),
     TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 2),
     TXMR("XMR", 12, "Monero Testnet", true, 14),
-    TRVN("XMR", 8, "Raven Testnet", true, 15),
+    TRVN("RVN", 8, "Raven Testnet", true, 15),
     ;
 
     /**
