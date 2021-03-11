@@ -61,6 +61,10 @@ public enum Currency {
     EURS("TERC", 2, "Stasis EURO", false, 53, ETH),
     WBTC("TERC", 8, "Wrapped BTC", false, 54, ETH),
     RVN("TRVN", 8, "Raven Coin", false, 55),
+    UNI("TERC", 18, "Uniswap", false, 56, ETH),
+    AAVE("TERC", 18, "Aeve", false, 57, ETH),
+    FTM("TERC", 18, "Fantom", false, 58, ETH),
+    YFI("TERC", 18, "yearn.finance", false, 59, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
