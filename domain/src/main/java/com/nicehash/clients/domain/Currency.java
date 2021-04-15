@@ -65,6 +65,9 @@ public enum Currency {
     AAVE("TERC", 18, "Aeve", false, 57, ETH),
     FTM("TERC", 18, "Fantom", false, 58, ETH),
     YFI("TERC", 18, "yearn.finance", false, 59, ETH),
+    DOGE("TDOGE", 8, "Dogecoin", false, 60),
+    ONEINCH("TERC", 18, "1INCH", false, 61, ETH),
+    SUSHI("TERC", 18, "Sushi", false, 62, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -82,6 +85,7 @@ public enum Currency {
     TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 2),
     TXMR("XMR", 12, "Monero Testnet", true, 14),
     TRVN("RVN", 8, "Raven Testnet", true, 15),
+    TDOGE("DOGE", 8, "Dogecoin Testnet", true, 16),
     ;
 
     /**
