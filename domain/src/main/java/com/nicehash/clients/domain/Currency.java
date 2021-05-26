@@ -68,8 +68,6 @@ public enum Currency {
     DOGE("TDOGE", 8, "Dogecoin", false, 60),
     ONEINCH("TERC", 18, "1INCH", false, 61, ETH),
     SUSHI("TERC", 18, "Sushi", false, 62, ETH),
-    OCEAN("TERC", 18, "Ocean", false, 63, ETH),
-    MKR("TERC", 18, "Maker", false, 64, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
