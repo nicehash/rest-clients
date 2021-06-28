@@ -70,6 +70,8 @@ public enum Currency {
     SUSHI("TERC", 18, "Sushi", false, 62, ETH),
     OCEAN("TERC", 18, "Ocean", false, 63, ETH),
     MKR("TERC", 18, "Maker", false, 64, ETH),
+    CRV("TERC", 18, "Curve DAO", false, 65, ETH),
+    CHZ("TERC", 18, "chiliZ", false, 66, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
