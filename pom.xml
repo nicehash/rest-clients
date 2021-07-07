@@ -18,7 +18,7 @@
     <commons-codec.version>1.11</commons-codec.version>
     <commons-lang3.version>3.7</commons-lang3.version>
     <gae.version>1.9.63</gae.version>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <!-- Compiler -->
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
