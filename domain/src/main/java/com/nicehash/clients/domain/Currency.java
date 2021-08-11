@@ -72,6 +72,7 @@ public enum Currency {
     MKR("TERC", 18, "Maker", false, 64, ETH),
     CRV("TERC", 18, "Curve DAO", false, 65, ETH),
     CHZ("TERC", 18, "chiliZ", false, 66, ETH),
+    GRT("TERC", 18, "The Graph", false, 67, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
