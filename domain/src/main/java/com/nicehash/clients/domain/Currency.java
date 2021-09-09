@@ -73,6 +73,8 @@ public enum Currency {
     CRV("TERC", 18, "Curve DAO", false, 65, ETH),
     CHZ("TERC", 18, "chiliZ", false, 66, ETH),
     GRT("TERC", 18, "The Graph", false, 67, ETH),
+    GNO("TERC", 18, "Gnosis", false, 68, ETH),
+    HBAR("THBAR", 8, "Hedera Hashgraph", false, 69),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -91,6 +93,7 @@ public enum Currency {
     TXMR("XMR", 12, "Monero Testnet", true, 14),
     TRVN("RVN", 8, "Raven Testnet", true, 15),
     TDOGE("DOGE", 8, "Dogecoin Testnet", true, 16),
+    THBAR("HBAR", 8, "Hedera Testnet", true, 17),
     ;
 
     /**
