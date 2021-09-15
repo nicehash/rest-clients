@@ -2,6 +2,8 @@ package com.nicehash.clients.domain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.EnumSet;
+import java.util.HashMap;
 
 
 public enum Currency {
@@ -142,7 +144,7 @@ public enum Currency {
      * @return alternative currency or null if no such alternative
      */
     public Currency getAlt() {
-        return (alt != null) ? valueOf(alt) : null;
+        return (alt != null) ? valueOfOptimized(alt) : null;
     }
 
     /**
@@ -187,5 +189,25 @@ public enum Currency {
      */
     public Currency base() {
         return base != null ? base : this;
+    }
+
+    /**
+     * Fast retrival of currency from name
+     */
+    private static final HashMap<String, com.nicehash.clients.domain.Currency> staticMap;
+    static {
+        staticMap = new HashMap<>();
+        EnumSet<Currency> set = EnumSet.allOf(Currency.class);
+        for(Currency c: set) {
+            staticMap.put(c.name(), c);
+        }
+    }
+
+    public static Currency valueOfOptimized(String name) {
+        Currency c = staticMap.get(name);
+        if (c == null) {
+            throw new IllegalArgumentException("No enum constant " + Currency.class.getCanonicalName() + "." + name);
+        }
+        return c;
     }
 }
