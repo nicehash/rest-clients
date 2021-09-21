@@ -96,7 +96,6 @@ public enum Currency {
     TRVN("RVN", 8, "Raven Testnet", true, 15),
     TDOGE("DOGE", 8, "Dogecoin Testnet", true, 16),
     THBAR("HBAR", 8, "Hedera Testnet", true, 17),
-    TADA("ADA", 8, "Cardano Testnet", true, 18)
     ;
 
     /**
