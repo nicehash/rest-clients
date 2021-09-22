@@ -77,6 +77,7 @@ public enum Currency {
     GRT("TERC", 18, "The Graph", false, 67, ETH),
     GNO("TERC", 18, "Gnosis", false, 68, ETH),
     HBAR("THBAR", 8, "Hedera Hashgraph", false, 69),
+    ADA("TADA", 8, "Cardano", false, 70),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
