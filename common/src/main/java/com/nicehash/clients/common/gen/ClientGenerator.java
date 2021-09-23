@@ -1,14 +1,8 @@
 package com.nicehash.clients.common.gen;
 
 import com.nicehash.clients.common.ClientCallback;
-import com.nicehash.clients.common.spi.PropertyReplacer;
-import com.nicehash.clients.common.spi.ServiceApiError;
 import com.nicehash.clients.common.ClientException;
-import com.nicehash.clients.common.spi.Options;
-import com.nicehash.clients.common.spi.ServiceApiErrorParser;
-import com.nicehash.clients.common.spi.ServiceBuilder;
-import com.nicehash.clients.common.spi.ServiceBuilderConfiguration;
-import com.nicehash.clients.common.spi.SimplePropertyReplacer;
+import com.nicehash.clients.common.spi.*;
 import com.nicehash.clients.util.options.OptionMap;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +19,7 @@ import java.util.concurrent.Executor;
 public class ClientGenerator {
 
     private static final Map<Class<?>, GenContext> contextMap = new ConcurrentHashMap<>(); // TODO ref map
+    public static boolean isJackson = true;
 
     private static <S> ServiceBuilderConfiguration getServiceBuilderConfiguration(Class<S> serviceClass) {
         ServiceBuilderConfiguration configuration = serviceClass.getAnnotation(ServiceBuilderConfiguration.class);
@@ -75,11 +70,20 @@ public class ClientGenerator {
         PropertyReplacer replacer = options.get(Options.REPLACER, SimplePropertyReplacer.INSTANCE);
         String baseUrl = options.get(Options.BASE_URL, configuration.url());
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl(replacer.replace(baseUrl))
-            .addConverterFactory(new NullOnEmptyConverterFactory())
-            .addConverterFactory(JacksonConverterFactory.create())
-            .callFactory(factory);
+        Retrofit.Builder builder;
+        if(isJackson) {
+            builder = new Retrofit.Builder()
+                    .baseUrl(replacer.replace(baseUrl))
+                    .addConverterFactory(new NullOnEmptyConverterFactory())
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .callFactory(factory);
+        }else {
+            builder = new Retrofit.Builder()
+                    .baseUrl(replacer.replace(baseUrl))
+                    .addConverterFactory(new NullOnEmptyConverterFactory())
+                    .addConverterFactory(new ByteArrayConverterFactory())
+                    .callFactory(factory);
+        }
 
         Executor executor = options.get(Options.EXECUTOR);
         if (executor != null) {
