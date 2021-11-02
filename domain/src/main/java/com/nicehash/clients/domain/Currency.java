@@ -77,7 +77,7 @@ public enum Currency {
     GRT("TERC", 18, "The Graph", false, 67, ETH),
     GNO("TERC", 18, "Gnosis", false, 68, ETH),
     HBAR("THBAR", 8, "Hedera Hashgraph", false, 69),
-    ADA("TADA", 8, "Cardano", false, 70),
+    ADA("TADA", 6, "Cardano", false, 70),
     ALGO("TALGO", 6, "Algorand", false, 71),
     XTZ("TXTZ", 6, "Tezos", false, 72),
 
@@ -99,7 +99,7 @@ public enum Currency {
     TRVN("RVN", 8, "Raven Testnet", true, 15),
     TDOGE("DOGE", 8, "Dogecoin Testnet", true, 16),
     THBAR("HBAR", 8, "Hedera Testnet", true, 17),
-    TADA("ADA", 8, "Cardano Testnet", true, 18),
+    TADA("ADA", 6, "Cardano Testnet", true, 18),
     TALGO("ALGO", 6, "Algorand testnet", true, 19),
     TXTZ("XTZ", 6, "Tezos testnet", true, 20),
     ;
