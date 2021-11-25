@@ -103,6 +103,7 @@ public enum Currency {
     TADA("ADA", 6, "Cardano Testnet", true, 18),
     TALGO("ALGO", 6, "Algorand testnet", true, 19),
     TXTZ("XTZ", 6, "Tezos testnet", true, 20),
+
     ;
 
     /**
