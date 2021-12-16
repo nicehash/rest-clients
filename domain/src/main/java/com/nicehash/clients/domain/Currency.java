@@ -81,6 +81,8 @@ public enum Currency {
     ALGO("TALGO", 6, "Algorand", false, 71),
     XTZ("TXTZ", 6, "Tezos", false, 72),
     SAND("TERC", 18, "Sand", false, 73, ETH),
+    SHIB("TERC", 18, "Shiba Inu", false, 74, ETH),
+    STX("TSTX", 6, "Stacks", false, 75),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -103,6 +105,7 @@ public enum Currency {
     TADA("ADA", 6, "Cardano Testnet", true, 18),
     TALGO("ALGO", 6, "Algorand testnet", true, 19),
     TXTZ("XTZ", 6, "Tezos testnet", true, 20),
+    TSTX("STX", 6, "Stacks testnet", true, 21),
 
     ;
 
