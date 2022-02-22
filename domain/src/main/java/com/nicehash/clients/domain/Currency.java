@@ -83,6 +83,7 @@ public enum Currency {
     SAND("TERC", 18, "Sand", false, 73, ETH),
     SHIB("TERC", 18, "Shiba Inu", false, 74, ETH),
     STX("TSTX", 6, "Stacks", false, 75),
+    GALA("TERC", 8, "Gala", false, 76, ETH),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
