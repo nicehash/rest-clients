@@ -4,6 +4,8 @@ import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.*;
 import com.nicehash.clients.util.options.OptionMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,6 +20,7 @@ import java.util.concurrent.Executor;
 
 public class ClientGenerator {
 
+    private static final Logger log = LoggerFactory.getLogger(ClientGenerator.class);
     private static final Map<Class<?>, GenContext> contextMap = new ConcurrentHashMap<>(); // TODO ref map
     public static boolean isJackson = true;
 
@@ -33,6 +36,8 @@ public class ClientGenerator {
         if (response.isSuccessful()) {
             return response.body();
         } else {
+            logError(response);
+
             ServiceApiErrorParser parser = contextMap.get(serviceClass).getParser();
             ServiceApiError apiError = parser.parse(response);
             RuntimeException exception = apiError.toException();
@@ -42,6 +47,17 @@ public class ClientGenerator {
             } else {
                 throw exception;
             }
+        }
+    }
+
+    private static <T> void logError(Response<T> response) {
+        try {
+            String errorBody = response.errorBody() != null ? response.errorBody().string() : "null";
+            String responseMessage = response.message() != null ? response.message() : "null";
+
+            log.error("logError:: Client exception: {}, message: {}", errorBody, responseMessage);
+        } catch (Exception e) {
+            log.error("logError:: Error body cannot be read. Exception: {}", e.getMessage());
         }
     }
 
