@@ -4,6 +4,7 @@ import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.*;
 import com.nicehash.clients.util.options.OptionMap;
+import okio.Buffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import retrofit2.Call;
@@ -13,6 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
@@ -52,7 +54,8 @@ public class ClientGenerator {
 
     private static <T> void logError(Response<T> response) {
         try {
-            String errorBody = response.errorBody() != null ? response.errorBody().string() : "null";
+            Buffer buffer = response != null && response.errorBody() != null && response.errorBody().source() != null && response.errorBody().source().buffer() != null ? response.errorBody().source().buffer().clone() : null;
+            String errorBody = buffer != null ? buffer.readString(StandardCharsets.UTF_8) : "null";
             String responseMessage = response.message() != null ? response.message() : "null";
 
             log.error("logError:: Client exception: {}, message: {}", errorBody, responseMessage);
