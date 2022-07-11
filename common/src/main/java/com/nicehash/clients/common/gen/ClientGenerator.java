@@ -76,6 +76,10 @@ public class ClientGenerator {
         }
     }
 
+    public static void setIsJackson(boolean isJackson) {
+        ClientGenerator.isJackson = isJackson;
+    }
+
     public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
