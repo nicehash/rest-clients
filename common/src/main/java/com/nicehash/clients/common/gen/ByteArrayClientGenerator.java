@@ -20,9 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 
 
-public class ClientGenerator {
+public class ByteArrayClientGenerator {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientGenerator.class);
+    private static final Logger log = LoggerFactory.getLogger(ByteArrayClientGenerator.class);
     private static final Map<Class<?>, GenContext> contextMap = new ConcurrentHashMap<>(); // TODO ref map
 
     private static <S> ServiceBuilderConfiguration getServiceBuilderConfiguration(Class<S> serviceClass) {
@@ -89,10 +89,10 @@ public class ClientGenerator {
         String baseUrl = options.get(Options.BASE_URL, configuration.url());
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl(replacer.replace(baseUrl))
-                    .addConverterFactory(new NullOnEmptyConverterFactory())
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .callFactory(factory);
+                .baseUrl(replacer.replace(baseUrl))
+                .addConverterFactory(new NullOnEmptyConverterFactory())
+                .addConverterFactory(new ByteArrayConverterFactory())
+                .callFactory(factory);
 
         Executor executor = options.get(Options.EXECUTOR);
         if (executor != null) {
