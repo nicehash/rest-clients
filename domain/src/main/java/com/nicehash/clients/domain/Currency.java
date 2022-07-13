@@ -107,6 +107,7 @@ public enum Currency {
     TALGO("ALGO", 6, "Algorand testnet", true, 19),
     TXTZ("XTZ", 6, "Tezos testnet", true, 20),
     TSTX("STX", 6, "Stacks testnet", true, 21),
+    TTTT("USDC", 6, "ERC Testnet", true, 22, TETH),
 
     ;
 
