@@ -85,6 +85,7 @@ public enum Currency {
     STX("TSTX", 6, "Stacks", false, 75),
     GALA("TERC", 8, "Gala", false, 76, ETH),
     SOL("TSOL", 9, "Solana", false, 77),
+    DOT("TDOT", 10, "Polkadot", false, 78),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -109,7 +110,8 @@ public enum Currency {
     TXTZ("XTZ", 6, "Tezos testnet", true, 20),
     TSTX("STX", 6, "Stacks testnet", true, 21),
     TTTT("USDT", 6, "ERC Testnet", true, 22, TETH),
-    TSOL("SOL", 9, "Solana Testnet", true, 23)
+    TSOL("SOL", 9, "Solana Testnet", true, 23),
+    TDOT("DOT", 10, "Polkadot Testnet", true, 24),
 
     ;
 
