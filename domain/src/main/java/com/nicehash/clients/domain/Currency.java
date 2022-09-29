@@ -86,6 +86,7 @@ public enum Currency {
     GALA("TERC", 8, "Gala", false, 76, ETH),
     SOL("TSOL", 9, "Solana", false, 77),
     DOT("TDOT", 10, "Polkadot", false, 78),
+    ETC("TETC", 18, "Ethereum Classic", false, 79),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -112,6 +113,7 @@ public enum Currency {
     TTTT("USDT", 6, "ERC Testnet", true, 22, TETH),
     TSOL("SOL", 9, "Solana Testnet", true, 23),
     TDOT("DOT", 10, "Polkadot Testnet", true, 24),
+    TETC("ETC", 18, "Ethereum Classic", true, 25),
 
     ;
 
