@@ -87,6 +87,7 @@ public enum Currency {
     SOL("TSOL", 9, "Solana", false, 77),
     DOT("TDOT", 10, "Polkadot", false, 78),
     ETC("TETC", 18, "Ethereum Classic", false, 79),
+    TRX("TTRX", 6, "Tron", false, 80),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -115,6 +116,7 @@ public enum Currency {
     TDOT("DOT", 10, "Polkadot Testnet", true, 24),
     TETC("ETC", 18, "Ethereum Classic", true, 25),
 
+    TTRX("TRX", 6, "Tron Testnet", true, 26),
     ;
 
     /**
