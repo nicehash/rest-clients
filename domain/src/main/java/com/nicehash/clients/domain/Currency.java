@@ -88,6 +88,7 @@ public enum Currency {
     DOT("TDOT", 10, "Polkadot", false, 78),
     ETC("TETC", 18, "Ethereum Classic", false, 79),
     TRX("TTRX", 6, "Tron", false, 80),
+    KSM("KSM", 12, "Kusama", false, 81),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
