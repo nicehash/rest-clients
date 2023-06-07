@@ -119,7 +119,7 @@ public enum Currency {
     TETC("ETC", 18, "Ethereum Classic", true, 25),
 
     TTRX("TRX", 6, "Tron Testnet", true, 26),
-    TEUR("EUR", 2, "Euro TestNet", true, 2),
+    TEUR("EUR", 2, "Euro TestNet", true, 27),
     ;
 
     /**
