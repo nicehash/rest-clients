@@ -120,6 +120,7 @@ public enum Currency {
 
     TTRX("TRX", 6, "Tron Testnet", true, 26),
     TEUR("EUR", 2, "Euro TestNet", true, 27),
+    TMARC("USDT", 18, "MarcPride", true, 28, TETH),
     ;
 
     /**
