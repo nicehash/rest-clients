@@ -95,6 +95,11 @@ public class Options {
     public static final Option<String> SECRET = Option.simple(Options.class, "SECRET", String.class, true);
 
     /**
+     * Secret Out
+     */
+    public static final Option<String> SECRET_OUT = Option.simple(Options.class, "SECRET_OUT", String.class, true);
+
+    /**
      * Name
      */
     public static final Option<String> NAME = Option.simple(Options.class, "NAME", String.class, true);
