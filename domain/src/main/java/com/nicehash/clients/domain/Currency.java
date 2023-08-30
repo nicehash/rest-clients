@@ -28,7 +28,7 @@ public enum Currency {
     REP("TERC", 18, "Augur", false, 19, ETH),
     NEXO("TERC", 18, "Nexo Token", false, 20, ETH),
     BTG("TBTG", 8, "Bitcoin Gold", false, 21),
-    EURKM("TEURKM", 4, "Euro Kriptomat", false, 2),
+    EURKM("TEURKM", 4, "Euro Kriptomat", false, 82),
     ENJ("TERC", 18, "Enjin", false, 22, ETH),
     MATIC("TERC", 18, "Matic", false, 23, ETH),
     ELF("TERC", 18, "ELF", false, 24, ETH),
@@ -89,7 +89,7 @@ public enum Currency {
     ETC("TETC", 18, "Ethereum Classic", false, 79),
     TRX("TTRX", 6, "Tron", false, 80),
     KSM("KSM", 12, "Kusama", false, 81),
-    EUR("TEUR", 2, "Euro", false, 82),
+    EUR("TEUR", 2, "Euro", false, 2),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -104,7 +104,7 @@ public enum Currency {
     TERC("USDT", 0, "ERC TestNet", true, 11, TETH),
     TBSV("BSV", 8, "Bitcoin SV TestNet", true, 12),
     TBTG("BTG", 8, "Bitcoin Gold TestNet", true, 13),
-    TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 2),
+    TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 27),
     TXMR("XMR", 12, "Monero Testnet", true, 14),
     TRVN("RVN", 8, "Raven Testnet", true, 15),
     TDOGE("DOGE", 8, "Dogecoin Testnet", true, 16),
@@ -119,7 +119,7 @@ public enum Currency {
     TETC("ETC", 18, "Ethereum Classic", true, 25),
 
     TTRX("TRX", 6, "Tron Testnet", true, 26),
-    TEUR("EUR", 2, "Euro TestNet", true, 27),
+    TEUR("EUR", 2, "Euro TestNet", true, 2),
     ;
 
     /**
