@@ -12,17 +12,24 @@
   <name>NiceHash REST clients</name>
   <description>NiceHash REST clients -- all public REST clients</description>
 
+  <parent>
+    <groupId>com.nicehash</groupId>
+    <artifactId>nicehash-parent</artifactId>
+    <version>1-SNAPSHOT</version>
+    <relativePath>../nicehash-parent/pom.xml</relativePath>
+  </parent>
+
   <properties>
-    <com.squareup.retrofit2.version>2.5.0</com.squareup.retrofit2.version>
-    <slf4j.version>1.7.25</slf4j.version>
-    <commons-codec.version>1.11</commons-codec.version>
-    <commons-lang3.version>3.7</commons-lang3.version>
-    <gae.version>1.9.63</gae.version>
-    <junit.version>4.13.1</junit.version>
-    <!-- Compiler -->
-    <java.version>11</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
+<!--    <com.squareup.retrofit2.version>2.5.0</com.squareup.retrofit2.version>-->
+<!--    <slf4j.version>1.7.25</slf4j.version>-->
+<!--    <commons-codec.version>1.11</commons-codec.version>-->
+<!--    <commons-lang3.version>3.7</commons-lang3.version>-->
+<!--    <gae.version>1.9.63</gae.version>-->
+<!--    <junit.version>4.13.1</junit.version>-->
+<!--    &lt;!&ndash; Compiler &ndash;&gt;-->
+<!--    <java.version>11</java.version>-->
+<!--    <maven.compiler.source>${java.version}</maven.compiler.source>-->
+<!--    <maven.compiler.target>${java.version}</maven.compiler.target>-->
   </properties>
 
   <modules>
@@ -112,7 +119,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>${maven-assembly-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -120,7 +127,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
@@ -130,7 +137,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>${maven-source-plugin.version}</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -145,7 +152,7 @@
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.6</version>
+        <version>${nexus-staging-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>default-deploy</id>
@@ -165,7 +172,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.10</version>
+        <version>${jacoco-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>default-prepare-agent</id>
