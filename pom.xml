@@ -19,18 +19,6 @@
     <relativePath>../nicehash-parent/pom.xml</relativePath>
   </parent>
 
-  <properties>
-<!--    <com.squareup.retrofit2.version>2.5.0</com.squareup.retrofit2.version>-->
-<!--    <slf4j.version>1.7.25</slf4j.version>-->
-<!--    <commons-codec.version>1.11</commons-codec.version>-->
-<!--    <commons-lang3.version>3.7</commons-lang3.version>-->
-<!--    <gae.version>1.9.63</gae.version>-->
-<!--    <junit.version>4.13.1</junit.version>-->
-<!--    &lt;!&ndash; Compiler &ndash;&gt;-->
-<!--    <java.version>11</java.version>-->
-<!--    <maven.compiler.source>${java.version}</maven.compiler.source>-->
-<!--    <maven.compiler.target>${java.version}</maven.compiler.target>-->
-  </properties>
 
   <modules>
     <module>util</module>
@@ -67,12 +55,12 @@
       <dependency>
         <groupId>com.squareup.retrofit2</groupId>
         <artifactId>retrofit</artifactId>
-        <version>${com.squareup.retrofit2.version}</version>
+        <version>${retrofit.version}</version>
       </dependency>
       <dependency>
         <groupId>com.squareup.retrofit2</groupId>
         <artifactId>converter-jackson</artifactId>
-        <version>${com.squareup.retrofit2.version}</version>
+        <version>${retrofit.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-codec</groupId>
