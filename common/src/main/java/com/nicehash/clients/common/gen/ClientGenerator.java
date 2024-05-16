@@ -75,6 +75,14 @@ public class ClientGenerator {
         }
     }
 
+    public static <S> void putServiceToMap(Class<S> serviceClass, OptionMap options) throws Exception{
+        ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
+        ServiceBuilder serviceBuilder = configuration.builder().newInstance();
+        okhttp3.Call.Factory factory = serviceBuilder.buildCallFactory(options);
+        ServiceApiErrorParser parser = serviceBuilder.parser(options);
+        GenContext context = new GenContext(factory, parser);
+        contextMap.put(serviceClass, context);
+    }
     public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
