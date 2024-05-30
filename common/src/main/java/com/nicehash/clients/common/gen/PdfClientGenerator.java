@@ -1,5 +1,6 @@
 package com.nicehash.clients.common.gen;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.*;
@@ -19,10 +20,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 
+public class PdfClientGenerator {
 
-public class ClientGenerator {
-
-    private static final Logger log = LoggerFactory.getLogger(ClientGenerator.class);
+    private static final Logger log = LoggerFactory.getLogger(PdfClientGenerator.class);
     private static final Map<Class<?>, GenContext> contextMap = new ConcurrentHashMap<>(); // TODO ref map
 
     private static <S> ServiceBuilderConfiguration getServiceBuilderConfiguration(Class<S> serviceClass) {
@@ -75,14 +75,6 @@ public class ClientGenerator {
         }
     }
 
-    public static <S> void putServiceToMap(Class<S> serviceClass, OptionMap options) throws Exception{
-        ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
-        ServiceBuilder serviceBuilder = configuration.builder().newInstance();
-        okhttp3.Call.Factory factory = serviceBuilder.buildCallFactory(options);
-        ServiceApiErrorParser parser = serviceBuilder.parser(options);
-        GenContext context = new GenContext(factory, parser);
-        contextMap.put(serviceClass, context);
-    }
     public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
@@ -96,11 +88,14 @@ public class ClientGenerator {
         PropertyReplacer replacer = options.get(Options.REPLACER, SimplePropertyReplacer.INSTANCE);
         String baseUrl = options.get(Options.BASE_URL, configuration.url());
 
+
+
         Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl(replacer.replace(baseUrl))
-                    .addConverterFactory(new NullOnEmptyConverterFactory())
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .callFactory(factory);
+                .baseUrl(replacer.replace(baseUrl))
+                .addConverterFactory(new NullOnEmptyConverterFactory())
+                .addConverterFactory(new PdfConverterFactory())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .callFactory(factory);
 
         Executor executor = options.get(Options.EXECUTOR);
         if (executor != null) {
