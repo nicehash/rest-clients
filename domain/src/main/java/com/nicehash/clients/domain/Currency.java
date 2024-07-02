@@ -30,7 +30,7 @@ public enum Currency {
     NEXO("TERC", 18, "Nexo Token", false, 20, Set.of(ETH)),
     BTG("TBTG", 8, "Bitcoin Gold", false, 21),
     @Deprecated EURKM("TEURKM", 4, "Euro Kriptomat", false, 82),
-    ENJ("TERC", 18, "Enjin", false, 22, Set.of(ETH)),
+    @Deprecated ENJ("TERC", 18, "Enjin", false, 22, Set.of(ETH)),
     MATIC("TERC", 18, "Matic", false, 23, Set.of(ETH)),
     ELF("TERC", 18, "ELF", false, 24, Set.of(ETH)),
     SNT("TERC", 18, "Status", false, 25, Set.of(ETH)),
