@@ -21,7 +21,7 @@ public enum Currency {
     USDT("TERC", 6, "Tether", false, 11, Set.of(ETH)),
     BSV("TBSV", 8, "Bitcoin SV", false, 12),
     LINK("TERC", 18, "ChainLink", false, 13, Set.of(ETH)),
-    BAT("TERC", 18, "Basic Attention Token", false, 14, Set.of(ETH)),
+    @Deprecated BAT("TERC", 18, "Basic Attention Token", false, 14, Set.of(ETH)),
     PAX("TERC", 18, "Paxos Standard", false, 15, Set.of(ETH)),
     ZRX("TERC", 18, "0x Token", false, 16, Set.of(ETH)),
     HOT("TERC", 18, "Holo Token", false, 17, Set.of(ETH)),
