@@ -72,7 +72,7 @@ public enum Currency {
     ONEINCH("TERC", 18, "1INCH", false, 61, Set.of(ETH)),
     SUSHI("TERC", 18, "Sushi", false, 62, Set.of(ETH)),
     OCEAN("TERC", 18, "Ocean", false, 63, Set.of(ETH)),
-    MKR("TERC", 18, "Maker", false, 64, Set.of(ETH)),
+    @Deprecated MKR("TERC", 18, "Maker", false, 64, Set.of(ETH)),
     CRV("TERC", 18, "Curve DAO", false, 65, Set.of(ETH)),
     CHZ("TERC", 18, "chiliZ", false, 66, Set.of(ETH)),
     GRT("TERC", 18, "The Graph", false, 67, Set.of(ETH)),
