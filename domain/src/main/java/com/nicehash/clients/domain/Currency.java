@@ -59,7 +59,7 @@ public enum Currency {
     LBA("TERC", 18, "Libra", false, 48, Set.of(ETH)),
     XMR("TXMR", 12, "Monero", false, 49),
     MITH("TERC", 18, "Mithril", false, 50, Set.of(ETH)),
-    BAND("TERC", 18, "Band", false, 51, Set.of(ETH)),
+    @Deprecated BAND("TERC", 18, "Band", false, 51, Set.of(ETH)),
     SXP("TERC", 18, "Swipe", false, 52, Set.of(ETH)),
     EURS("TERC", 2, "Stasis EURO", false, 53, Set.of(ETH)),
     WBTC("TERC", 8, "Wrapped BTC", false, 54, Set.of(ETH)),
