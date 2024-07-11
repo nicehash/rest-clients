@@ -35,7 +35,7 @@ public enum Currency {
     ELF("TERC", 18, "ELF", false, 24, Set.of(ETH)),
     SNT("TERC", 18, "Status", false, 25, Set.of(ETH)),
     BNT("TERC", 18, "Bancor", false, 26, Set.of(ETH)),
-    KNC("TERC", 18, "KyberNetwork", false, 27, Set.of(ETH)),
+    @Deprecated KNC("TERC", 18, "KyberNetwork", false, 27, Set.of(ETH)),
     MTL("TERC", 8, "Metal", false, 28, Set.of(ETH)),
     POLY("TERC", 18, "Polymath", false, 29, Set.of(ETH)),
     POWR("TERC", 6, "PowerLedger", false, 30, Set.of(ETH)),
