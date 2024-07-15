@@ -42,7 +42,7 @@ public enum Currency {
     GTO("TERC", 5, "Gifto", false, 31, Set.of(ETH)),
     LOOM("TERC", 18, "Loom", false, 32, Set.of(ETH)),
     CVC("TERC", 8, "Civic", false, 33, Set.of(ETH)),
-    AST("TERC", 4, "AirSwap", false, 34, Set.of(ETH)),
+    @Deprecated AST("TERC", 4, "AirSwap", false, 34, Set.of(ETH)),
     PPT("TERC", 8, "Populous", false, 35, Set.of(ETH)),
     LRC("TERC", 18, "Loopring", false, 36, Set.of(ETH)),
     KEY("TERC", 18, "Selfkey", false, 37, Set.of(ETH)),
