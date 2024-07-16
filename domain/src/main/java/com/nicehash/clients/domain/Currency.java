@@ -74,7 +74,7 @@ public enum Currency {
     OCEAN("TERC", 18, "Ocean", false, 63, Set.of(ETH)),
     @Deprecated MKR("TERC", 18, "Maker", false, 64, Set.of(ETH)),
     CRV("TERC", 18, "Curve DAO", false, 65, Set.of(ETH)),
-    CHZ("TERC", 18, "chiliZ", false, 66, Set.of(ETH)),
+    @Deprecated CHZ("TERC", 18, "chiliZ", false, 66, Set.of(ETH)),
     GRT("TERC", 18, "The Graph", false, 67, Set.of(ETH)),
     GNO("TERC", 18, "Gnosis", false, 68, Set.of(ETH)),
     HBAR("THBAR", 8, "Hedera Hashgraph", false, 69),
