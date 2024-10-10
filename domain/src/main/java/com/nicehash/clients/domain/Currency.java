@@ -91,6 +91,7 @@ public enum Currency {
     @Deprecated TRX("TTRX", 6, "Tron", false, 80),
     @Deprecated KSM("KSM", 12, "Kusama", false, 81),
     EUR("TEUR", 2, "Euro", false, 2),
+    KAS("TKAS", 8, "Kaspa", false, 82),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -106,22 +107,23 @@ public enum Currency {
     @Deprecated TBSV("BSV", 8, "Bitcoin SV TestNet", true, 12),
     @Deprecated TBTG("BTG", 8, "Bitcoin Gold TestNet", true, 13),
     @Deprecated TEURKM("EURKM", 4, "Euro Kriptomat TestNet", true, 27),
-    @Deprecated TXMR("XMR", 12, "Monero Testnet", true, 14),
-    TRVN("RVN", 8, "Raven Testnet", true, 15),
-    TDOGE("DOGE", 8, "Dogecoin Testnet", true, 16),
-    @Deprecated THBAR("HBAR", 8, "Hedera Testnet", true, 17),
-    @Deprecated TADA("ADA", 6, "Cardano Testnet", true, 18),
-    @Deprecated TALGO("ALGO", 6, "Algorand testnet", true, 19),
-    @Deprecated TXTZ("XTZ", 6, "Tezos testnet", true, 20),
-    @Deprecated TSTX("STX", 6, "Stacks testnet", true, 21),
+    @Deprecated TXMR("XMR", 12, "Monero TestNet", true, 14),
+    TRVN("RVN", 8, "Raven TestNet", true, 15),
+    TDOGE("DOGE", 8, "Dogecoin TestNet", true, 16),
+    @Deprecated THBAR("HBAR", 8, "Hedera TestNet", true, 17),
+    @Deprecated TADA("ADA", 6, "Cardano TestNet", true, 18),
+    @Deprecated TALGO("ALGO", 6, "Algorand TestNet", true, 19),
+    @Deprecated TXTZ("XTZ", 6, "Tezos TestNet", true, 20),
+    @Deprecated TSTX("STX", 6, "Stacks TestNet", true, 21),
     TTTT("USDT", 6, "ERC Testnet", true, 22, Set.of(TETH)),
-    @Deprecated TSOL("SOL", 9, "Solana Testnet", true, 23),
-    @Deprecated TDOT("DOT", 10, "Polkadot Testnet", true, 24),
-    @Deprecated TETC("ETC", 18, "Ethereum Classic", true, 25),
+    @Deprecated TSOL("SOL", 9, "Solana TestNet", true, 23),
+    @Deprecated TDOT("DOT", 10, "Polkadot TestNet", true, 24),
+    @Deprecated TETC("ETC", 18, "Ethereum Classic TestNet", true, 25),
 
-    @Deprecated TTRX("TRX", 6, "Tron Testnet", true, 26),
+    @Deprecated TTRX("TRX", 6, "Tron TestNet", true, 26),
     TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
+    TKAS("KAS", 8, "Kaspa TestNet", false, 29),
     ;
 
     /**
