@@ -113,4 +113,14 @@ public class Options {
      * Password
      */
     public static final Option<String> PASSWORD = Option.simple(Options.class, "PASSWORD", String.class, true);
+
+    /**
+     * Token provider url
+     */
+    public static final Option<String> TOKEN_PROVIDER_URL = Option.simple(Options.class, "TOKEN_PROVIDER_URL", String.class, true);
+
+    /**
+     * Token lifespan
+     */
+    public static final Option<Integer> TOKEN_LIFESPAN = Option.simple(Options.class, "TOKEN_LIFESPAN", Integer.class, true);
 }
