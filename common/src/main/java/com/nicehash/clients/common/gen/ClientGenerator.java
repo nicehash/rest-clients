@@ -119,7 +119,7 @@ public class ClientGenerator {
         try {
             Response<T> response = call.execute();
             if (Objects.equals(serviceClass.getName(), "com.nicehash.platform.clients.lightning.impl.LightningService")) {
-                log.debug("ClientGenerator::executeSync: {}", response);
+                log.debug("ClientGenerator::executeSync call: {} response: {}", call.request(), response);
             }
             return getResult(serviceClass, response, null);
         } catch (IOException e) {
