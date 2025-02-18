@@ -16,6 +16,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 
@@ -117,6 +118,9 @@ public class ClientGenerator {
     public static <S, T> T executeSync(Class<S> serviceClass, Call<T> call) {
         try {
             Response<T> response = call.execute();
+            if (Objects.equals(serviceClass.getName(), "com.nicehash.platform.clients.lightning.impl.LightningService")) {
+                log.debug("ClientGenerator::executeSync call: {} response: {}", call.request(), response);
+            }
             return getResult(serviceClass, response, null);
         } catch (IOException e) {
             throw new ClientException("Failed to execute request.", e);
