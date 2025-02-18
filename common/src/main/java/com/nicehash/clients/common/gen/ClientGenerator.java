@@ -117,7 +117,6 @@ public class ClientGenerator {
     public static <S, T> T executeSync(Class<S> serviceClass, Call<T> call) {
         try {
             Response<T> response = call.execute();
-            log.debug("ClientGenerator::executeSync call: {} response: {}", call.request(), response);
             return getResult(serviceClass, response, null);
         } catch (IOException e) {
             throw new ClientException("Failed to execute request.", e);
