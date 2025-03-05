@@ -90,7 +90,7 @@ public enum Currency {
     @Deprecated ETC("TETC", 18, "Ethereum Classic", false, 79),
     @Deprecated TRX("TTRX", 6, "Tron", false, 80),
     @Deprecated KSM("KSM", 12, "Kusama", false, 81),
-    EUR("TEUR", 2, "Euro", false, 2),
+    @Deprecated EUR("TEUR", 2, "Euro", false, 2),
     KAS("TKAS", 8, "Kaspa", false, 82),
 
     // testnet currencies
@@ -121,7 +121,7 @@ public enum Currency {
     @Deprecated TETC("ETC", 18, "Ethereum Classic TestNet", true, 25),
 
     @Deprecated TTRX("TRX", 6, "Tron TestNet", true, 26),
-    TEUR("EUR", 2, "Euro TestNet", true, 2),
+    @Deprecated TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
     TKAS("KAS", 8, "Kaspa TestNet", false, 29),
     ;
