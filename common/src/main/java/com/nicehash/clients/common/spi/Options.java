@@ -123,4 +123,9 @@ public class Options {
      * Token lifespan
      */
     public static final Option<Integer> TOKEN_LIFESPAN = Option.simple(Options.class, "TOKEN_LIFESPAN", Integer.class, true);
+
+    /**
+     * Client version
+     */
+    public static final Option<String> CLIENT_VERSION = Option.simple(Options.class, "CLIENT_VERSION", String.class, true);
 }
