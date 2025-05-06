@@ -44,6 +44,13 @@ public class Options {
      */
     public static final Option<Long> WRITE_TIMEOUT = Option.simple(Options.class, "WRITE_TIMEOUT", Long.class);
 
+
+    /**
+     * Connection timeout
+     */
+    public static final Option<Long> CONNECTION_TIMEOUT = Option.simple(Options.class, "CONNECTION_TIMEOUT", Long.class);
+
+
     /**
      * Auth interceptor.
      */
