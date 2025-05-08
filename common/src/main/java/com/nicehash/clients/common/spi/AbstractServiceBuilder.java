@@ -31,6 +31,11 @@ public abstract class AbstractServiceBuilder implements ServiceBuilder {
                     builder.writeTimeout(writeTimeout, TimeUnit.MILLISECONDS);
                 }
 
+                Long connectionTimeout = optionMap.get(Options.CONNECTION_TIMEOUT);
+                if(connectionTimeout!=null){
+                    builder.connectTimeout(connectionTimeout, TimeUnit.MILLISECONDS);
+                }
+
                 client = builder.build();
             }
             return client;
