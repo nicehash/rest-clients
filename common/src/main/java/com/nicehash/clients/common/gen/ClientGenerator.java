@@ -1,5 +1,8 @@
 package com.nicehash.clients.common.gen;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.*;
@@ -18,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
-
 
 public class ClientGenerator {
 
@@ -96,10 +98,14 @@ public class ClientGenerator {
         PropertyReplacer replacer = options.get(Options.REPLACER, SimplePropertyReplacer.INSTANCE);
         String baseUrl = options.get(Options.BASE_URL, configuration.url());
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
         Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(replacer.replace(baseUrl))
                     .addConverterFactory(new NullOnEmptyConverterFactory())
-                    .addConverterFactory(JacksonConverterFactory.create())
+                    .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                     .callFactory(factory);
 
         Executor executor = options.get(Options.EXECUTOR);
