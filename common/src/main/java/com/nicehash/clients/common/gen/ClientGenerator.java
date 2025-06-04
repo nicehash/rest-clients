@@ -2,6 +2,7 @@ package com.nicehash.clients.common.gen;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
@@ -100,6 +101,7 @@ public class ClientGenerator {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.registerModule(new Jdk8Module());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         Retrofit.Builder builder = new Retrofit.Builder()
