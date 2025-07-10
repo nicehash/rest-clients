@@ -124,6 +124,7 @@ public enum Currency {
     @Deprecated TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
     TKAS("KAS", 8, "Kaspa TestNet", false, 29),
+    USD("USD", 6, "US Dollar", false, 30),
     ;
 
     /**
