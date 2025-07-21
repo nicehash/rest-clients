@@ -4,6 +4,8 @@ import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.*;
 import com.nicehash.clients.util.options.OptionMap;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,6 +84,14 @@ public class ByteArrayClientGenerator {
         okhttp3.Call.Factory factory = serviceBuilder.buildCallFactory(options);
         ServiceApiErrorParser parser = serviceBuilder.parser(options);
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
+            log.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+        });
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build();
+
         GenContext context = new GenContext(factory, parser);
         contextMap.put(serviceClass, context);
 
@@ -92,6 +102,7 @@ public class ByteArrayClientGenerator {
                 .baseUrl(replacer.replace(baseUrl))
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(new ByteArrayConverterFactory())
+                .client(client)
                 .callFactory(factory);
 
         Executor executor = options.get(Options.EXECUTOR);

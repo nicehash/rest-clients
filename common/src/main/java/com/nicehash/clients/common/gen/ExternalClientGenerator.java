@@ -4,6 +4,8 @@ import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.*;
 import com.nicehash.clients.util.options.OptionMap;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import retrofit2.Call;
@@ -61,6 +63,15 @@ public class ExternalClientGenerator {
     public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
+            log.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+        });
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build();
+
         ServiceBuilder serviceBuilder = configuration.builder().newInstance();
         okhttp3.Call.Factory factory = serviceBuilder.buildCallFactory(options);
         ServiceApiErrorParser parser = serviceBuilder.parser(options);
@@ -76,12 +87,14 @@ public class ExternalClientGenerator {
                     .baseUrl(replacer.replace(baseUrl))
                     .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(JacksonConverterFactory.create())
+                    .client(client)
                     .callFactory(factory);
         }else {
             builder = new Retrofit.Builder()
                     .baseUrl(replacer.replace(baseUrl))
                     .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(new ByteArrayConverterFactory())
+                    .client(client)
                     .callFactory(factory);
         }
 
