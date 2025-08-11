@@ -5,6 +5,8 @@ import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.ClientException;
 import com.nicehash.clients.common.spi.*;
 import com.nicehash.clients.util.options.OptionMap;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,8 +77,15 @@ public class PdfClientGenerator {
         }
     }
 
-    public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
+    public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
+            superLog.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+        });
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build();
 
         ServiceBuilder serviceBuilder = configuration.builder().newInstance();
         okhttp3.Call.Factory factory = serviceBuilder.buildCallFactory(options);
@@ -95,6 +104,7 @@ public class PdfClientGenerator {
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(new PdfConverterFactory())
                 .addConverterFactory(JacksonConverterFactory.create())
+                .client(client)
                 .callFactory(factory);
 
         Executor executor = options.get(Options.EXECUTOR);

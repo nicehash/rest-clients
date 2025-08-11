@@ -27,6 +27,8 @@ import com.nicehash.clients.exchange.domain.market.TickerStatistic;
 import com.nicehash.clients.common.gen.ClientGenerator;
 import com.nicehash.clients.common.spi.ServiceHandle;
 import com.nicehash.clients.util.options.OptionMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.nicehash.clients.common.gen.ClientGenerator.executeSync;
 
@@ -40,9 +42,10 @@ import java.util.UUID;
 public class ExchangeClientImpl implements ExchangeClient, ServiceHandle<ExchangeService> {
 
     private final ExchangeService service;
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     public ExchangeClientImpl(OptionMap options) throws Exception {
-        service = ClientGenerator.createService(ExchangeService.class, options);
+        service = ClientGenerator.createService(ExchangeService.class, options, log);
     }
 
     @Override
