@@ -60,11 +60,11 @@ public class ExternalClientGenerator {
     public static void close(Class<?> serviceClass) {
     }
 
-    public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
+    public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
-            log.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+            superLog.debug(serviceClass.getSimpleName() + " retrofit: ", message);
         });
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 

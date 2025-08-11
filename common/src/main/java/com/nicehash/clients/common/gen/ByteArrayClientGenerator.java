@@ -77,7 +77,7 @@ public class ByteArrayClientGenerator {
         }
     }
 
-    public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
+    public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
         ServiceBuilder serviceBuilder = configuration.builder().newInstance();
@@ -85,7 +85,7 @@ public class ByteArrayClientGenerator {
         ServiceApiErrorParser parser = serviceBuilder.parser(options);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
-            log.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+            superLog.debug(serviceClass.getSimpleName() + " retrofit: ", message);
         });
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()

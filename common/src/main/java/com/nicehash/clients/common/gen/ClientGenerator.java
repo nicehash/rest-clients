@@ -88,7 +88,7 @@ public class ClientGenerator {
         GenContext context = new GenContext(factory, parser);
         contextMap.put(serviceClass, context);
     }
-    public static <S> S createService(Class<S> serviceClass, OptionMap options) throws Exception {
+    public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog) throws Exception { //TODO fix all calls for this!!!!
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
         ServiceBuilder serviceBuilder = configuration.builder().newInstance();
@@ -96,7 +96,7 @@ public class ClientGenerator {
         ServiceApiErrorParser parser = serviceBuilder.parser(options);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
-            log.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+            superLog.debug(serviceClass.getSimpleName() + " retrofit: ", message);
         });
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
