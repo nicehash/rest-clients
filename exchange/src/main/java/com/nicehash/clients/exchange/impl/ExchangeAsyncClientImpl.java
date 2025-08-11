@@ -46,7 +46,7 @@ import java.util.UUID;
 public class ExchangeAsyncClientImpl implements ExchangeAsyncClient, ServiceHandle<ExchangeService> {
 
     private final ExchangeService service;
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(ExchangeAsyncClientImpl.class);
 
     public ExchangeAsyncClientImpl(OptionMap options) throws Exception {
         service = ClientGenerator.createService(ExchangeService.class, options, log);
