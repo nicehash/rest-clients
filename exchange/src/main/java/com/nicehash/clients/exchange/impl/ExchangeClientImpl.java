@@ -42,7 +42,7 @@ import java.util.UUID;
 public class ExchangeClientImpl implements ExchangeClient, ServiceHandle<ExchangeService> {
 
     private final ExchangeService service;
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(ExchangeClientImpl.class);
 
     public ExchangeClientImpl(OptionMap options) throws Exception {
         service = ClientGenerator.createService(ExchangeService.class, options, log);
