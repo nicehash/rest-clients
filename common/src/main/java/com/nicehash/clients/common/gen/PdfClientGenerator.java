@@ -80,7 +80,7 @@ public class PdfClientGenerator {
     public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
-            superLog.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+            superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
         });
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()

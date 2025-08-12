@@ -96,7 +96,7 @@ public class ClientGenerator {
         ServiceApiErrorParser parser = serviceBuilder.parser(options);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
-            superLog.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+            superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
         });
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
