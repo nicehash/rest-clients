@@ -64,7 +64,7 @@ public class ExternalClientGenerator {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
-            superLog.debug(serviceClass.getSimpleName() + " retrofit: ", message);
+            superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
         });
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
