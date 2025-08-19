@@ -32,6 +32,8 @@ import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.common.gen.ClientGenerator;
 import com.nicehash.clients.common.spi.ServiceHandle;
 import com.nicehash.clients.util.options.OptionMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.nicehash.clients.common.gen.ClientGenerator.executeAsync;
 
@@ -44,9 +46,10 @@ import java.util.UUID;
 public class ExchangeAsyncClientImpl implements ExchangeAsyncClient, ServiceHandle<ExchangeService> {
 
     private final ExchangeService service;
+    protected final Logger log = LoggerFactory.getLogger(ExchangeAsyncClientImpl.class);
 
     public ExchangeAsyncClientImpl(OptionMap options) throws Exception {
-        service = ClientGenerator.createService(ExchangeService.class, options);
+        service = ClientGenerator.createService(ExchangeService.class, options, log);
     }
 
     private <U extends SingleOrListObject<T>, T> ClientCallback<U> wrapSingle(ClientCallback<T> callback) {
