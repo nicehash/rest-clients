@@ -92,9 +92,11 @@ public enum Currency {
     @Deprecated TRX("TTRX", 6, "Tron", false, 80),
     @Deprecated KSM("KSM", 12, "Kusama", false, 81),
     KAS("TKAS", 8, "Kaspa", false, 82),
+    USD("TUSD", 2, "US Dollar", false, 83),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
+    @Deprecated TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TETH("ETH", 18, "Ethereum TestNet", true, 3),
     @Deprecated TXRP("XRP", 6, "Ripple TestNet", true, 4),
     TBCH("BCH", 8, "Bitcoin cash TestNet", true, 5),
@@ -121,7 +123,6 @@ public enum Currency {
     @Deprecated TETC("ETC", 18, "Ethereum Classic TestNet", true, 25),
 
     @Deprecated TTRX("TRX", 6, "Tron TestNet", true, 26),
-    @Deprecated TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
     TKAS("KAS", 8, "Kaspa TestNet", false, 29),
     TUSD("USD", 2, "US Dollar TestNet", true, 30),
