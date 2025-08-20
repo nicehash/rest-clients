@@ -10,6 +10,7 @@ import java.util.Set;
 public enum Currency {
   
     BTC("TBTC", 8, "Bitcoin", false, 1),
+    @Deprecated EUR("TEUR", 2, "Euro", false, 2),
     @Deprecated ETH("TETH", 18, "Ethereum", false, 3),
     @Deprecated XRP("TXRP", 6, "Ripple", false, 4),
     BCH("TBCH", 8, "Bitcoin cash", false, 5),
@@ -90,7 +91,6 @@ public enum Currency {
     @Deprecated ETC("TETC", 18, "Ethereum Classic", false, 79),
     @Deprecated TRX("TTRX", 6, "Tron", false, 80),
     @Deprecated KSM("KSM", 12, "Kusama", false, 81),
-    @Deprecated EUR("TEUR", 2, "Euro", false, 2),
     KAS("TKAS", 8, "Kaspa", false, 82),
 
     // testnet currencies
@@ -124,7 +124,7 @@ public enum Currency {
     @Deprecated TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
     TKAS("KAS", 8, "Kaspa TestNet", false, 29),
-    USD("USD", 6, "US Dollar", false, 30),
+    TUSD("USD", 2, "US Dollar TestNet", true, 30),
     ;
 
     /**
