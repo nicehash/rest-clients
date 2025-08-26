@@ -10,6 +10,7 @@ import java.util.Set;
 public enum Currency {
   
     BTC("TBTC", 8, "Bitcoin", false, 1),
+    @Deprecated EUR("TEUR", 2, "Euro", false, 2),
     @Deprecated ETH("TETH", 18, "Ethereum", false, 3),
     @Deprecated XRP("TXRP", 6, "Ripple", false, 4),
     BCH("TBCH", 8, "Bitcoin cash", false, 5),
@@ -90,11 +91,12 @@ public enum Currency {
     @Deprecated ETC("TETC", 18, "Ethereum Classic", false, 79),
     @Deprecated TRX("TTRX", 6, "Tron", false, 80),
     @Deprecated KSM("KSM", 12, "Kusama", false, 81),
-    @Deprecated EUR("TEUR", 2, "Euro", false, 2),
     KAS("TKAS", 8, "Kaspa", false, 82),
+    USD("TUSD", 2, "US Dollar", false, 83),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
+    @Deprecated TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TETH("ETH", 18, "Ethereum TestNet", true, 3),
     @Deprecated TXRP("XRP", 6, "Ripple TestNet", true, 4),
     TBCH("BCH", 8, "Bitcoin cash TestNet", true, 5),
@@ -121,10 +123,9 @@ public enum Currency {
     @Deprecated TETC("ETC", 18, "Ethereum Classic TestNet", true, 25),
 
     @Deprecated TTRX("TRX", 6, "Tron TestNet", true, 26),
-    @Deprecated TEUR("EUR", 2, "Euro TestNet", true, 2),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
     TKAS("KAS", 8, "Kaspa TestNet", false, 29),
-    USD("USD", 6, "US Dollar", false, 30),
+    TUSD("USD", 2, "US Dollar TestNet", true, 30),
     ;
 
     /**
