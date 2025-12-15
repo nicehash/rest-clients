@@ -118,7 +118,7 @@ public enum Currency {
     @Deprecated TXTZ("XTZ", 6, "Tezos TestNet", true, 20),
     @Deprecated TSTX("STX", 6, "Stacks TestNet", true, 21),
     TTTT("USDT", 6, "ERC Testnet", true, 22, Set.of(TETH)),
-    @Deprecated TSOL("SOL", 9, "Solana TestNet", true, 23),
+    TSOL("SOL", 9, "Solana TestNet", true, 23),
     @Deprecated TDOT("DOT", 10, "Polkadot TestNet", true, 24),
     @Deprecated TETC("ETC", 18, "Ethereum Classic TestNet", true, 25),
 
