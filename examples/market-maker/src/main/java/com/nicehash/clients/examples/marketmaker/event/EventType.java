@@ -1,20 +1,20 @@
 package com.nicehash.clients.examples.marketmaker.event;
 
 public enum EventType {
-    DEPTH(XDepthEvent.class),
-    ORDER(XOrderEvent.class),
-    CANDLESTICK(XCandlestickEvent.class),
-    TRADE(XTradeEvent.class),
-    TIMER(XTimerEvent.class),
-    TICKERS(XTickersEvent.class);
+  DEPTH(XDepthEvent.class),
+  ORDER(XOrderEvent.class),
+  CANDLESTICK(XCandlestickEvent.class),
+  TRADE(XTradeEvent.class),
+  TIMER(XTimerEvent.class),
+  TICKERS(XTickersEvent.class);
 
-    private Class clazz;
+  private Class clazz;
 
-    public Class getType() {
-        return clazz;
-    }
+  public Class getType() {
+    return clazz;
+  }
 
-    private EventType(Class clazz) {
-        this.clazz = clazz;
-    }
+  private EventType(Class clazz) {
+    this.clazz = clazz;
+  }
 }

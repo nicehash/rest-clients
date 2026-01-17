@@ -1,21 +1,19 @@
 package com.nicehash.clients.exchange.domain.general;
 
-/**
- * Time of the server running NiceHash's REST API.
- */
+/** Time of the server running NiceHash's REST API. */
 public class ServerTime {
-    private Long serverTime;
+  private Long serverTime;
 
-    public Long getServerTime() {
-        return serverTime;
-    }
+  public Long getServerTime() {
+    return serverTime;
+  }
 
-    public void setServerTime(Long serverTime) {
-        this.serverTime = serverTime;
-    }
+  public void setServerTime(Long serverTime) {
+    this.serverTime = serverTime;
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(serverTime);
-    }
+  @Override
+  public String toString() {
+    return String.valueOf(serverTime);
+  }
 }

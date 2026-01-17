@@ -1,13 +1,11 @@
 package com.nicehash.clients.exchange.domain;
 
-/**
- * Order execution type.
- */
+/** Order execution type. */
 public enum ExecutionType {
-    NEW,
-    CANCELED,
-    REPLACED,
-    REJECTED,
-    TRADE,
-    EXPIRED
+  NEW,
+  CANCELED,
+  REPLACED,
+  REJECTED,
+  TRADE,
+  EXPIRED
 }

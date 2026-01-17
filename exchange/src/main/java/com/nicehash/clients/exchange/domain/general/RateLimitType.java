@@ -1,9 +1,7 @@
 package com.nicehash.clients.exchange.domain.general;
 
-/**
- * Rate limiters.
- */
+/** Rate limiters. */
 public enum RateLimitType {
-    REQUESTS,
-    ORDERS
+  REQUESTS,
+  ORDERS
 }

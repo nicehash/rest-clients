@@ -2,7 +2,7 @@ package com.nicehash.clients.examples.marketmaker.event;
 
 public interface Event<T> {
 
-    EventType type();
+  EventType type();
 
-    T getApiEvent();
+  T getApiEvent();
 }

@@ -3,47 +3,45 @@ package com.nicehash.clients.exchange.domain.general;
 import com.nicehash.clients.exchange.constant.ExchangeConstants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-/**
- * Rate limits.
- */
+/** Rate limits. */
 public class RateLimit {
 
-    private RateLimitType rateLimitType;
+  private RateLimitType rateLimitType;
 
-    private RateLimitInterval interval;
+  private RateLimitInterval interval;
 
-    private Integer limit;
+  private Integer limit;
 
-    public RateLimitType getRateLimitType() {
-        return rateLimitType;
-    }
+  public RateLimitType getRateLimitType() {
+    return rateLimitType;
+  }
 
-    public void setRateLimitType(RateLimitType rateLimitType) {
-        this.rateLimitType = rateLimitType;
-    }
+  public void setRateLimitType(RateLimitType rateLimitType) {
+    this.rateLimitType = rateLimitType;
+  }
 
-    public RateLimitInterval getInterval() {
-        return interval;
-    }
+  public RateLimitInterval getInterval() {
+    return interval;
+  }
 
-    public void setInterval(RateLimitInterval interval) {
-        this.interval = interval;
-    }
+  public void setInterval(RateLimitInterval interval) {
+    this.interval = interval;
+  }
 
-    public Integer getLimit() {
-        return limit;
-    }
+  public Integer getLimit() {
+    return limit;
+  }
 
-    public void setLimit(Integer limit) {
-        this.limit = limit;
-    }
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, ExchangeConstants.TO_STRING_BUILDER_STYLE)
-            .append("rateLimitType", rateLimitType)
-            .append("interval", interval)
-            .append("limit", limit)
-            .toString();
-    }
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ExchangeConstants.TO_STRING_BUILDER_STYLE)
+        .append("rateLimitType", rateLimitType)
+        .append("interval", interval)
+        .append("limit", limit)
+        .toString();
+  }
 }

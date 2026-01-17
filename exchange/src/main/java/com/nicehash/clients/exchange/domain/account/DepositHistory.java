@@ -1,9 +1,8 @@
 package com.nicehash.clients.exchange.domain.account;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nicehash.clients.exchange.constant.ExchangeConstants;
+import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -13,32 +12,32 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class DepositHistory {
 
-    @JsonProperty("depositList")
-    private List<Deposit> depositList;
+  @JsonProperty("depositList")
+  private List<Deposit> depositList;
 
-    private boolean success;
+  private boolean success;
 
-    public List<Deposit> getDepositList() {
-        return depositList;
-    }
+  public List<Deposit> getDepositList() {
+    return depositList;
+  }
 
-    public void setDepositList(List<Deposit> depositList) {
-        this.depositList = depositList;
-    }
+  public void setDepositList(List<Deposit> depositList) {
+    this.depositList = depositList;
+  }
 
-    public boolean isSuccess() {
-        return success;
-    }
+  public boolean isSuccess() {
+    return success;
+  }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
+  public void setSuccess(boolean success) {
+    this.success = success;
+  }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, ExchangeConstants.TO_STRING_BUILDER_STYLE)
-            .append("depositList", depositList)
-            .append("success", success)
-            .toString();
-    }
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ExchangeConstants.TO_STRING_BUILDER_STYLE)
+        .append("depositList", depositList)
+        .append("success", success)
+        .toString();
+  }
 }

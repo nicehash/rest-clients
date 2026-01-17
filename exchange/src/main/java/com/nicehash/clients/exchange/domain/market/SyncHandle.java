@@ -6,28 +6,26 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/**
- * Sync handle -- impl detail.
- */
+/** Sync handle -- impl detail. */
 public class SyncHandle implements Closeable {
 
-    private final Closeable closeable;
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+  private final Closeable closeable;
+  private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public SyncHandle(Closeable closeable) {
-        this.closeable = closeable;
-    }
+  public SyncHandle(Closeable closeable) {
+    this.closeable = closeable;
+  }
 
-    public Lock readLock() {
-        return lock.readLock();
-    }
+  public Lock readLock() {
+    return lock.readLock();
+  }
 
-    public Lock writeLock() {
-        return lock.writeLock();
-    }
+  public Lock writeLock() {
+    return lock.writeLock();
+  }
 
-    @Override
-    public void close() throws IOException {
-        closeable.close();
-    }
+  @Override
+  public void close() throws IOException {
+    closeable.close();
+  }
 }

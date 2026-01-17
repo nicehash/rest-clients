@@ -1,139 +1,135 @@
 package com.nicehash.clients.exchange.domain.general;
 
 /**
- * Filters define trading rules on a symbol or an exchange. Filters come in two forms: symbol filters and exchange filters.
+ * Filters define trading rules on a symbol or an exchange. Filters come in two forms: symbol
+ * filters and exchange filters.
  *
- * The PRICE_FILTER defines the price rules for a symbol.
+ * <p>The PRICE_FILTER defines the price rules for a symbol.
  *
- * The LOT_SIZE filter defines the quantity (aka "lots" in auction terms) rules for a symbol.
+ * <p>The LOT_SIZE filter defines the quantity (aka "lots" in auction terms) rules for a symbol.
  *
- * The MIN_NOTIONAL filter defines the minimum notional value allowed for an order on a symbol. An order's notional value is the price * quantity.
+ * <p>The MIN_NOTIONAL filter defines the minimum notional value allowed for an order on a symbol.
+ * An order's notional value is the price * quantity.
  *
- * The MAX_NUM_ORDERS filter defines the maximum number of orders an account is allowed to have open on a symbol. Note that both "algo" orders and normal orders are counted for this filter.
+ * <p>The MAX_NUM_ORDERS filter defines the maximum number of orders an account is allowed to have
+ * open on a symbol. Note that both "algo" orders and normal orders are counted for this filter.
  *
- * The MAX_ALGO_ORDERS filter defines the maximum number of "algo" orders an account is allowed to have open on a symbol. "Algo" orders are STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+ * <p>The MAX_ALGO_ORDERS filter defines the maximum number of "algo" orders an account is allowed
+ * to have open on a symbol. "Algo" orders are STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and
+ * TAKE_PROFIT_LIMIT orders.
  */
 public class SymbolFilter {
 
-    // PRICE_FILTER
+  // PRICE_FILTER
 
-    private FilterType filterType;
+  private FilterType filterType;
 
-    /**
-     * Defines the minimum price/stopPrice allowed.
-     */
-    private String minPrice;
+  /** Defines the minimum price/stopPrice allowed. */
+  private String minPrice;
 
-    /**
-     * Defines the maximum price/stopPrice allowed.
-     */
-    private String maxPrice;
+  /** Defines the maximum price/stopPrice allowed. */
+  private String maxPrice;
 
-    /**
-     * Defines the intervals that a price/stopPrice can be increased/decreased by.
-     */
-    private String tickSize;
+  /** Defines the intervals that a price/stopPrice can be increased/decreased by. */
+  private String tickSize;
 
+  // LOT_SIZE
 
-    // LOT_SIZE
+  /** Defines the minimum quantity/icebergQty allowed. */
+  private String minQty;
 
-    /**
-     * Defines the minimum quantity/icebergQty allowed.
-     */
-    private String minQty;
+  /** Defines the maximum quantity/icebergQty allowed. */
+  private String maxQty;
 
-    /**
-     * Defines the maximum quantity/icebergQty allowed.
-     */
-    private String maxQty;
+  /** Defines the intervals that a quantity/icebergQty can be increased/decreased by. */
+  private String stepSize;
 
-    /**
-     * Defines the intervals that a quantity/icebergQty can be increased/decreased by.
-     */
-    private String stepSize;
+  // MIN_NOTIONAL
 
-    // MIN_NOTIONAL
+  /**
+   * Defines the minimum notional value allowed for an order on a symbol. An order's notional value
+   * is the price * quantity.
+   */
+  private String minNotional;
 
-    /**
-     * Defines the minimum notional value allowed for an order on a symbol. An order's notional value is the price * quantity.
-     */
-    private String minNotional;
+  /**
+   * MAX_NUM_ORDERS filter defines the maximum number of orders an account is allowed to have open
+   * on a symbol. Note that both "algo" orders and normal orders are counted for this filter.
+   * MAX_ALGO_ORDERS filter defines the maximum number of "algo" orders an account is allowed to
+   * have open on a symbol. "Algo" orders are STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and
+   * TAKE_PROFIT_LIMIT orders.
+   */
+  private String limit;
 
-    /**
-     * MAX_NUM_ORDERS filter defines the maximum number of orders an account is allowed to have open on a symbol. Note that both "algo" orders and normal orders are counted for this filter.
-     * MAX_ALGO_ORDERS filter defines the maximum number of "algo" orders an account is allowed to have open on a symbol. "Algo" orders are STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
-     */
-    private String limit;
+  public FilterType getFilterType() {
+    return filterType;
+  }
 
-    public FilterType getFilterType() {
-        return filterType;
-    }
+  public void setFilterType(FilterType filterType) {
+    this.filterType = filterType;
+  }
 
-    public void setFilterType(FilterType filterType) {
-        this.filterType = filterType;
-    }
+  public String getMinPrice() {
+    return minPrice;
+  }
 
-    public String getMinPrice() {
-        return minPrice;
-    }
+  public void setMinPrice(String minPrice) {
+    this.minPrice = minPrice;
+  }
 
-    public void setMinPrice(String minPrice) {
-        this.minPrice = minPrice;
-    }
+  public String getMaxPrice() {
+    return maxPrice;
+  }
 
-    public String getMaxPrice() {
-        return maxPrice;
-    }
+  public void setMaxPrice(String maxPrice) {
+    this.maxPrice = maxPrice;
+  }
 
-    public void setMaxPrice(String maxPrice) {
-        this.maxPrice = maxPrice;
-    }
+  public String getTickSize() {
+    return tickSize;
+  }
 
-    public String getTickSize() {
-        return tickSize;
-    }
+  public void setTickSize(String tickSize) {
+    this.tickSize = tickSize;
+  }
 
-    public void setTickSize(String tickSize) {
-        this.tickSize = tickSize;
-    }
+  public String getMinQty() {
+    return minQty;
+  }
 
-    public String getMinQty() {
-        return minQty;
-    }
+  public void setMinQty(String minQty) {
+    this.minQty = minQty;
+  }
 
-    public void setMinQty(String minQty) {
-        this.minQty = minQty;
-    }
+  public String getMaxQty() {
+    return maxQty;
+  }
 
-    public String getMaxQty() {
-        return maxQty;
-    }
+  public void setMaxQty(String maxQty) {
+    this.maxQty = maxQty;
+  }
 
-    public void setMaxQty(String maxQty) {
-        this.maxQty = maxQty;
-    }
+  public String getStepSize() {
+    return stepSize;
+  }
 
-    public String getStepSize() {
-        return stepSize;
-    }
+  public void setStepSize(String stepSize) {
+    this.stepSize = stepSize;
+  }
 
-    public void setStepSize(String stepSize) {
-        this.stepSize = stepSize;
-    }
+  public String getMinNotional() {
+    return minNotional;
+  }
 
-    public String getMinNotional() {
-        return minNotional;
-    }
+  public void setMinNotional(String minNotional) {
+    this.minNotional = minNotional;
+  }
 
-    public void setMinNotional(String minNotional) {
-        this.minNotional = minNotional;
-    }
+  public String getLimit() {
+    return limit;
+  }
 
-    public String getLimit() {
-        return limit;
-    }
-
-    public void setLimit(String limit) {
-        this.limit = limit;
-    }
+  public void setLimit(String limit) {
+    this.limit = limit;
+  }
 }

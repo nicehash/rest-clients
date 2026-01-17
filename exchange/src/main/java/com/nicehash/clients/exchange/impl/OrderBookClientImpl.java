@@ -1,17 +1,16 @@
 package com.nicehash.clients.exchange.impl;
 
+import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.exchange.ExchangeClient;
-import com.nicehash.clients.exchange.OrderBookClient;
 import com.nicehash.clients.exchange.ExchangeClientFactory;
 import com.nicehash.clients.exchange.ExchangeWebSocketClient;
+import com.nicehash.clients.exchange.OrderBookClient;
 import com.nicehash.clients.exchange.domain.event.DepthEvent;
 import com.nicehash.clients.exchange.domain.market.OrderBook;
 import com.nicehash.clients.exchange.domain.market.OrderBookEntry;
 import com.nicehash.clients.exchange.domain.market.OrderBookSync;
 import com.nicehash.clients.exchange.domain.market.SyncHandle;
-import com.nicehash.clients.common.ClientCallback;
 import com.nicehash.clients.util.options.OptionMap;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -22,109 +21,112 @@ import java.util.TreeMap;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-
 public class OrderBookClientImpl implements OrderBookClient {
-    private final ExchangeClient restClient;
-    private final ExchangeWebSocketClient wsClient;
+  private final ExchangeClient restClient;
+  private final ExchangeWebSocketClient wsClient;
 
-    public OrderBookClientImpl(OptionMap options) {
-        ExchangeClientFactory factory = ExchangeClientFactory.newInstance(options);
-        this.restClient = factory.newClient();
-        wsClient = ExchangeClientFactory.newWebSocketClient(options);
+  public OrderBookClientImpl(OptionMap options) {
+    ExchangeClientFactory factory = ExchangeClientFactory.newInstance(options);
+    this.restClient = factory.newClient();
+    wsClient = ExchangeClientFactory.newWebSocketClient(options);
+  }
+
+  private void applyDiff(List<OrderBookEntry> list, Map<BigDecimal, BigDecimal> map) {
+    for (OrderBookEntry entry : list) {
+      BigDecimal price = entry.getPrice();
+      BigDecimal qty = entry.getQty();
+      if (qty.signum() == 0) {
+        map.remove(price);
+      } else {
+        map.put(price, qty);
+      }
     }
+  }
 
-    private void applyDiff(List<OrderBookEntry> list, Map<BigDecimal, BigDecimal> map) {
-        for (OrderBookEntry entry : list) {
-            BigDecimal price = entry.getPrice();
-            BigDecimal qty = entry.getQty();
-            if (qty.signum() == 0) {
-                map.remove(price);
-            } else {
-                map.put(price, qty);
-            }
-        }
-    }
+  @Override
+  public OrderBookSync orderBook(String symbol) {
+    BlockingDeque<DepthEvent> events = new LinkedBlockingDeque<>();
 
-    @Override
-    public OrderBookSync orderBook(String symbol) {
-        BlockingDeque<DepthEvent> events = new LinkedBlockingDeque<>();
-
-        Closeable closeable = wsClient.onDepthEvent(symbol, new ClientCallback<DepthEvent>() {
-            @Override
-            public void onResponse(DepthEvent event) {
+    Closeable closeable =
+        wsClient.onDepthEvent(
+            symbol,
+            new ClientCallback<DepthEvent>() {
+              @Override
+              public void onResponse(DepthEvent event) {
                 try {
-                    events.putLast(event);
+                  events.putLast(event);
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    throw new RuntimeException(e);
+                  Thread.currentThread().interrupt();
+                  throw new RuntimeException(e);
                 }
-            }
+              }
 
-            @Override
-            public void onFailure(Throwable t) {
-            }
-        });
+              @Override
+              public void onFailure(Throwable t) {}
+            });
 
-        OBCloseable obc = new OBCloseable(closeable);
-        SyncHandle handle = new SyncHandle(obc);
+    OBCloseable obc = new OBCloseable(closeable);
+    SyncHandle handle = new SyncHandle(obc);
 
-        Map<BigDecimal, BigDecimal> bids = new TreeMap<>(Comparator.reverseOrder());
-        Map<BigDecimal, BigDecimal> asks = new TreeMap<>(Comparator.naturalOrder());
-        OrderBookSync orderBook = new OrderBookSync(handle, bids, asks);
+    Map<BigDecimal, BigDecimal> bids = new TreeMap<>(Comparator.reverseOrder());
+    Map<BigDecimal, BigDecimal> asks = new TreeMap<>(Comparator.naturalOrder());
+    OrderBookSync orderBook = new OrderBookSync(handle, bids, asks);
 
-        OrderBook ob = restClient.getOrderBook(symbol, null);
-        applyDiff(ob.getBids(), bids);
-        applyDiff(ob.getAsks(), asks);
-        long lastUpdateId = ob.getLastUpdateId();
-        orderBook.setLastUpdateId(lastUpdateId);
+    OrderBook ob = restClient.getOrderBook(symbol, null);
+    applyDiff(ob.getBids(), bids);
+    applyDiff(ob.getAsks(), asks);
+    long lastUpdateId = ob.getLastUpdateId();
+    orderBook.setLastUpdateId(lastUpdateId);
 
-        new Thread(() -> {
-            try {
+    new Thread(
+            () -> {
+              try {
                 while (obc.stopped == false) {
-                    DepthEvent event = events.takeFirst();
-                    long finalUpdateId = event.getFinalUpdateId();
-                    if (finalUpdateId > lastUpdateId) {
-                        handle.writeLock().lock();
-                        try {
-                            applyDiff(event.getBids(), bids);
-                            applyDiff(event.getAsks(), asks);
-                        } finally {
-                            handle.writeLock().unlock();
-                        }
-                        orderBook.setLastUpdateId(finalUpdateId);
+                  DepthEvent event = events.takeFirst();
+                  long finalUpdateId = event.getFinalUpdateId();
+                  if (finalUpdateId > lastUpdateId) {
+                    handle.writeLock().lock();
+                    try {
+                      applyDiff(event.getBids(), bids);
+                      applyDiff(event.getAsks(), asks);
+                    } finally {
+                      handle.writeLock().unlock();
                     }
+                    orderBook.setLastUpdateId(finalUpdateId);
+                  }
                 }
-            } catch (InterruptedException e) {
+              } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
-            }
-        }, "OrderBookSyncThread-" + symbol).start();
+              }
+            },
+            "OrderBookSyncThread-" + symbol)
+        .start();
 
-        return orderBook;
+    return orderBook;
+  }
+
+  @Override
+  public void close() throws IOException {
+    try {
+      wsClient.close();
+    } finally {
+      restClient.close();
+    }
+  }
+
+  private static class OBCloseable implements Closeable {
+    private final Closeable wsCloseable;
+    private volatile boolean stopped = false;
+
+    public OBCloseable(Closeable wsCloseable) {
+      this.wsCloseable = wsCloseable;
     }
 
     @Override
     public void close() throws IOException {
-        try {
-            wsClient.close();
-        } finally {
-            restClient.close();
-        }
+      stopped = true;
+      wsCloseable.close();
     }
-
-    private static class OBCloseable implements Closeable {
-        private final Closeable wsCloseable;
-        private volatile boolean stopped = false;
-
-        public OBCloseable(Closeable wsCloseable) {
-            this.wsCloseable = wsCloseable;
-        }
-
-        @Override
-        public void close() throws IOException {
-            stopped = true;
-            wsCloseable.close();
-        }
-    }
-
+  }
 }
