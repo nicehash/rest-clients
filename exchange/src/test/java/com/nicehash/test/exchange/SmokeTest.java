@@ -65,7 +65,7 @@ public class SmokeTest {
       client.getMyTrades(
           "LTCBTC",
           100,
-          new AbstractClientCallback<List<Trade>>() {
+          new AbstractClientCallback<>() {
             @Override
             public void onResponse(List<Trade> trades) {
               System.out.println("Trades = " + trades);
@@ -83,7 +83,7 @@ public class SmokeTest {
         ExchangeClientFactory.newWebSocketClient("https://exchangetestngapi.nicehash.com/ws")) {
       client.onDepthEvent(
           "LTCBTC",
-          new AbstractClientCallback<DepthEvent>() {
+          new AbstractClientCallback<>() {
             @Override
             public void onResponse(DepthEvent result) {
               System.out.println("Result = " + result);

@@ -2,7 +2,7 @@ package com.nicehash.clients.util.cli;
 
 import java.util.UUID;
 
-public class CliUtils {
+public final class CliUtils {
 
   public static void printError(boolean verbose, Throwable e) {
     if (verbose) {
@@ -54,14 +54,12 @@ public class CliUtils {
 
   public static String getNicehashUrl(String defaultValue) {
     String value = getConfiguration("nicehash.url", defaultValue);
-    value = value.endsWith("/") ? value : value + "/";
-    return value;
+    return value.endsWith("/") ? value : value + "/";
   }
 
   public static String getNicehashWsUrl(String defaultValue) {
     String value = getConfiguration("nicehash.ws.url", defaultValue);
-    value = value.endsWith("/") ? value : value;
-    return value;
+    return value.endsWith("/") ? value : value;
   }
 
   public static String getApiKey(String defaultValue) {
@@ -112,5 +110,8 @@ public class CliUtils {
       throw new IllegalArgumentException(
           "Invalid value for " + name + " - it should be a UUID (" + val + ")");
     }
+  }
+
+  private CliUtils() {
   }
 }

@@ -7,7 +7,7 @@ import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
-public class Options {
+public final class Options {
 
   private Options() {}
 

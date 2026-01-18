@@ -6,8 +6,8 @@ public enum OrderType {
   LIMIT_SELL("limit-sell", "LIMIT SELL"),
   LIMIT_BUY("limit-buy", "LIMIT BUY");
 
-  private String label;
-  private String caption;
+  private final String label;
+  private final String caption;
 
   OrderType(String label, String caption) {
     this.label = label;

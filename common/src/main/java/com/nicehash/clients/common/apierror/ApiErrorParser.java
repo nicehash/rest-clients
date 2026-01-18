@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nicehash.clients.common.ClientException;
 import java.io.IOException;
 
-public class ApiErrorParser {
+public final class ApiErrorParser {
   private static final ObjectMapper mapper = new ObjectMapper();
 
   public static String getErrorBodyRaw(ClientException ce) {
@@ -22,5 +22,8 @@ public class ApiErrorParser {
     } catch (IOException ignored) {
       return new ApiErrorData();
     }
+  }
+
+  private ApiErrorParser() {
   }
 }

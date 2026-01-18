@@ -24,8 +24,8 @@ public class CurlMain {
 
   protected StringBuilder body = new StringBuilder();
   boolean stdoutMode = true;
-  boolean stderrMode = false;
-  boolean noBuffer = false;
+  boolean stderrMode;
+  boolean noBuffer;
 
   Map<String, String> replacements = new HashMap<>();
 
@@ -53,7 +53,7 @@ public class CurlMain {
 
     checkRequiredSettings();
 
-    List<String> argls = new LinkedList<String>();
+    List<String> argls = new LinkedList<>();
 
     for (int pass = 0; pass < 2; pass++) {
       for (int i = 0; i < args.length; i++) {
@@ -155,14 +155,15 @@ public class CurlMain {
     }
 
     StringBuilder cmd = new StringBuilder("curl");
-    argls.forEach((a) -> cmd.append(" \'").append(a).append("\'"));
-    digestArgs(url).forEach((a) -> cmd.append(" \"").append(a).append("\""));
+    argls.forEach(a -> cmd.append(" \'").append(a).append("\'"));
+    digestArgs(url).forEach(a -> cmd.append(" \"").append(a).append("\""));
 
     // System.out.println(cmd);
 
-    Process p = Runtime.getRuntime().exec(new String[] {"/bin/sh", "-c", cmd.toString()});
+    Process p = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", cmd.toString()});
 
-    Thread t1 = null, t2 = null;
+    Thread t1 = null;
+    Thread t2 = null;
     if (stdoutMode || !stderrMode) {
       t1 =
           new Thread(

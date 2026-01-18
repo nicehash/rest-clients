@@ -18,7 +18,7 @@ public class ExchangeWebSocketListener<T> extends WebSocketListener {
 
   private ObjectMapper mapper = new ObjectMapper();
 
-  private volatile boolean closing = false;
+  private volatile boolean closing;
 
   public ExchangeWebSocketListener(ClientCallback<T> callback, Class<T> eventClass) {
     this.callback = callback;
@@ -27,7 +27,7 @@ public class ExchangeWebSocketListener<T> extends WebSocketListener {
 
   public ExchangeWebSocketListener(ClientCallback<T> callback) {
     this.callback = callback;
-    this.eventTypeReference = new TypeReference<T>() {};
+    this.eventTypeReference = new TypeReference<>() {};
   }
 
   @Override

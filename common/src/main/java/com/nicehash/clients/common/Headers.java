@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /** An util class to pass any custom headers to services. */
-public class Headers {
+public final class Headers {
   private static final ThreadLocal<Map<String, List<String>>> TL =
       ThreadLocal.withInitial(HashMap::new);
 
@@ -34,5 +34,8 @@ public class Headers {
 
   public static void clear() {
     TL.remove();
+  }
+
+  private Headers() {
   }
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import retrofit2.Response;
 
-public class SimpleServiceApiErrorParser implements ServiceApiErrorParser {
+public final class SimpleServiceApiErrorParser implements ServiceApiErrorParser {
   public static final ServiceApiErrorParser INSTANCE = new SimpleServiceApiErrorParser();
 
   private SimpleServiceApiErrorParser() {}

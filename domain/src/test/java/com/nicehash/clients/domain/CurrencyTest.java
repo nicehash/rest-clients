@@ -18,7 +18,8 @@ public class CurrencyTest {
   public double valueOfPerformance() {
     EnumSet<Currency> set = EnumSet.allOf(Currency.class);
     List<String> names = set.stream().map(Enum::name).collect(Collectors.toList());
-    final long endTime, startTime = System.nanoTime();
+    final long endTime;
+    final long startTime = System.nanoTime();
     for (int i = 0; i < 1000000; i++) {
       for (String n : names) {
         Currency a = Currency.valueOf(n);
@@ -32,7 +33,8 @@ public class CurrencyTest {
   public double speedValueOfPerformance() {
     EnumSet<Currency> set = EnumSet.allOf(Currency.class);
     List<String> names = set.stream().map(Enum::name).collect(Collectors.toList());
-    final long endTime, startTime = System.nanoTime();
+    final long endTime;
+    final long startTime = System.nanoTime();
     for (int i = 0; i < 1000000; i++) {
       for (String n : names) {
         Currency a = Currency.valueOfOptimized(n);

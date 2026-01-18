@@ -24,7 +24,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class ClientGenerator {
+public final class ClientGenerator {
 
   private static final Logger log = LoggerFactory.getLogger(ClientGenerator.class);
   private static final Map<Class<?>, GenContext> contextMap =
@@ -110,9 +110,8 @@ public class ClientGenerator {
 
     HttpLoggingInterceptor logging =
         new HttpLoggingInterceptor(
-            message -> {
-              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
-            });
+            message ->
+              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message));
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
     OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
@@ -173,5 +172,8 @@ public class ClientGenerator {
             callback.onFailure(t);
           }
         });
+  }
+
+  private ClientGenerator() {
   }
 }

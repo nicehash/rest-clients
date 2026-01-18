@@ -8,7 +8,7 @@ import com.nicehash.clients.util.options.OptionMap;
 import java.util.Objects;
 
 /** A factory for creating NiceHash client objects. */
-public class ExchangeClientFactory {
+public final class ExchangeClientFactory {
 
   /** Options */
   private OptionMap options;

@@ -8,7 +8,7 @@ public enum EventType {
   TIMER(XTimerEvent.class),
   TICKERS(XTickersEvent.class);
 
-  private Class clazz;
+  private final Class clazz;
 
   public Class getType() {
     return clazz;

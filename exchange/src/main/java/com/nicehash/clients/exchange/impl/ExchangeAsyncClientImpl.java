@@ -54,7 +54,7 @@ public class ExchangeAsyncClientImpl
 
   private <U extends SingleOrListObject<T>, T> ClientCallback<U> wrapSingle(
       ClientCallback<T> callback) {
-    return new ClientCallback<U>() {
+    return new ClientCallback<>() {
       @Override
       public void onResponse(U result) {
         callback.onResponse(result.getSingle());
@@ -69,7 +69,7 @@ public class ExchangeAsyncClientImpl
 
   private <U extends ListObject<T>, T> ClientCallback<U> wrapList(
       ClientCallback<List<T>> callback) {
-    return new ClientCallback<U>() {
+    return new ClientCallback<>() {
       @Override
       public void onResponse(U result) {
         callback.onResponse(result.getList());

@@ -34,16 +34,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class RandomStrategy implements Strategy {
 
-  private Random random = new Random();
+  private final Random random = new Random();
 
   private final Config config;
   private final Queue<Event> queue;
   private final ExchangeClient client;
 
-  private long timeIntervalMs;
-  private long lastActionTime = 0;
+  private final long timeIntervalMs;
+  private long lastActionTime;
 
-  private BigDecimal targetPrice;
+  private final BigDecimal targetPrice;
   private BigDecimal lowPrice;
   private BigDecimal highPrice;
 
@@ -53,10 +53,10 @@ public class RandomStrategy implements Strategy {
   private BigDecimal money;
   private BigDecimal moneyFreeze = BigDecimal.ZERO;
 
-  private ConcurrentHashMap<UUID, Order> orders = new ConcurrentHashMap<>();
+  private final ConcurrentHashMap<UUID, Order> orders = new ConcurrentHashMap<>();
 
-  private boolean mustExit = false;
-  private int actionCount = 0;
+  private boolean mustExit;
+  private int actionCount;
 
   /**
    * @param config Configuration
@@ -131,21 +131,16 @@ public class RandomStrategy implements Strategy {
             DepthEvent e = DepthEvent.class.cast(event.getApiEvent());
             if (config.isEnabledEvent(EventType.DEPTH)) {
               StringBuilder sb = new StringBuilder();
-              sb.append(
-                  "Event[DEPTH]: eventTime: "
-                      + e.getEventTime()
-                      + " ("
-                      + formatTime(e.getEventTime())
-                      + ")\n");
+              sb.append("Event[DEPTH]: eventTime: ").append(e.getEventTime()).append(" (").append(formatTime(e.getEventTime())).append(")\n");
               sb.append("  Bids: \n");
               List<OrderBookEntry> bids = e.getBids();
               for (OrderBookEntry bid : bids) {
-                sb.append("        " + bid + "\n");
+                sb.append("        ").append(bid).append("\n");
               }
               sb.append("  Asks: \n");
               List<OrderBookEntry> asks = e.getAsks();
               for (OrderBookEntry ask : asks) {
-                sb.append("        " + ask + "\n");
+                sb.append("        ").append(ask).append("\n");
               }
               System.out.println(sb);
             }
@@ -164,16 +159,16 @@ public class RandomStrategy implements Strategy {
             OrderBook e = OrderBook.class.cast(event.getApiEvent());
             if (config.isEnabledEvent(EventType.ORDER)) {
               StringBuilder sb = new StringBuilder();
-              sb.append("Event[ORDER]: lastUpdateId: " + e.getLastUpdateId() + "\n");
+              sb.append("Event[ORDER]: lastUpdateId: ").append(e.getLastUpdateId()).append("\n");
               sb.append("  Bids: \n");
               List<OrderBookEntry> bids = e.getBids();
               for (OrderBookEntry bid : bids) {
-                sb.append("        " + bid + "\n");
+                sb.append("        ").append(bid).append("\n");
               }
               sb.append("  Asks: \n");
               List<OrderBookEntry> asks = e.getAsks();
               for (OrderBookEntry ask : asks) {
-                sb.append("        " + ask + "\n");
+                sb.append("        ").append(ask).append("\n");
               }
               System.out.println(sb);
             }
@@ -337,7 +332,7 @@ public class RandomStrategy implements Strategy {
     double blockLowPrice = getBlockLowPrice(block, lowPrice, highPrice, blockSize);
     double price = blockLowPrice + random.nextDouble() * blockSize;
 
-    BigDecimal p = new BigDecimal(price);
+    BigDecimal p = BigDecimal.valueOf(price);
 
     p = config.adjustForTick(p);
     p = applyScaleAsNecessary(p);
@@ -372,7 +367,7 @@ public class RandomStrategy implements Strategy {
       BigDecimal relLowPrice = config.getRelativeLowPrice();
       if (relLowPrice == null) {
         double relLowPricePct = config.getRelativeLowPricePct();
-        lowPrice = targetPrice.multiply(new BigDecimal(1 + (relLowPricePct / 100.0)));
+        lowPrice = targetPrice.multiply(BigDecimal.valueOf(1 + (relLowPricePct / 100.0)));
       } else {
         lowPrice = targetPrice.add(relLowPrice);
       }
@@ -386,7 +381,7 @@ public class RandomStrategy implements Strategy {
       BigDecimal relHighPrice = config.getRelativeHighPrice();
       if (relHighPrice == null) {
         double relHighPricePct = config.getRelativeHighPricePct();
-        highPrice = targetPrice.multiply(new BigDecimal(1 + (relHighPricePct / 100.0)));
+        highPrice = targetPrice.multiply(BigDecimal.valueOf(1 + (relHighPricePct / 100.0)));
       } else {
         highPrice = targetPrice.add(relHighPrice);
       }
@@ -396,7 +391,7 @@ public class RandomStrategy implements Strategy {
 
   private BigDecimal randomQuantity() {
     // let order quantity be between 0.5, and 1.5
-    BigDecimal q = new BigDecimal(random.nextDouble() + 0.5);
+    BigDecimal q = BigDecimal.valueOf(random.nextDouble() + 0.5);
     return applyScaleAsNecessary(q);
   }
 

@@ -16,7 +16,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class ExternalClientGenerator {
+public final class ExternalClientGenerator {
   private static final Logger log = LoggerFactory.getLogger(ExternalClientGenerator.class);
 
   public static boolean isJackson = true;
@@ -67,9 +67,8 @@ public class ExternalClientGenerator {
 
     HttpLoggingInterceptor logging =
         new HttpLoggingInterceptor(
-            message -> {
-              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
-            });
+            message ->
+              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message));
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
     OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
@@ -139,5 +138,8 @@ public class ExternalClientGenerator {
             callback.onFailure(t);
           }
         });
+  }
+
+  private ExternalClientGenerator() {
   }
 }

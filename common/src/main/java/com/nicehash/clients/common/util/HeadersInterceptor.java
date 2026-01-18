@@ -19,7 +19,7 @@ public class HeadersInterceptor implements Interceptor {
 
     Map<String, List<String>> headers = Headers.getHeaders();
     try {
-      if (headers.isEmpty() == false) {
+      if (!headers.isEmpty()) {
         Request.Builder builder = request.newBuilder();
 
         for (Map.Entry<String, List<String>> entry : headers.entrySet()) {

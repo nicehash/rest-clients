@@ -1,7 +1,7 @@
 package com.nicehash.clients.common.util;
 
 /** Header constants. */
-public class HeaderConstants {
+public final class HeaderConstants {
   /** Content type */
   public static final String CONTENT_TYPE_APPLICATION_JSON =
       "Content-Type:application/json;charset=UTF-8";
@@ -24,4 +24,7 @@ public class HeaderConstants {
 
   public static final String ENDPOINT_SECURITY_TYPE_SIGNED_HEADER =
       ENDPOINT_SECURITY_TYPE_SIGNED + ": #";
+
+  private HeaderConstants() {
+  }
 }

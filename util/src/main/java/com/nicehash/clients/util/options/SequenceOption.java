@@ -45,7 +45,7 @@ final class SequenceOption<T> extends Option<Sequence<T>> {
 
   public Sequence<T> parseValue(final String string, final ClassLoader classLoader)
       throws IllegalArgumentException {
-    final List<T> list = new ArrayList<T>();
+    final List<T> list = new ArrayList<>();
     if (string.isEmpty()) {
       return Sequence.empty();
     }

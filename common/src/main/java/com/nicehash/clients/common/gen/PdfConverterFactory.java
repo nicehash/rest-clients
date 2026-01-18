@@ -8,6 +8,7 @@ import okhttp3.ResponseBody;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -39,7 +40,7 @@ public class PdfConverterFactory extends Converter.Factory {
             headers.setContentLength(bytes.length);
             headers.add("Content-Type", String.valueOf(body.contentType()));
 
-            return new ResponseEntity<>(resource, headers, org.springframework.http.HttpStatus.OK);
+            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
           }
         };
       }

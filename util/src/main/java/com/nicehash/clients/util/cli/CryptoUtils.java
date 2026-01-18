@@ -14,7 +14,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CryptoUtils {
+public final class CryptoUtils {
   private static final Logger log = LoggerFactory.getLogger(CryptoUtils.class);
 
   private static final String HMAC_SHA256 = "HmacSHA256";
@@ -82,5 +82,8 @@ public class CryptoUtils {
     byte[] nonce = new byte[16];
     new SecureRandom().nextBytes(nonce);
     return Base64.getEncoder().encodeToString(nonce);
+  }
+
+  private CryptoUtils() {
   }
 }

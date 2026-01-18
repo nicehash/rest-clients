@@ -2,9 +2,9 @@ package com.nicehash.clients.util.cli;
 
 public class Market {
 
-  private String symbol;
-  private String gold;
-  private String money;
+  private final String symbol;
+  private final String gold;
+  private final String money;
 
   public Market(String symbol) {
     if (symbol == null) {

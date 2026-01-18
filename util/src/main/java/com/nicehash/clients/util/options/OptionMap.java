@@ -233,7 +233,7 @@ public final class OptionMap implements Iterable<Option<?>>, Serializable {
 
     private Builder() {}
 
-    private static class OVPair<T> {
+    private static final class OVPair<T> {
       Option<T> option;
       T value;
 
@@ -243,7 +243,7 @@ public final class OptionMap implements Iterable<Option<?>>, Serializable {
       }
     }
 
-    private List<OVPair<?>> list = new ArrayList<OVPair<?>>();
+    private List<OVPair<?>> list = new ArrayList<>();
 
     /**
      * Set a key-value pair, parsing the value from the given string.
@@ -517,13 +517,13 @@ public final class OptionMap implements Iterable<Option<?>>, Serializable {
      */
     public OptionMap getMap() {
       final List<OVPair<?>> list = this.list;
-      if (list.size() == 0) {
+      if (list.isEmpty()) {
         return EMPTY;
       } else if (list.size() == 1) {
         final OVPair<?> pair = list.get(0);
         return new OptionMap(Collections.<Option<?>, Object>singletonMap(pair.option, pair.value));
       } else {
-        final Map<Option<?>, Object> map = new IdentityHashMap<Option<?>, Object>();
+        final Map<Option<?>, Object> map = new IdentityHashMap<>();
         for (OVPair<?> ovPair : list) {
           map.put(ovPair.option, ovPair.value);
         }

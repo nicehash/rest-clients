@@ -47,7 +47,7 @@ public final class Sequence<T> extends AbstractList<T>
     if (members.length == 0) {
       return empty();
     } else {
-      return new Sequence<T>(members);
+      return new Sequence<>(members);
     }
   }
 
@@ -66,7 +66,7 @@ public final class Sequence<T> extends AbstractList<T>
     if (objects.length == 0) {
       return empty();
     }
-    return new Sequence<T>(objects);
+    return new Sequence<>(objects);
   }
 
   /**

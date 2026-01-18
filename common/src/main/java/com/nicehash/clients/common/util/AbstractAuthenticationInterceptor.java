@@ -17,7 +17,7 @@ public abstract class AbstractAuthenticationInterceptor implements Interceptor {
 
   protected Level debugLevel = Level.FINEST; // the lowest, force higher, if needed
 
-  public AbstractAuthenticationInterceptor(String apiKey, String secret) {
+  protected AbstractAuthenticationInterceptor(String apiKey, String secret) {
     this.apiKey = apiKey;
     this.secret = secret;
   }

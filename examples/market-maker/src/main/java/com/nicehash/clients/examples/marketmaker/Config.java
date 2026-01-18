@@ -115,9 +115,15 @@ public class Config {
 
   public void applyPrecisionLimitsIfNecessary(int decimals, RoundingMode mode) {
     if (!ignoreLimits) {
-      if (gold != null) gold = gold.setScale(decimals, mode);
-      if (money != null) money = money.setScale(decimals, mode);
-      if (price != null) price = price.setScale(decimals, mode);
+      if (gold != null) {
+        gold = gold.setScale(decimals, mode);
+      }
+      if (money != null) {
+        money = money.setScale(decimals, mode);
+      }
+      if (price != null) {
+        price = price.setScale(decimals, mode);
+      }
     }
   }
 

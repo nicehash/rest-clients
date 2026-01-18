@@ -21,10 +21,10 @@ public class OrderBookSync implements AutoCloseable {
   private long lastUpdateId;
 
   /** List of bids (price/qty). */
-  private Map<BigDecimal, BigDecimal> bids;
+  private final Map<BigDecimal, BigDecimal> bids;
 
   /** List of asks (price/qty). */
-  private Map<BigDecimal, BigDecimal> asks;
+  private final Map<BigDecimal, BigDecimal> asks;
 
   public OrderBookSync(
       SyncHandle handle, Map<BigDecimal, BigDecimal> bids, Map<BigDecimal, BigDecimal> asks) {

@@ -47,7 +47,7 @@ class ClientFactoryImpl implements ClientFactory {
               clientClass.getName()));
     }
     Class<?> implClass = ci.value();
-    if (clientClass.isAssignableFrom(implClass) == false) {
+    if (!clientClass.isAssignableFrom(implClass)) {
       throw new IllegalArgumentException(
           String.format("%S is not assignable from client class %s", implClass, clientClass));
     }

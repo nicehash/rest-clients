@@ -5,5 +5,5 @@ public enum SymbolStatus {
   CLOSED,
   READ_ONLY,
   READ_CANCEL,
-  TRADING;
+  TRADING
 }

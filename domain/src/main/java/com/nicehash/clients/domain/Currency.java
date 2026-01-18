@@ -257,7 +257,7 @@ public enum Currency {
    * @return alternative currency or null if no such alternative
    */
   public Currency getAlt() {
-    return (alt != null) ? valueOfOptimized(alt) : null;
+    return alt != null ? valueOfOptimized(alt) : null;
   }
 
   /**
@@ -306,7 +306,7 @@ public enum Currency {
   }
 
   /** Fast retrival of currency from name */
-  private static final HashMap<String, com.nicehash.clients.domain.Currency> staticMap;
+  private static final HashMap<String, Currency> staticMap;
 
   static {
     staticMap = new HashMap<>();

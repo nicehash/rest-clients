@@ -20,7 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class PdfClientGenerator {
+public final class PdfClientGenerator {
 
   private static final Logger log = LoggerFactory.getLogger(PdfClientGenerator.class);
   private static final Map<Class<?>, GenContext> contextMap =
@@ -91,9 +91,8 @@ public class PdfClientGenerator {
     ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
     HttpLoggingInterceptor logging =
         new HttpLoggingInterceptor(
-            message -> {
-              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
-            });
+            message ->
+              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message));
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
     OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
 
@@ -153,5 +152,8 @@ public class PdfClientGenerator {
             callback.onFailure(t);
           }
         });
+  }
+
+  private PdfClientGenerator() {
   }
 }

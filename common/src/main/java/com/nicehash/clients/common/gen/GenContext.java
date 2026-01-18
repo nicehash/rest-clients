@@ -4,8 +4,8 @@ import com.nicehash.clients.common.spi.ServiceApiErrorParser;
 import okhttp3.Call;
 
 class GenContext {
-  private Call.Factory factory;
-  private ServiceApiErrorParser parser;
+  private final Call.Factory factory;
+  private final ServiceApiErrorParser parser;
 
   public GenContext(Call.Factory factory, ServiceApiErrorParser parser) {
     this.factory = factory;

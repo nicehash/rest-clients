@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ByteArrayClientGenerator {
+public final class ByteArrayClientGenerator {
 
   private static final Logger log = LoggerFactory.getLogger(ByteArrayClientGenerator.class);
   private static final Map<Class<?>, GenContext> contextMap =
@@ -95,9 +95,8 @@ public class ByteArrayClientGenerator {
 
     HttpLoggingInterceptor logging =
         new HttpLoggingInterceptor(
-            message -> {
-              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
-            });
+            message ->
+              superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message));
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
     OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
 
@@ -152,5 +151,8 @@ public class ByteArrayClientGenerator {
             callback.onFailure(t);
           }
         });
+  }
+
+  private ByteArrayClientGenerator() {
   }
 }

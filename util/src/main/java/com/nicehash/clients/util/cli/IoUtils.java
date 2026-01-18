@@ -3,7 +3,7 @@ package com.nicehash.clients.util.cli;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class IoUtils {
+public final class IoUtils {
 
   public static void copyBytes(InputStream is, OutputStream os, boolean flush) {
     int c;
@@ -17,5 +17,8 @@ public class IoUtils {
     } catch (Exception e) {
       throw new RuntimeException("I/O error", e);
     }
+  }
+
+  private IoUtils() {
   }
 }

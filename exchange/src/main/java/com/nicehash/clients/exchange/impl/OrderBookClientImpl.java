@@ -50,7 +50,7 @@ public class OrderBookClientImpl implements OrderBookClient {
     Closeable closeable =
         wsClient.onDepthEvent(
             symbol,
-            new ClientCallback<DepthEvent>() {
+            new ClientCallback<>() {
               @Override
               public void onResponse(DepthEvent event) {
                 try {
@@ -81,7 +81,7 @@ public class OrderBookClientImpl implements OrderBookClient {
     new Thread(
             () -> {
               try {
-                while (obc.stopped == false) {
+                while (!obc.stopped) {
                   DepthEvent event = events.takeFirst();
                   long finalUpdateId = event.getFinalUpdateId();
                   if (finalUpdateId > lastUpdateId) {
@@ -117,7 +117,7 @@ public class OrderBookClientImpl implements OrderBookClient {
 
   private static class OBCloseable implements Closeable {
     private final Closeable wsCloseable;
-    private volatile boolean stopped = false;
+    private volatile boolean stopped;
 
     public OBCloseable(Closeable wsCloseable) {
       this.wsCloseable = wsCloseable;

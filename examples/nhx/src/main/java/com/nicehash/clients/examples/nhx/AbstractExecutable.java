@@ -5,6 +5,7 @@ import com.nicehash.clients.exchange.ExchangeClient;
 import com.nicehash.clients.exchange.ExchangeClientFactory;
 import com.nicehash.clients.util.cli.CliUtils;
 import com.nicehash.clients.util.options.OptionMap;
+import java.net.SocketException;
 
 public abstract class AbstractExecutable {
 
@@ -18,10 +19,10 @@ public abstract class AbstractExecutable {
   String subcommand = System.getProperty("nicehash.cli.subcommand");
   boolean passThroughErrors = subcommand != null;
 
-  boolean verbose = false;
+  boolean verbose;
 
   static boolean isNetworkException(Throwable t) {
-    return t instanceof java.net.SocketException;
+    return t instanceof SocketException;
   }
 
   protected abstract void execute(String[] args) throws Exception;
@@ -59,13 +60,10 @@ public abstract class AbstractExecutable {
   }
 
   protected OptionMap.Builder defaultOptionBuilder() {
-    OptionMap.Builder builder =
-        OptionMap.builder()
+    return OptionMap.builder()
             .set(Options.BASE_URL, NICEHASH_URL)
             .set(Options.KEY, API_KEY)
             .set(Options.SECRET, API_SECRET)
             .set(Options.READ_TIMEOUT, 60000);
-
-    return builder;
   }
 }

@@ -239,7 +239,8 @@ public class Main {
     if (account != null) {
       List<AssetBalance> balances = account.getBalances();
 
-      AssetBalance goldBalance = null, moneyBalance = null;
+      AssetBalance goldBalance = null;
+      AssetBalance moneyBalance = null;
 
       BigDecimal currentTotalMoney = BigDecimal.ZERO;
 
@@ -393,7 +394,7 @@ public class Main {
     ExchangeWebSocketClient wsClient = ExchangeClientFactory.newWebSocketClient(WS_ENDPOINT_URL);
     wsClient.onDepthEvent(
         market.symbol(),
-        new ClientCallback<DepthEvent>() {
+        new ClientCallback<>() {
           @Override
           public void onResponse(DepthEvent result) {
             queue.add(new XDepthEvent(result));
@@ -407,7 +408,7 @@ public class Main {
 
     wsClient.onMarketTickerEvent(
         market.symbol(),
-        new ClientCallback<AllMarketTickersEvent>() {
+        new ClientCallback<>() {
           @Override
           public void onResponse(AllMarketTickersEvent result) {
             queue.add(new XTickersEvent(result));
@@ -422,7 +423,7 @@ public class Main {
     wsClient.onOrderBookEvent(
         market.symbol(),
         Levels.L5,
-        new ClientCallback<OrderBook>() {
+        new ClientCallback<>() {
           @Override
           public void onResponse(OrderBook result) {
             queue.add(new XOrderEvent(result));
@@ -437,7 +438,7 @@ public class Main {
     wsClient.onCandlestickEvent(
         market.symbol(),
         CandlestickInterval.ONE_MINUTE,
-        new ClientCallback<CandlestickEvent>() {
+        new ClientCallback<>() {
           @Override
           public void onResponse(CandlestickEvent result) {
             queue.add(new XCandlestickEvent(result));
@@ -451,7 +452,7 @@ public class Main {
 
     wsClient.onTradeEvent(
         market.symbol(),
-        new ClientCallback<OrderTradeEvent>() {
+        new ClientCallback<>() {
           @Override
           public void onResponse(OrderTradeEvent result) {
             queue.add(new XTradeEvent(result));
@@ -474,12 +475,12 @@ public class Main {
     println("Target price: " + startPrice);
 
     String lowPriceStr =
-        new BigDecimal(config.getRelativeLowPricePct() * 100).setScale(0).toPlainString() + "%";
+        BigDecimal.valueOf(config.getRelativeLowPricePct() * 100).setScale(0).toPlainString() + "%";
     lowPriceStr = lowPriceStr.startsWith("-") ? lowPriceStr : "+" + lowPriceStr;
     println("Low Price: " + (lowPrice != null ? lowPrice : lowPriceStr));
 
     String hiPriceStr =
-        new BigDecimal(config.getRelativeHighPricePct() * 100).setScale(0).toPlainString() + "%";
+        BigDecimal.valueOf(config.getRelativeHighPricePct() * 100).setScale(0).toPlainString() + "%";
     hiPriceStr = hiPriceStr.startsWith("-") ? hiPriceStr : "+" + hiPriceStr;
     println("High Price: " + (highPrice != null ? highPrice : hiPriceStr));
 
@@ -509,15 +510,12 @@ public class Main {
   }
 
   protected OptionMap.Builder defaultOptionBuilder() {
-    OptionMap.Builder builder =
-        OptionMap.builder()
+    return OptionMap.builder()
             .set(Options.BASE_URL, ENDPOINT_URL)
             .set(Options.WS_BASE_URL, WS_ENDPOINT_URL)
             .set(Options.KEY, API_KEY)
             .set(Options.SECRET, API_SECRET)
             .set(Options.READ_TIMEOUT, 60000);
-
-    return builder;
   }
 
   protected void checkRequiredSettings(Config config) {

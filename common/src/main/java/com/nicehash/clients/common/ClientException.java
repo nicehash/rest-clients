@@ -59,7 +59,7 @@ public class ClientException extends RuntimeException {
    * @return error body as stream, can be null
    */
   public InputStream getErrorBodyStream() {
-    return (error != null ? error.getBodyAsStream() : null);
+    return error != null ? error.getBodyAsStream() : null;
   }
 
   /**
@@ -79,7 +79,7 @@ public class ClientException extends RuntimeException {
     } else {
       if (errorBody == null) {
         String body = error.getBodyAsString();
-        errorBody = (body != null) ? body : NULL;
+        errorBody = body != null ? body : NULL;
         return getErrorBody();
       } else {
         return errorBody;

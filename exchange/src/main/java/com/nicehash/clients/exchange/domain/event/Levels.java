@@ -6,7 +6,7 @@ public enum Levels {
   L10(10),
   L20(20);
 
-  private int x;
+  private final int x;
 
   Levels(int x) {
     this.x = x;

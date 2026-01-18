@@ -130,7 +130,7 @@ public class PlaceOrder extends AbstractExecutable {
           missOption(OPT_PRICE, price);
           if (quantity != null) {
             if (maxAmount == null) {
-              maxAmount = new BigDecimal(Long.MAX_VALUE);
+              maxAmount = BigDecimal.valueOf(Long.MAX_VALUE);
             }
             res = client.newOrder(NewOrder.marketBuy(market, quantity, maxAmount));
             System.out.println(
