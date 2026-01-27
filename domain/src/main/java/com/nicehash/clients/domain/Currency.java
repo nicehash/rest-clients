@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 
@@ -121,11 +122,11 @@ public enum Currency {
     TSOL("SOL", 9, "Solana TestNet", true, 23),
     @Deprecated TDOT("DOT", 10, "Polkadot TestNet", true, 24),
     @Deprecated TETC("ETC", 18, "Ethereum Classic TestNet", true, 25),
-
     @Deprecated TTRX("TRX", 6, "Tron TestNet", true, 26),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
     TKAS("KAS", 8, "Kaspa TestNet", false, 29),
     TUSD("USD", 2, "US Dollar TestNet", true, 30),
+    USDTNH("USDT", 2, "Solana Testnet", true, 31, Set.of(TSOL)),
     ;
 
     /**
@@ -238,5 +239,9 @@ public enum Currency {
             throw new IllegalArgumentException("No enum constant " + Currency.class.getCanonicalName() + "." + name);
         }
         return c;
+    }
+
+    public static List<Currency> fireblocksTokens() {
+        return List.of(SOL, TSOL, USDC, USDT, USDTNH);
     }
 }
