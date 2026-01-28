@@ -1,0 +1,123 @@
+name: Sync master to nicehash-v3
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  sync-branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: false
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+      - name: Attempt merge master -> nicehash-v3
+        id: merge
+        run: |
+          git fetch origin
+
+          if ! git ls-remote --exit-code --heads origin nicehash-v3; then
+            echo "Branch nicehash-v3 does not exist, skipping sync"
+            echo "merge_success=skipped" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          git checkout nicehash-v3
+          git pull origin nicehash-v3
+
+          if git merge origin/master --no-edit; then
+            echo "merge_success=true" >> $GITHUB_OUTPUT
+            git push origin nicehash-v3
+            echo "Successfully merged master into nicehash-v3"
+          else
+            echo "merge_success=false" >> $GITHUB_OUTPUT
+            git merge --abort
+            echo "Merge conflict detected"
+          fi
+
+      - name: Create PR on conflict
+        if: steps.merge.outputs.merge_success == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pusher = context.actor;
+
+            const existingPRs = await github.rest.pulls.list({
+              owner,
+              repo,
+              head: `${owner}:master`,
+              base: 'nicehash-v3',
+              state: 'open'
+            });
+
+            if (existingPRs.data.length > 0) {
+              const prNumber = existingPRs.data[0].number;
+              console.log('PR already exists:', existingPRs.data[0].html_url);
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: prNumber,
+                body: `New commits pushed to master by @${pusher}. Resolve conflicts and merge.\n\nCommit: ${context.sha}`
+              });
+
+              // Add pusher as reviewer if not already
+              try {
+                await github.rest.pulls.requestReviewers({
+                  owner,
+                  repo,
+                  pull_number: prNumber,
+                  reviewers: [pusher]
+                });
+                console.log('Added reviewer:', pusher);
+              } catch (e) {
+                console.log('Could not add reviewer:', e.message);
+              }
+              return;
+            }
+
+            const pr = await github.rest.pulls.create({
+              owner,
+              repo,
+              title: 'Sync master to nicehash-v3 (conflicts)',
+              head: 'master',
+              base: 'nicehash-v3',
+              body: `Automatic merge from master to nicehash-v3 has conflicts.\n\nResolve and merge manually.\n\nTriggered by @${pusher}\nCommit: ${context.sha}`
+            });
+
+            console.log('Created PR:', pr.data.html_url);
+
+            // Add pusher as reviewer
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner,
+                repo,
+                pull_number: pr.data.number,
+                reviewers: [pusher]
+              });
+              console.log('Added reviewer:', pusher);
+            } catch (e) {
+              console.log('Could not add reviewer:', e.message);
+            }
+
+      - name: Summary
+        run: |
+          echo "### Sync Result" >> $GITHUB_STEP_SUMMARY
+          echo "- Branch: master -> nicehash-v3" >> $GITHUB_STEP_SUMMARY
+          echo "- Status: ${{ steps.merge.outputs.merge_success }}" >> $GITHUB_STEP_SUMMARY
