@@ -31,7 +31,7 @@ jobs:
         run: |
           git fetch origin
 
-          if \! git ls-remote --exit-code --heads origin nicehash-v3; then
+          if ! git ls-remote --exit-code --heads origin nicehash-v3; then
             echo "Branch nicehash-v3 does not exist, skipping sync"
             echo "merge_success=skipped" >> $GITHUB_OUTPUT
             exit 0
@@ -56,6 +56,7 @@ jobs:
         with:
           script: |
             const { owner, repo } = context.repo;
+            const pusher = context.actor;
 
             const existingPRs = await github.rest.pulls.list({
               owner,
@@ -66,15 +67,28 @@ jobs:
             });
 
             if (existingPRs.data.length > 0) {
+              const prNumber = existingPRs.data[0].number;
               console.log('PR already exists:', existingPRs.data[0].html_url);
+
               await github.rest.issues.createComment({
                 owner,
                 repo,
-                issue_number: existingPRs.data[0].number,
-                body: `New commits pushed to master. Resolve conflicts and merge.
-
-Commit: ${context.sha}`
+                issue_number: prNumber,
+                body: `New commits pushed to master by @${pusher}. Resolve conflicts and merge.\n\nCommit: ${context.sha}`
               });
+
+              // Add pusher as reviewer if not already
+              try {
+                await github.rest.pulls.requestReviewers({
+                  owner,
+                  repo,
+                  pull_number: prNumber,
+                  reviewers: [pusher]
+                });
+                console.log('Added reviewer:', pusher);
+              } catch (e) {
+                console.log('Could not add reviewer:', e.message);
+              }
               return;
             }
 
@@ -84,14 +98,23 @@ Commit: ${context.sha}`
               title: 'Sync master to nicehash-v3 (conflicts)',
               head: 'master',
               base: 'nicehash-v3',
-              body: `Automatic merge from master to nicehash-v3 has conflicts.
-
-Resolve and merge manually.
-
-Triggered by commit: ${context.sha}`
+              body: `Automatic merge from master to nicehash-v3 has conflicts.\n\nResolve and merge manually.\n\nTriggered by @${pusher}\nCommit: ${context.sha}`
             });
 
             console.log('Created PR:', pr.data.html_url);
+
+            // Add pusher as reviewer
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner,
+                repo,
+                pull_number: pr.data.number,
+                reviewers: [pusher]
+              });
+              console.log('Added reviewer:', pusher);
+            } catch (e) {
+              console.log('Could not add reviewer:', e.message);
+            }
 
       - name: Summary
         run: |
