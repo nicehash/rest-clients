@@ -50,6 +50,17 @@ jobs:
             echo "Merge conflict detected"
           fi
 
+      - name: Create sync branch and PR on conflict
+        if: steps.merge.outputs.merge_success == 'false'
+        run: |
+          SYNC_BRANCH="sync/master-to-v3-$(date +%Y%m%d-%H%M%S)"
+          echo "SYNC_BRANCH=$SYNC_BRANCH" >> $GITHUB_ENV
+
+          # Create branch from master (not protected for this new branch)
+          git checkout master
+          git checkout -b "$SYNC_BRANCH"
+          git push origin "$SYNC_BRANCH"
+
       - name: Create PR on conflict
         if: steps.merge.outputs.merge_success == 'false'
         uses: actions/github-script@v7
@@ -57,53 +68,33 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const pusher = context.actor;
-
-            const existingPRs = await github.rest.pulls.list({
-              owner,
-              repo,
-              head: `${owner}:master`,
-              base: 'nicehash-v3',
-              state: 'open'
-            });
-
-            if (existingPRs.data.length > 0) {
-              const prNumber = existingPRs.data[0].number;
-              console.log('PR already exists:', existingPRs.data[0].html_url);
-
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: prNumber,
-                body: `New commits pushed to master by @${pusher}. Resolve conflicts and merge.\n\nCommit: ${context.sha}`
-              });
-
-              // Add pusher as reviewer if not already
-              try {
-                await github.rest.pulls.requestReviewers({
-                  owner,
-                  repo,
-                  pull_number: prNumber,
-                  reviewers: [pusher]
-                });
-                console.log('Added reviewer:', pusher);
-              } catch (e) {
-                console.log('Could not add reviewer:', e.message);
-              }
-              return;
-            }
+            const syncBranch = process.env.SYNC_BRANCH;
 
             const pr = await github.rest.pulls.create({
               owner,
               repo,
               title: 'Sync master to nicehash-v3 (conflicts)',
-              head: 'master',
+              head: syncBranch,
               base: 'nicehash-v3',
-              body: `Automatic merge from master to nicehash-v3 has conflicts.\n\nResolve and merge manually.\n\nTriggered by @${pusher}\nCommit: ${context.sha}`
+              body: `Automatic merge from master to nicehash-v3 has conflicts.
+
+            **How to resolve:**
+            \`\`\`bash
+            git fetch origin
+            git checkout ${syncBranch}
+            git merge origin/nicehash-v3
+            # Resolve conflicts
+            git add .
+            git commit -m "Resolve merge conflicts"
+            git push origin ${syncBranch}
+            \`\`\`
+
+            Triggered by @${pusher}
+            Commit: ${context.sha}`
             });
 
             console.log('Created PR:', pr.data.html_url);
 
-            // Add pusher as reviewer
             try {
               await github.rest.pulls.requestReviewers({
                 owner,
@@ -111,7 +102,6 @@ jobs:
                 pull_number: pr.data.number,
                 reviewers: [pusher]
               });
-              console.log('Added reviewer:', pusher);
             } catch (e) {
               console.log('Could not add reviewer:', e.message);
             }
