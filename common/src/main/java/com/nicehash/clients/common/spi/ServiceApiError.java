@@ -3,14 +3,14 @@ package com.nicehash.clients.common.spi;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 public interface ServiceApiError {
-  int getCode();
+    int getCode();
+    String getMessage();
 
-  String getMessage();
+    InputStream getBodyAsStream(); // can be null
 
-  InputStream getBodyAsStream(); // can be null
+    String getBodyAsString() throws IOException; // can be null
 
-  String getBodyAsString() throws IOException; // can be null
-
-  RuntimeException toException();
+    RuntimeException toException();
 }
