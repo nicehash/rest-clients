@@ -88,56 +88,6 @@ public class ClientGenerator {
         GenContext context = new GenContext(factory, parser);
         contextMap.put(serviceClass, context);
     }
-    
-    public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog, Long timeout) throws Exception {
-        ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
-
-        ServiceBuilder serviceBuilder = configuration.builder().newInstance();
-        okhttp3.Call.Factory factory = serviceBuilder.buildCallFactory(options);
-        ServiceApiErrorParser parser = serviceBuilder.parser(options);
-
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> {
-            superLog.debug(serviceClass.getSimpleName() + " retrofit: {}", message);
-        });
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        if (timeout != null) {
-            clientBuilder.readTimeout(timeout, java.util.concurrent.TimeUnit.MILLISECONDS);
-            clientBuilder.writeTimeout(timeout, java.util.concurrent.TimeUnit.MILLISECONDS);
-            clientBuilder.connectTimeout(timeout, java.util.concurrent.TimeUnit.MILLISECONDS);
-        }
-
-        OkHttpClient client = clientBuilder
-                .addInterceptor(logging)
-                .build();
-
-        GenContext context = new GenContext(factory, parser);
-        contextMap.put(serviceClass, context);
-
-        PropertyReplacer replacer = options.get(Options.REPLACER, SimplePropertyReplacer.INSTANCE);
-        String baseUrl = options.get(Options.BASE_URL, configuration.url());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.registerModule(new Jdk8Module());
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(replacer.replace(baseUrl))
-                .addConverterFactory(new NullOnEmptyConverterFactory())
-                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-                .client(client)
-                .callFactory(factory);
-
-        Executor executor = options.get(Options.EXECUTOR);
-        if (executor != null) {
-            builder.callbackExecutor(executor);
-        }
-
-        Retrofit retrofit = builder.build();
-        return retrofit.create(serviceClass);
-    }
 
     public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
