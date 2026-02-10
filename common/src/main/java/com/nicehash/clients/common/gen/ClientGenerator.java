@@ -88,6 +88,7 @@ public class ClientGenerator {
         GenContext context = new GenContext(factory, parser);
         contextMap.put(serviceClass, context);
     }
+
     public static <S> S createService(Class<S> serviceClass, OptionMap options, Logger superLog) throws Exception {
         ServiceBuilderConfiguration configuration = getServiceBuilderConfiguration(serviceClass);
 
