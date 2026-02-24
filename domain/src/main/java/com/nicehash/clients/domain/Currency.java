@@ -244,4 +244,8 @@ public enum Currency {
     public static List<Currency> fireblocksTokens() {
         return List.of(SOL, TSOL, USDC, USDT, USDTNH);
     }
+
+    public static List<Currency> getIndividualCurrencies() {
+        return List.of(USDTNH, TBTC, BTC);
+    }
 }
