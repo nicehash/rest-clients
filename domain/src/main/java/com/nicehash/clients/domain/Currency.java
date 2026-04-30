@@ -248,4 +248,8 @@ public enum Currency {
     public static List<Currency> getIndividualCurrencies() {
         return List.of(USDTNH, TBTC, BTC, USDT, USDC);
     }
+
+    public static List<Currency> getFireblocksNetworks() {
+        return List.of(TETH, ETH, TSOL, SOL, TTRX, TRX);
+    }
 }
