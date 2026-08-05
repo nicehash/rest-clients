@@ -12,7 +12,7 @@ public enum Currency {
   
     BTC("TBTC", 8, "Bitcoin", false, 1),
     @Deprecated EUR("TEUR", 2, "Euro", false, 2),
-    @Deprecated ETH("TETH", 18, "Ethereum", false, 3),
+    ETH("TETH", 18, "Ethereum", false, 3),
     @Deprecated XRP("TXRP", 6, "Ripple", false, 4),
     BCH("TBCH", 8, "Bitcoin cash", false, 5),
     LTC("TLTC", 8, "Litecoin", false, 6),
@@ -94,6 +94,7 @@ public enum Currency {
     @Deprecated KSM("KSM", 12, "Kusama", false, 81),
     KAS("TKAS", 8, "Kaspa", false, 82),
     USD("TUSD", 2, "US Dollar", false, 83),
+    BNB("TBNB", 18, "BNB Smart Chain", false, 84),
 
     // testnet currencies
     TBTC("BTC", 8, "Bitcoin TestNet", true, 1),
@@ -127,6 +128,7 @@ public enum Currency {
     TKAS("KAS", 8, "Kaspa TestNet", false, 29),
     TUSD("USD", 2, "US Dollar TestNet", true, 30),
     USDTNH("USDT", 6, "Solana Testnet", true, 31, Set.of(TSOL,TETH)),
+    TBNB("BNB", 18, "BNB Smart Chain Testnet", true, 32)
     ;
 
     /**
