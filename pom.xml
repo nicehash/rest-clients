@@ -6,7 +6,7 @@
 
   <groupId>com.nicehash</groupId>
   <artifactId>rest-clients</artifactId>
-  <version>1-SNAPSHOT</version>
+  <version>21-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>NiceHash REST clients</name>
@@ -15,7 +15,7 @@
   <parent>
     <groupId>com.nicehash</groupId>
     <artifactId>nicehash-parent</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>21-SNAPSHOT</version>
     <relativePath>../nicehash-parent/pom.xml</relativePath>
   </parent>
 
