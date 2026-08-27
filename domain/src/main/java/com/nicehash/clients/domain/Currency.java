@@ -125,7 +125,7 @@ public enum Currency {
     @Deprecated TETC("ETC", 18, "Ethereum Classic TestNet", true, 25),
     TTRX("TRX", 6, "Tron TestNet", true, 26),
     @Deprecated TMARC("USDT", 18, "MarcPride", true, 28, Set.of(TETH)),
-    TKAS("KAS", 8, "Kaspa TestNet", false, 29),
+    TKAS("KAS", 8, "Kaspa TestNet", true, 29),
     TUSD("USD", 2, "US Dollar TestNet", true, 30),
     USDTNH("USDT", 6, "Solana Testnet", true, 31, Set.of(TSOL,TETH)),
     TBNB("BNB", 18, "BNB Smart Chain Testnet", true, 32)
