@@ -12,7 +12,7 @@ public enum Currency {
   
     BTC("TBTC", 8, "Bitcoin", false, 1),
     @Deprecated EUR("TEUR", 2, "Euro", false, 2),
-    @Deprecated ETH("TETH", 18, "Ethereum", false, 3),
+    ETH("TETH", 18, "Ethereum", false, 3),
     @Deprecated XRP("TXRP", 6, "Ripple", false, 4),
     BCH("TBCH", 8, "Bitcoin cash", false, 5),
     LTC("TLTC", 8, "Litecoin", false, 6),
