@@ -61,10 +61,11 @@ public class ClientGenerator {
             Buffer buffer = response != null && response.errorBody() != null && response.errorBody().source() != null && response.errorBody().source().buffer() != null ? response.errorBody().source().buffer().clone() : null;
             String errorBody = buffer != null ? buffer.readString(StandardCharsets.UTF_8) : "null";
             String responseMessage = response.message() != null ? response.message() : "null";
+            String headersMessage = response.headers() != null ? response.headers().toString() : "null";
 
-            log.error("logError:: Client exception: {}, message: {}", errorBody, responseMessage);
+            log.error("logError:: Client exception: {}, message: {}, headers: {}", errorBody, responseMessage, headersMessage);
         } catch (Exception e) {
-            log.error("logError:: Error body cannot be read. Exception: {}", e.getMessage());
+            log.error("logError:: Error body/header cannot be read. Exception: {}", e.getMessage());
         }
     }
 
